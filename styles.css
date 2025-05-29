@@ -55,7 +55,7 @@ body {
 #Rechteck_8 { background-color: #32CD32; } /* Knalliges Grün (Logos) - Opaque (has text) */
 #Rechteck_9 { background-color: rgba(135, 206, 235, 0.5); } /* Leeres Hellblau - Transparent */
 #Rechteck_10 { background-color: #FF007F; } /* Kräftiges Magenta (Videos) - Opaque (has text) */
-#Rechteck_11 { background-color: rgba(70, 130, 180, 0.5); } /* Leeres Stahlblau - Transparent */
+#Rechteck_11 { background-color: rgba(70, 130, 180, 1); } /* Leeres Stahlblau - Transparent */
 #Rechteck_12 { background-color: rgba(173, 255, 47, 0.5); } /* Leeres Hellgrün - Transparent */
 #Rechteck_13 { background-color: rgba(255, 69, 0, 0.5); } /* Knalliges Rot (Impressum & Datenschutz) - Transparent */
 #Rechteck_14 { background-color: #36454F; } /* Dunkles Anthrazit (About Me) - Opaque (has text) */
