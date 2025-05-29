@@ -1,0 +1,368 @@
+/* Globale Stile und Farben */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif; /* Bessere Schrift für das Design */
+    background-color: rgba(34,34,34,1);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Hauptcontainer an den Viewport anpassen */
+#Web_1366__1 {
+    position: relative; /* Wichtig für absolute Positionierung der Kinder */
+    width: 100vw; /* Nimmt die volle Viewport-Breite ein */
+    max-width: 1366px; /* Beschränkt die maximale Breite auf dein Design */
+    height: 0; /* Wichtig für padding-bottom, um das Seitenverhältnis zu halten */
+    /* Padding-Bottom behält das Seitenverhältnis 1366x768 bei (768/1366 * 100% = ~56.22%) */
+    padding-bottom: 56.22%;
+    overflow: hidden; /* Verhindert, dass Kinder aus dem Container ragen */
+}
+
+/* Basisstil für alle Boxen (die ehemaligen Rechtecke) */
+.box {
+    position: absolute;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    box-sizing: border-box;
+    z-index: 1; /* Standard z-index */
+}
+
+.box:hover {
+    transform: scale(1.03); /* Leichte Vergrößerung beim Hover */
+}
+
+/* Farben der Boxen (aus deinem Original-CSS) */
+#Rechteck_1 { background-color: rgba(240,31,184,1); } /* pink */
+#Rechteck_2 { background-color: rgba(114,239,156,1); } /* light-green */
+#Rechteck_3 { background-color: rgba(240,234,31,1); } /* yellow */
+#Rechteck_4 { background-color: rgba(97,204,242,1); } /* light-blue */
+#Rechteck_5 { background-color: rgba(230,157,66,1); } /* orange */
+#Rechteck_6 { background-color: rgba(108,126,62,1); } /* olive */
+#Rechteck_7 { background-color: rgba(54,58,230,1); } /* blue */
+#Rechteck_8 { background-color: rgba(240,31,184,1); } /* pink (again) */
+#Rechteck_9 { background-color: rgba(30,158,110,1); } /* green */
+#Rechteck_10 { background-color: rgba(240,234,31,1); } /* yellow (again) */
+#Rechteck_11 { background-color: rgba(235,148,154,1); } /* light-pink */
+#Rechteck_12 { background-color: rgba(97,204,242,1); } /* light-blue (again) */
+#Rechteck_13 { background-color: rgba(114,239,156,1); } /* light-green (again) */
+#Rechteck_14 { background-color: rgba(220,13,13,1); } /* red */
+
+
+/* Umgerechnete absolute Positionierung der Boxen in vw/vh */
+/* DIESE WERTE MUSST DU JETZT IM BROWSER MANUELL FEINABSTIMMEN! */
+/* Die Z-Indices wurden aus dem Original übernommen oder geschätzt */
+
+#Rechteck_1 {
+    width: 13vw;  /* 176px / 1366 * 100vw */
+    height: 40vh; /* 310px / 768 * 100vh */
+    left: 0vw;    /* 82px / 1366 * 100vw */
+    top: 10vh;     /* 74px / 768 * 100vh */
+    z-index: 2;
+}
+
+#Rechteck_2 {
+    width: 15vw;  /* 202px / 1366 * 100vw */
+    height: 25vh; /* 193px / 768 * 100vh */
+    left: 17vw;   /* 376px / 1366 * 100vw */
+    top: 12vh;     /* 74px / 768 * 100vh */
+    z-index: 3;
+}
+
+#Rechteck_3 {
+    width: 12vw;  /* 159px / 1366 * 100vw */
+    height: 18vh; /* 139px / 768 * 100vh */
+    left: 33.5vw;   /* 621px / 1366 * 100vw */
+    top: 9vh;     /* 74px / 768 * 100vh */
+    z-index: 2;
+}
+
+#Rechteck_4 {
+    width: 24vw;  /* 329px / 1366 * 100vw */
+    height: 25vh; /* 193px / 768 * 100vh */
+    left: 47vw;   /* 771px / 1366 * 100vw */
+    top: 10vh;     /* 74px / 768 * 100vh */
+    z-index: 2;
+}
+
+#Rechteck_5 {
+    width: 15vw;  /* 202px / 1366 * 100vw */
+    height: 25vh; /* 193px / 768 * 100vh */
+    left: 73vw;   /* 1054px / 1366 * 100vw */
+    top: 9vh;     /* 74px / 768 * 100vh */
+    z-index: 2;
+}
+
+#Rechteck_6 {
+    width: 15vw;  /* 141px / 1366 * 100vw */
+    height: 24vh; /* 245px / 768 * 100vh */
+    left: 16vw;   /* 376px / 1366 * 100vw */
+    top: 39vh;    /* 275px / 768 * 100vh */
+    z-index: 2;
+}
+
+#Rechteck_7 {
+    width: 18vw;  /* 159px / 1366 * 100vw */
+    height: 27vh; /* 139px / 768 * 100vh */
+    left: 34vw;   /* 621px / 1366 * 100vw */
+    top: 38vh;    /* 241px / 768 * 100vh */
+    z-index: 3;
+}
+
+#Rechteck_8 {
+    width: 15vw;  /* 202px / 1366 * 100vw */
+    height: 25vh; /* 193px / 768 * 100vh */
+    left: 53vw;   /* 917px / 1366 * 100vw */
+    top: 39vh;    /* 319px / 768 * 100vh */
+    z-index: 2;
+}
+
+#Rechteck_9 {
+    width: 19vw;  /* 329px / 1366 * 100vw */
+    height: 25vh; /* 193px / 768 * 100vh */
+    left: 69vw;   /* 1054px / 1366 * 100vw */
+    top: 36vh;    /* 275px / 768 * 100vh */
+    z-index: 1;
+}
+
+#Rechteck_10 {
+    width: 13vw;  /* 202px / 1366 * 100vw */
+    height: 25vh; /* 193px / 768 * 100vh */
+    left: 74vw;   /* 1093px / 1366 * 100vw */
+    top: 72vh;    /* 479px / 768 * 100vh */
+    z-index: 2;
+}
+
+#Rechteck_11 {
+    width: 19vw;  /* 329px / 1366 * 100vw */
+    height: 25vh; /* 193px / 768 * 100vh */
+    left: 0vw;    /* 114px / 1366 * 100vw */
+    top: 70vh;    /* 406px / 768 * 100vh */
+    z-index: 2;
+}
+
+#Rechteck_12 {
+    width: 14.79vw;  /* 202px / 1366 * 100vw */
+    height: 25.13vh; /* 193px / 768 * 100vh */
+    left: 27.53vw;   /* 376px / 1366 * 100vw */
+    top: 72.37vh;    /* 479px / 768 * 100vh */
+    z-index: 1;
+}
+
+#Rechteck_13 {
+    width: 14.79vw;  /* 202px / 1366 * 100vw */
+    height: 25.13vh; /* 193px / 768 * 100vh */
+    left: 45.46vw;   /* 621px / 1366 * 100vw */
+    top: 69.37vh;    /* 479px / 768 * 100vh */
+    z-index: 1;
+}
+
+#Rechteck_14 {
+    width: 8.86vw;   /* 121px / 1366 * 100vw */
+    height: 22.01vh; /* 169px / 768 * 100vh */
+    left: 64.13vw;   /* 917px / 1366 * 100vw */
+    top: 67.54vh;    /* 319px / 768 * 100vh */
+    z-index: 1;
+}
+
+/* Basisstil für alle Textfelder innerhalb der Boxen */
+.box span {
+    position: static; /* Für Flexbox-Zentrierung */
+    display: flex; /* Flexbox aktivieren */
+    justify-content: center; /* Horizontal zentrieren */
+    align-items: center; /* Vertikal zentrieren */
+    white-space: nowrap; /* Verhindert Zeilenumbruch (für Desktop-Ansicht) */
+    text-align: center; /* Textzentrierung für den Fall, dass Textumbruch erlaubt ist */
+    font-family: 'Times New Roman', Times, serif; /* Angepasste Schriftart */
+    font-weight: bold;
+    color: rgba(0,0,0,1);
+    letter-spacing: -0.7px;
+    width: 100%; /* Text nimmt volle Breite der Box ein */
+    height: 100%; /* Text nimmt volle Höhe der Box ein */
+}
+
+/* Individuelle Stile für jedes Textfeld */
+#ux-_design {
+    font-size: clamp(1rem, 4.5vw, 75px);
+    line-height: 50%;
+}
+
+#animation {
+    font-size: clamp(1rem, 3vw, 75px);
+    line-height: 50%;
+}
+
+#impressum {
+    font-size: clamp(1rem, 1.6vw, 75px);
+    line-height: 80%;
+}
+
+#logos {
+    font-size: clamp(1rem, 4vw, 75px);
+    line-height: 50%;
+}
+
+#about__me {
+    font-size: clamp(1rem, 5vw, 100px);
+    line-height: 50%;
+}
+
+#videos {
+    font-size: clamp(1rem, 4vw, 75px);
+    line-height: 50%;
+}
+
+
+/* Popup Styling (wie in meinen früheren Beispielen, bereits responsiv) */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 3vh;
+    border: 1px solid #888;
+    width: 80vw;
+    max-width: 600px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Media Queries für grundlegende Layout-Änderungen auf kleineren Bildschirmen */
+@media (max-width: 768px) {
+    body {
+        align-items: flex-start; /* Oben ausrichten, wenn die Seite länger wird */
+    }
+    #Web_1366__1 {
+        /* Für Mobilgeräte: Der Container darf sich jetzt vertikal ausdehnen */
+        height: auto;
+        padding-bottom: 0; /* padding-bottom entfernen, da Höhe dynamisch ist */
+        width: 95vw; /* Etwas Puffer an den Seiten */
+        max-width: 95vw;
+        display: flex; /* Flexbox für gestapeltes Layout */
+        flex-direction: column; /* Vertikal stapeln */
+        align-items: center; /* Boxen zentrieren */
+        gap: 2vh; /* Abstand zwischen gestapelten Boxen */
+        padding-top: 2vh; /* Etwas Padding oben */
+    }
+
+    /* Beispiel für eine gestapelte Anordnung auf Mobilgeräten */
+    .box {
+        position: relative !important; /* Positionierung innerhalb von Flexbox-Flow */
+        width: 90vw !important; /* Breite des Viewports nutzen */
+        height: 15vh !important; /* Feste Höhe, oder auto für Inhalt */
+        left: unset !important; /* Alte Positionierung aufheben */
+        top: unset !important;  /* Alte Positionierung aufheben */
+        margin: 0 !important; /* Keine Margins mehr von alter Positionierung */
+        min-height: 80px; /* Mindesthöhe für mobile Boxen */
+    }
+
+    /* Basisstil für Text auf mobilen Geräten */
+    .box span {
+        position: static !important; /* Text wird jetzt von der Flexbox der Parent-Box zentriert */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* Text nimmt volle Breite der Box ein */
+        height: 100%; /* Text nimmt volle Höhe der Box ein */
+        left: unset !important;
+        top: unset !important;
+        white-space: normal !important; /* Textumbruch auf Mobilgeräten erlauben */
+        text-align: center !important; /* Text zentrieren */
+    }
+
+    /* Individuelle Schriftgrößen für Textfelder auf Mobilgeräten */
+    #ux-_design {
+        font-size: clamp(1rem, 5vw, 2.2rem) !important;
+    }
+    #animation {
+        font-size: clamp(1rem, 5vw, 2.2rem) !important;
+    }
+    #logos {
+        font-size: clamp(1rem, 5vw, 2.2rem) !important;
+    }
+    #about__me {
+        font-size: clamp(1.5rem, 6vw, 3rem) !important;
+    }
+    #videos {
+        font-size: clamp(1rem, 5vw, 2.2rem) !important;
+    }
+
+    .popup-content {
+        width: 90vw;
+        padding: 2.5vh;
+    }
+}
+
+/* Zusätzlicher Breakpoint für Tablets, wenn gewünscht */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #Web_1366__1 {
+        /* Hier kannst du spezifische Anpassungen für Tablets machen,
+           falls das 100vw / 56.22% Verhältnis nicht perfekt passt. */
+        /* Oder ein eigenes Grid-Layout hier definieren, wie im vorherigen Beispiel */
+    }
+
+    /* Bei Tablets behalten wir die absolute Positionierung, aber die vw/vh Werte
+       können hier immer noch etwas angepasst werden, wenn das Design es erfordert. */
+    /* z.B. #Rechteck_1 { left: 5.5vw; top: 9.0vh; } */
+
+    /* Individuelle Schriftgrößen für Textfelder auf Tablets */
+    #ux-_design {
+        font-size: clamp(0.9rem, 4vw, 60px);
+    }
+    #animation {
+        font-size: clamp(0.9rem, 4vw, 60px);
+    }
+    #logos {
+        font-size: clamp(0.9rem, 4vw, 60px);
+    }
+    #about__me {
+        font-size: clamp(1.2rem, 5vw, 80px);
+    }
+    #videos {
+        font-size: clamp(0.9rem, 4vw, 60px);
+    }
+}
