@@ -29,7 +29,6 @@ body {
     position: absolute;
     overflow: hidden;
     cursor: pointer;
-    /* transition: transform 0.2s ease-in-out;  <-- REMOVE THIS LINE */
     box-sizing: border-box;
     z-index: 1; /* Standard z-index */
 }
@@ -44,30 +43,31 @@ body {
 }
 
 
-/* Farben der Boxen (aus deinem Original-CSS) */
-#Rechteck_1 { background-color: rgba(240,31,184,1); } /* pink */
-#Rechteck_2 { background-color: rgba(114,239,156,1); } /* light-green */
-#Rechteck_3 { background-color: rgba(240,234,31,1); } /* yellow */
-#Rechteck_4 { background-color: rgba(97,204,242,1); } /* light-blue */
-#Rechteck_5 { background-color: rgba(230,157,66,1); } /* orange */
-#Rechteck_6 { background-color: rgba(108,126,62,1); } /* olive */
-#Rechteck_7 { background-color: rgba(54,58,230,1); } /* blue */
-#Rechteck_8 { background-color: rgba(240,31,184,1); } /* pink (again) */
-#Rechteck_9 { background-color: rgba(30,158,110,1); } /* green */
-#Rechteck_10 { background-color: rgba(240,234,31,1); } /* yellow (again) */
-#Rechteck_11 { background-color: rgba(235,148,154,1); } /* light-pink */
-#Rechteck_12 { background-color: rgba(97,204,242,1); } /* light-blue (again) */
-#Rechteck_13 { background-color: rgba(114,239,156,1); } /* light-green (again) */
-#Rechteck_14 { background-color: rgba(220,13,13,1); } /* red */
+/* Farben der Boxen (angepasst: Schrift-Boxen knalliger, leere Boxen sanfter) */
+/* Transparency added to boxes without text (alpha set to 0.5 for 50% transparency) */
+#Rechteck_1 { background-color: rgba(255, 20, 147, 0.5); } /* Pink - Transparent */
+#Rechteck_2 { background-color: #7FFF00; } /* Knalliges Grün (UX-Design) - Opaque (has text) */
+#Rechteck_3 { background-color: rgba(255, 234, 0, 0.5); } /* Leeres Gelb - Transparent */
+#Rechteck_4 { background-color: #00BFFF; } /* Knalliges Blau (Animation) - Opaque (has text) */
+#Rechteck_5 { background-color: rgba(255, 165, 0, 0.5); } /* Leeres Orange - Transparent */
+#Rechteck_6 { background-color: rgba(255, 105, 180, 0.5); } /* Mittleres Pink - Transparent */
+#Rechteck_7 { background-color: rgba(147, 112, 219, 0.5); } /* Leeres Lila - Transparent */
+#Rechteck_8 { background-color: #32CD32; } /* Knalliges Grün (Logos) - Opaque (has text) */
+#Rechteck_9 { background-color: rgba(135, 206, 235, 0.5); } /* Leeres Hellblau - Transparent */
+#Rechteck_10 { background-color: #FF007F; } /* Kräftiges Magenta (Videos) - Opaque (has text) */
+#Rechteck_11 { background-color: rgba(70, 130, 180, 0.5); } /* Leeres Stahlblau - Transparent */
+#Rechteck_12 { background-color: rgba(173, 255, 47, 0.5); } /* Leeres Hellgrün - Transparent */
+#Rechteck_13 { background-color: rgba(255, 69, 0, 0.5); } /* Knalliges Rot (Impressum & Datenschutz) - Transparent */
+#Rechteck_14 { background-color: #36454F; } /* Dunkles Anthrazit (About Me) - Opaque (has text) */
 
 
 /* Umgerechnete absolute Positionierung der Boxen in vw/vh */
-/* DIESE WERTE MUSST DU JETZT IM BROWSER MANUELL FEINABSTIMMEN! */
+/* DIESE WERTE MUSST DU JETSER IM BROWSER MANUELL FEINABSTIMMEN! */
 /* Die Z-Indices wurden aus dem Original übernommen oder geschätzt */
 
 #Rechteck_1 {
-    width: 13vw;  /* 176px / 1366 * 100vw */
-    height: 40vh; /* 310px / 768 * 100vh */
+    width: 16vw;  /* 176px / 1366 * 100vw */
+    height: 51vh; /* 310px / 768 * 100vh */
     left: 1vw;    /* 82px / 1366 * 100vw */
     top: 10vh;     /* 74px / 768 * 100vh */
     z-index: 2;
@@ -76,104 +76,104 @@ body {
 #Rechteck_2 {
     width: 15vw;  /* 202px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
-    left: 17vw;   /* 376px / 1366 * 100vw */
-    top: 12vh;     /* 74px / 768 * 100vh */
+    left: 20vw;   /* 376px / 1366 * 100vw */
+    top: 10vh;     /* 74px / 768 * 100vh */
     z-index: 3;
 }
 
 #Rechteck_3 {
     width: 12vw;  /* 159px / 1366 * 100vw */
     height: 18vh; /* 139px / 768 * 100vh */
-    left: 33.5vw;   /* 621px / 1366 * 100vw */
-    top: 9vh;     /* 74px / 768 * 100vh */
+    left: 38vw;   /* 621px / 1366 * 100vw */
+    top: 10vh;     /* 74px / 768 * 100vh */
     z-index: 2;
 }
 
 #Rechteck_4 {
-    width: 24vw;  /* 329px / 1366 * 100vw */
+    width: 22vw;  /* 329px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
-    left: 47vw;   /* 771px / 1366 * 100vw */
+    left: 53vw;   /* 771px / 1366 * 100vw */
     top: 10vh;     /* 74px / 768 * 100vh */
     z-index: 2;
 }
 
 #Rechteck_5 {
-    width: 15vw;  /* 202px / 1366 * 100vw */
-    height: 25vh; /* 193px / 768 * 100vh */
-    left: 73vw;   /* 1054px / 1366 * 100vw */
-    top: 9vh;     /* 74px / 768 * 100vh */
+    width: 11vw;  /* 202px / 1366 * 100vw */
+    height: 21vh; /* 193px / 768 * 100vh */
+    left: 78vw;   /* 1054px / 1366 * 100vw */
+    top: 10vh;     /* 74px / 768 * 100vh */
     z-index: 2;
 }
 
 #Rechteck_6 {
-    width: 15vw;  /* 141px / 1366 * 100vw */
-    height: 24vh; /* 245px / 768 * 100vh */
-    left: 16vw;   /* 376px / 1366 * 100vw */
-    top: 39vh;    /* 275px / 768 * 100vh */
+    width: 12vw;  /* 141px / 1366 * 100vw */
+    height: 23vh; /* 245px / 768 * 100vh */
+    left: 22vw;   /* 376px / 1366 * 100vw */
+    top: 38vh;    /* 275px / 768 * 100vh */
     z-index: 2;
 }
 
 #Rechteck_7 {
-    width: 18vw;  /* 159px / 1366 * 100vw */
-    height: 27vh; /* 139px / 768 * 100vh */
-    left: 34vw;   /* 621px / 1366 * 100vw */
-    top: 38vh;    /* 241px / 768 * 100vh */
+    width: 14vw;  /* 159px / 1366 * 100vw */
+    height: 30vh; /* 139px / 768 * 100vh */
+    left: 37vw;   /* 621px / 1366 * 100vw */
+    top: 31vh;    /* 241px / 768 * 100vh */
     z-index: 3;
 }
 
 #Rechteck_8 {
-    width: 15vw;  /* 202px / 1366 * 100vw */
-    height: 25vh; /* 193px / 768 * 100vh */
+    width: 10vw;  /* 202px / 1366 * 100vw */
+    height: 21vh; /* 193px / 768 * 100vh */
     left: 53vw;   /* 917px / 1366 * 100vw */
-    top: 39vh;    /* 319px / 768 * 100vh */
+    top: 38vh;    /* 319px / 768 * 100vh */
     z-index: 2;
 }
 
 #Rechteck_9 {
-    width: 19vw;  /* 329px / 1366 * 100vw */
+    width: 23vw;  /* 329px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
-    left: 69vw;   /* 1054px / 1366 * 100vw */
-    top: 36vh;    /* 275px / 768 * 100vh */
+    left: 66vw;   /* 1054px / 1366 * 100vw */
+    top: 38vh;    /* 275px / 768 * 100vh */
     z-index: 1;
 }
 
 #Rechteck_10 {
-    width: 13vw;  /* 202px / 1366 * 100vw */
-    height: 25vh; /* 193px / 768 * 100vh */
-    left: 74vw;   /* 1093px / 1366 * 100vw */
-    top: 72vh;    /* 479px / 768 * 100vh */
+    width: 14vw;  /* 202px / 1366 * 100vw */
+    height: 27vh; /* 193px / 768 * 100vh */
+    left: 75vw;   /* 1093px / 1366 * 100vw */
+    top: 68vh;    /* 479px / 768 * 100vh */
     z-index: 2;
 }
 
 #Rechteck_11 {
-    width: 19vw;  /* 329px / 1366 * 100vw */
-    height: 25vh; /* 193px / 768 * 100vh */
+    width: 21vw;  /* 329px / 1366 * 100vw */
+    height: 31vh; /* 193px / 768 * 100vh */
     left: 1vw;    /* 114px / 1366 * 100vw */
-    top: 70vh;    /* 406px / 768 * 100vh */
+    top: 64vh;    /* 406px / 768 * 100vh */
     z-index: 2;
 }
 
 #Rechteck_12 {
-    width: 14.79vw;  /* 202px / 1366 * 100vw */
-    height: 25.13vh; /* 193px / 768 * 100vh */
-    left: 27.53vw;   /* 376px / 1366 * 100vw */
-    top: 72.37vh;    /* 479px / 768 * 100vh */
+    width: 15vw;  /* 202px / 1366 * 100vw */
+    height: 27vh; /* 193px / 768 * 100vh */
+    left: 25vw;   /* 376px / 1366 * 100vw */
+    top: 68vh;    /* 479px / 768 * 100vh */
     z-index: 1;
 }
 
 #Rechteck_13 {
-    width: 14.79vw;  /* 202px / 1366 * 100vw */
-    height: 25.13vh; /* 193px / 768 * 100vh */
-    left: 45.46vw;   /* 621px / 1366 * 100vw */
-    top: 69.37vh;    /* 479px / 768 * 100vh */
+    width: 17vw;  /* 202px / 1366 * 100vw */
+    height: 31vh; /* 193px / 768 * 100vh */
+    left: 43vw;   /* 621px / 1366 * 100vw */
+    top: 64vh;    /* 479px / 768 * 100vh */
     z-index: 1;
 }
 
 #Rechteck_14 {
-    width: 8.86vw;   /* 121px / 1366 * 100vw */
-    height: 22.01vh; /* 169px / 768 * 100vh */
-    left: 64.13vw;   /* 917px / 1366 * 100vw */
-    top: 67.54vh;    /* 319px / 768 * 100vh */
+    width: 9vw;   /* 121px / 1366 * 100vw */
+    height: 22vh; /* 169px / 768 * 100vh */
+    left: 63vw;   /* 917px / 1366 * 100vw */
+    top: 68vh;    /* 319px / 768 * 100vh */
     z-index: 1;
 }
 
@@ -187,13 +187,29 @@ body {
     text-align: center; /* Textzentrierung für den Fall, dass Textumbruch erlaubt ist */
     font-family: 'Times New Roman', Times, serif; /* Angepasste Schriftart */
     font-weight: bold;
-    color: rgba(0,0,0,1);
+    /* Anpassung der Standard-Textfarbe: Setze auf Weiß und überschreibe, wo Schwarz besser passt */
+    color: #FFFFFF;
     letter-spacing: -0.7px;
     width: 100%; /* Text nimmt volle Breite der Box ein */
     height: 100%; /* Text nimmt volle Höhe der Box ein */
 }
 
 /* Individuelle Stile für jedes Textfeld */
+/* Hier werden die Textfarben für hellere Boxen auf Schwarz gesetzt, wo nötig */
+/* Anpassung der Textfarbe, um auf den neuen, knalligeren Hintergrundfarben gut sichtbar zu sein */
+#ux-_design, /* Knalliges Grün */
+#animation { /* Knalliges Blau */
+    color: #000000; /* Schwarze Schrift für diese knalligen Hintergründe */
+}
+
+#logos,     /* Knalliges Grün */
+#videos,    /* Kräftiges Magenta */
+#impressum, /* Knalliges Rot */
+#about__me { /* Dunkles Anthrazit */
+    color: #FFFFFF; /* Weiße Schrift für knallige/dunkle Hintergründe */
+}
+
+/* Spezifische Schriftgrößen wie gehabt */
 #ux-_design {
     font-size: clamp(1rem, 4.5vw, 75px);
     line-height: 50%;
@@ -262,20 +278,19 @@ body {
     transform: translate(-50%, -50%);
     transition: all 0.4s ease-out;
 
-    /* DIESEN ABSCHNITT WIE FOLGT ÄNDERN ODER ENTFERNEN (kein ::before mehr): */
-    /* background-color: rgba(255, 255, 255, 0.4); */ /* DIESE ZEILE ENTFERNEN */
+    background-color: #FFFFFF; /* Hintergrund des Popups auf Weiß gesetzt für Lesbarkeit */
 }
 
 
 .popup-content p {
     position: relative;
     z-index: 2;
-    color: #060606; /* Wichtig für Lesbarkeit auf dunklem Hintergrund */
+    color: #060606; /* Schwarze Schrift für Lesbarkeit auf weißem Popup-Hintergrund */
 }
 
 /* Passen Sie die Farbe des Schließen-Buttons an */
 .close-button {
-    color: #fff; /* Ändern auf Weiß oder eine helle Farbe */
+    color: #000000; /* Schwarz für den Schließen-Button auf dem weißen Popup-Hintergrund */
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -288,28 +303,9 @@ body {
 
 .close-button:hover,
 .close-button:focus {
-    color: #eee;
+    color: #333333; /* Etwas dunkleres Grau beim Hover für den Schließen-Button */
     text-decoration: none;
 }
-
-.close-button {
-    color: black; /* Oder #000 für reines Schwarz */
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute; /* Muss absolut bleiben, um Top/Right zu nutzen */
-    top: 10px;
-    right: 15px;
-    z-index: 3; /* Z-Index des close-button muss HÖHER sein als der des ::before-Elements */
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: black; /* Auch hier Schwarz, wie gewünscht */
-    text-decoration: none;
-}
-
 
 /* Media Queries für grundlegende Layout-Änderungen auf kleineren Bildschirmen */
 @media (max-width: 768px) {
