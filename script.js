@@ -24,28 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 popupText.textContent = 'No content found for this section.';
             }
 
-            // Get the background color of the clicked box
-            const boxBackgroundColor = window.getComputedStyle(box).backgroundColor;
+            // Get the color from the data-popup-color attribute
+            const popupColor = box.getAttribute('data-popup-color');
 
-            // HIER DIE ANPASSUNG IM JAVASCRIPT:
-            // Extrahieren Sie die RGB-Werte und fügen Sie eine Alpha-Komponente hinzu (z.B. 0.8 für 80% Deckkraft)
-            let rgbaColor;
-            if (boxBackgroundColor.startsWith('rgb(')) {
-                // Konvertiere rgb() zu rgba()
-                rgbaColor = boxBackgroundColor.replace('rgb(', 'rgba(').replace(')', ', 0.8)');
-            } else if (boxBackgroundColor.startsWith('rgba(')) {
-                // Wenn es bereits rgba ist, ändern Sie einfach den Alpha-Wert
-                const parts = boxBackgroundColor.split(',');
-                parts[3] = ' 0.8)'; // Setzt die Opazität auf 80%
-                rgbaColor = parts.join(',');
+            // Apply the new background color to the popup content
+            // If data-popup-color is not set, it will default to a fallback or inherit
+            if (popupColor) {
+                popupContent.style.backgroundColor = popupColor;
             } else {
-                // Für andere Farbformate (z.B. Hex) müsste man eine Konvertierung durchführen,
-                // aber getComputedStyle gibt typischerweise rgb/rgba zurück.
-                rgbaColor = `rgba(0, 0, 0, 0.8)`; // Fallback oder direkt als feste Farbe
+                // Fallback color if data-popup-color is not defined for a box
+                popupContent.style.backgroundColor = `rgba(0, 0, 0, 0.8)`;
             }
-
-            // Apply the new semi-transparent background color to the popup content
-            popupContent.style.backgroundColor = rgbaColor; // ÄNDERUNG HIER
 
             const boxRect = box.getBoundingClientRect();
 

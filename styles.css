@@ -29,14 +29,20 @@ body {
     position: absolute;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    /* transition: transform 0.2s ease-in-out;  <-- REMOVE THIS LINE */
     box-sizing: border-box;
     z-index: 1; /* Standard z-index */
 }
 
-.box:hover {
+/* Apply hover effect ONLY to boxes that have a data-target attribute */
+.box[data-target] {
+    transition: transform 0.2s ease-in-out; /* Add transition only to clickable boxes */
+}
+
+.box[data-target]:hover {
     transform: scale(1.03); /* Leichte Vergrößerung beim Hover */
 }
+
 
 /* Farben der Boxen (aus deinem Original-CSS) */
 #Rechteck_1 { background-color: rgba(240,31,184,1); } /* pink */
@@ -62,7 +68,7 @@ body {
 #Rechteck_1 {
     width: 13vw;  /* 176px / 1366 * 100vw */
     height: 40vh; /* 310px / 768 * 100vh */
-    left: 0vw;    /* 82px / 1366 * 100vw */
+    left: 1vw;    /* 82px / 1366 * 100vw */
     top: 10vh;     /* 74px / 768 * 100vh */
     z-index: 2;
 }
@@ -142,7 +148,7 @@ body {
 #Rechteck_11 {
     width: 19vw;  /* 329px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
-    left: 0vw;    /* 114px / 1366 * 100vw */
+    left: 1vw;    /* 114px / 1366 * 100vw */
     top: 70vh;    /* 406px / 768 * 100vh */
     z-index: 2;
 }
@@ -237,7 +243,6 @@ body {
 }
 
 
-
 .popup-content {
     margin: 0;
     padding: 3vh;
@@ -265,7 +270,7 @@ body {
 .popup-content p {
     position: relative;
     z-index: 2;
-    color: #fff; /* Wichtig für Lesbarkeit auf dunklem Hintergrund */
+    color: #060606; /* Wichtig für Lesbarkeit auf dunklem Hintergrund */
 }
 
 /* Passen Sie die Farbe des Schließen-Buttons an */
@@ -399,5 +404,34 @@ body {
     }
     #videos {
         font-size: clamp(0.9rem, 4vw, 60px);
+    }
+}
+
+#l21-design {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 1vh; /* Adjust as needed */
+    left: 0;
+    z-index: 10; /* Ensure it's above other elements */
+}
+
+#l21-design span {
+    font-family: 'Playfair Display', serif; /* Or any other desired font */
+    font-size: clamp(2rem, 3vw, 70px); /* Responsive font size */
+    color: rgb(240, 231, 231); /* Or any desired color */
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Media query for smaller screens if further adjustments are needed */
+@media (max-width: 768px) {
+    #l21-design {
+        position: relative; /* Change to relative for flow in flexbox on mobile */
+        top: unset;
+        margin-bottom: 2vh; /* Add some space below it */
+    }
+    #l21-design span {
+        font-size: clamp(1.5rem, 5vw, 40px); /* Adjust font size for mobile */
     }
 }
