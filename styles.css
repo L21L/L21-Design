@@ -22,6 +22,7 @@ body {
     /* Padding-Bottom behält das Seitenverhältnis 1366x768 bei (768/1366 * 100% = ~56.22%) */
     padding-bottom: 56.22%;
     overflow: hidden; /* Verhindert, dass Kinder aus dem Container ragen */
+    margin-top: 10vh; /* Platz für den Header schaffen */
 }
 
 /* Basisstil für alle Boxen (die ehemaligen Rechtecke) */
@@ -55,7 +56,7 @@ body {
 #Rechteck_8 { background-color: #32CD32; } /* Knalliges Grün (Logos) - Opaque (has text) */
 #Rechteck_9 { background-color: rgba(135, 206, 235, 0.5); } /* Leeres Hellblau - Transparent */
 #Rechteck_10 { background-color: #FF007F; } /* Kräftiges Magenta (Videos) - Opaque (has text) */
-#Rechteck_11 { background-color: rgba(70, 130, 180, 1); } /* Leeres Stahlblau - Transparent */
+#Rechteck_11 { background-color: rgb(70, 90, 180); } /* Leeres Stahlblau - Transparent */
 #Rechteck_12 { background-color: rgba(173, 255, 47, 0.5); } /* Leeres Hellgrün - Transparent */
 #Rechteck_13 { background-color: rgba(255, 69, 0, 0.5); } /* Knalliges Rot (Impressum & Datenschutz) - Transparent */
 #Rechteck_14 { background-color: #36454F; } /* Dunkles Anthrazit (About Me) - Opaque (has text) */
@@ -69,7 +70,7 @@ body {
     width: 16vw;  /* 176px / 1366 * 100vw */
     height: 51vh; /* 310px / 768 * 100vh */
     left: 1vw;    /* 82px / 1366 * 100vw */
-    top: 10vh;     /* 74px / 768 * 100vh */
+    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 2;
 }
 
@@ -77,7 +78,7 @@ body {
     width: 15vw;  /* 202px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
     left: 20vw;   /* 376px / 1366 * 100vw */
-    top: 10vh;     /* 74px / 768 * 100vh */
+    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 3;
 }
 
@@ -85,7 +86,7 @@ body {
     width: 12vw;  /* 159px / 1366 * 100vw */
     height: 18vh; /* 139px / 768 * 100vh */
     left: 38vw;   /* 621px / 1366 * 100vw */
-    top: 10vh;     /* 74px / 768 * 100vh */
+    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 2;
 }
 
@@ -93,7 +94,7 @@ body {
     width: 22vw;  /* 329px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
     left: 53vw;   /* 771px / 1366 * 100vw */
-    top: 10vh;     /* 74px / 768 * 100vh */
+    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 2;
 }
 
@@ -101,7 +102,7 @@ body {
     width: 11vw;  /* 202px / 1366 * 100vw */
     height: 21vh; /* 193px / 768 * 100vh */
     left: 78vw;   /* 1054px / 1366 * 100vw */
-    top: 10vh;     /* 74px / 768 * 100vh */
+    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 2;
 }
 
@@ -109,7 +110,7 @@ body {
     width: 12vw;  /* 141px / 1366 * 100vw */
     height: 23vh; /* 245px / 768 * 100vh */
     left: 22vw;   /* 376px / 1366 * 100vw */
-    top: 38vh;    /* 275px / 768 * 100vh */
+    top: 28vh;    /* War 275px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 2;
 }
 
@@ -117,7 +118,7 @@ body {
     width: 14vw;  /* 159px / 1366 * 100vw */
     height: 30vh; /* 139px / 768 * 100vh */
     left: 37vw;   /* 621px / 1366 * 100vw */
-    top: 31vh;    /* 241px / 768 * 100vh */
+    top: 21vh;    /* War 241px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 3;
 }
 
@@ -125,7 +126,7 @@ body {
     width: 10vw;  /* 202px / 1366 * 100vw */
     height: 21vh; /* 193px / 768 * 100vh */
     left: 53vw;   /* 917px / 1366 * 100vw */
-    top: 38vh;    /* 319px / 768 * 100vh */
+    top: 28vh;    /* War 319px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 2;
 }
 
@@ -133,7 +134,7 @@ body {
     width: 23vw;  /* 329px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
     left: 66vw;   /* 1054px / 1366 * 100vw */
-    top: 38vh;    /* 275px / 768 * 100vh */
+    top: 28vh;    /* War 275px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 1;
 }
 
@@ -141,7 +142,7 @@ body {
     width: 14vw;  /* 202px / 1366 * 100vw */
     height: 27vh; /* 193px / 768 * 100vh */
     left: 75vw;   /* 1093px / 1366 * 100vw */
-    top: 68vh;    /* 479px / 768 * 100vh */
+    top: 58vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 2;
 }
 
@@ -149,7 +150,7 @@ body {
     width: 21vw;  /* 329px / 1366 * 100vw */
     height: 31vh; /* 193px / 768 * 100vh */
     left: 1vw;    /* 114px / 1366 * 100vw */
-    top: 64vh;    /* 406px / 768 * 100vh */
+    top: 54vh;    /* War 406px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 2;
 }
 
@@ -157,7 +158,7 @@ body {
     width: 15vw;  /* 202px / 1366 * 100vw */
     height: 27vh; /* 193px / 768 * 100vh */
     left: 25vw;   /* 376px / 1366 * 100vw */
-    top: 68vh;    /* 479px / 768 * 100vh */
+    top: 58vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 1;
 }
 
@@ -165,7 +166,7 @@ body {
     width: 17vw;  /* 202px / 1366 * 100vw */
     height: 31vh; /* 193px / 768 * 100vh */
     left: 43vw;   /* 621px / 1366 * 100vw */
-    top: 64vh;    /* 479px / 768 * 100vh */
+    top: 54vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 1;
 }
 
@@ -173,7 +174,7 @@ body {
     width: 9vw;   /* 121px / 1366 * 100vw */
     height: 22vh; /* 169px / 768 * 100vh */
     left: 63vw;   /* 917px / 1366 * 100vw */
-    top: 68vh;    /* 319px / 768 * 100vh */
+    top: 58vh;    /* War 319px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 1;
 }
 
@@ -216,7 +217,7 @@ body {
 }
 
 #animation {
-    font-size: clamp(1rem, 3vw, 75px);
+    font-size: clamp(1rem, 4.5vw, 75px);
     line-height: 50%;
 }
 
@@ -236,7 +237,7 @@ body {
 }
 
 #videos {
-    font-size: clamp(1rem, 4vw, 75px);
+    font-size: clamp(1rem, 5vw, 75px);
     line-height: 50%;
 }
 
@@ -260,15 +261,15 @@ body {
 
 
 .popup-content {
-    margin: 0;
+    margin: 20px auto;
     padding: 3vh;
     padding-top: 50px;
     border: 1px solid #888;
     width: 80vw;
     max-width: 600px;
-    max-height: 90vh; /* Wichtig für das Scrollen */
-    overflow-y: auto; /* Wichtig für das Scrollen */
-    border-radius: 8px;
+    max-height: calc(100vh - 30vh);
+    overflow-y: auto;
+    /* border-radius: 8px; */
     position: fixed;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     animation: none;
@@ -278,19 +279,26 @@ body {
     transform: translate(-50%, -50%);
     transition: all 0.4s ease-out;
 
-    background-color: #FFFFFF; /* Hintergrund des Popups auf Weiß gesetzt für Lesbarkeit */
+    /* REMOVE background-color: #FFFFFF; */
 }
 
 
-.popup-content p {
+.popup-content p,
+.popup-content h1,
+.popup-content h2,
+.popup-content h3,
+.popup-content summary,
+.popup-content b,
+.popup-content ul,
+.popup-content li {
     position: relative;
     z-index: 2;
-    color: #060606; /* Schwarze Schrift für Lesbarkeit auf weißem Popup-Hintergrund */
+    /* REMOVE color: #060606; This will be set by JS dynamically */
 }
 
 /* Passen Sie die Farbe des Schließen-Buttons an */
 .close-button {
-    color: #000000; /* Schwarz für den Schließen-Button auf dem weißen Popup-Hintergrund */
+    color: #000000; /* Set a default or dynamic color here */
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -303,54 +311,51 @@ body {
 
 .close-button:hover,
 .close-button:focus {
-    color: #333333; /* Etwas dunkleres Grau beim Hover für den Schließen-Button */
+    color: #333333;
     text-decoration: none;
 }
 
 /* Media Queries für grundlegende Layout-Änderungen auf kleineren Bildschirmen */
 @media (max-width: 768px) {
     body {
-        align-items: flex-start; /* Oben ausrichten, wenn die Seite länger wird */
+        align-items: flex-start;
     }
     #Web_1366__1 {
-        /* Für Mobilgeräte: Der Container darf sich jetzt vertikal ausdehnen */
         height: auto;
-        padding-bottom: 0; /* padding-bottom entfernen, da Höhe dynamisch ist */
-        width: 95vw; /* Etwas Puffer an den Seiten */
+        padding-bottom: 0;
+        width: 95vw;
         max-width: 95vw;
-        display: flex; /* Flexbox für gestapeltes Layout */
-        flex-direction: column; /* Vertikal stapeln */
-        align-items: center; /* Boxen zentrieren */
-        gap: 2vh; /* Abstand zwischen gestapelten Boxen */
-        padding-top: 2vh; /* Etwas Padding oben */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2vh;
+        padding-top: 2vh;
+        margin-top: 0;
     }
 
-    /* Beispiel für eine gestapelte Anordnung auf Mobilgeräten */
     .box {
-        position: relative !important; /* Positionierung innerhalb von Flexbox-Flow */
-        width: 90vw !important; /* Breite des Viewports nutzen */
-        height: 15vh !important; /* Feste Höhe, oder auto für Inhalt */
-        left: unset !important; /* Alte Positionierung aufheben */
-        top: unset !important;  /* Alte Positionierung aufheben */
-        margin: 0 !important; /* Keine Margins mehr von alter Positionierung */
-        min-height: 80px; /* Mindesthöhe für mobile Boxen */
+        position: relative !important;
+        width: 90vw !important;
+        height: 15vh !important;
+        left: unset !important;
+        top: unset !important;
+        margin: 0 !important;
+        min-height: 80px;
     }
 
-    /* Basisstil für Text auf mobilen Geräten */
     .box span {
-        position: static !important; /* Text wird jetzt von der Flexbox der Parent-Box zentriert */
+        position: static !important;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%; /* Text nimmt volle Breite der Box ein */
-        height: 100%; /* Text nimmt volle Höhe der Box ein */
+        width: 100%;
+        height: 100%;
         left: unset !important;
         top: unset !important;
-        white-space: normal !important; /* Textumbruch auf Mobilgeräten erlauben */
-        text-align: center !important; /* Text zentrieren */
+        white-space: normal !important;
+        text-align: center !important;
     }
 
-    /* Individuelle Schriftgrößen für Textfelder auf Mobilgeräten */
     #ux-_design {
         font-size: clamp(1rem, 5vw, 2.2rem) !important;
     }
@@ -373,19 +378,7 @@ body {
     }
 }
 
-/* Zusätzlicher Breakpoint für Tablets, wenn gewünscht */
 @media (min-width: 769px) and (max-width: 1024px) {
-    #Web_1366__1 {
-        /* Hier kannst du spezifische Anpassungen für Tablets machen,
-           falls das 100vw / 56.22% Verhältnis nicht perfekt passt. */
-        /* Oder ein eigenes Grid-Layout hier definieren, wie im vorherigen Beispiel */
-    }
-
-    /* Bei Tablets behalten wir die absolute Positionierung, aber die vw/vh Werte
-       können hier immer noch etwas angepasst werden, wenn das Design es erfordert. */
-    /* z.B. #Rechteck_1 { left: 5.5vw; top: 9.0vh; } */
-
-    /* Individuelle Schriftgrößen für Textfelder auf Tablets */
     #ux-_design {
         font-size: clamp(0.9rem, 4vw, 60px);
     }
@@ -403,31 +396,122 @@ body {
     }
 }
 
-#l21-design {
+#header-container {
     position: absolute;
-    width: 100%;
-    text-align: center;
-    top: 1vh; /* Adjust as needed */
+    top: 1vh;
     left: 0;
-    z-index: 10; /* Ensure it's above other elements */
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 2vw;
+    box-sizing: border-box;
+    z-index: 10;
 }
 
-#l21-design span {
-    font-family: 'Playfair Display', serif; /* Or any other desired font */
-    font-size: clamp(2rem, 3vw, 70px); /* Responsive font size */
-    color: rgb(240, 231, 231); /* Or any desired color */
+#logo {
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    top: 1vh;
+    left: 2vw;
+    z-index: 11;
+    display: block;
+}
+
+
+#l21-design {
+    font-family: 'Bauhaus 93', sans-serif;
+    font-size: clamp(1.5rem, 1vw, 70px);
+    color: rgb(240, 231, 231);
     font-weight: bold;
     white-space: nowrap;
+    text-align: left;
 }
 
-/* Media query for smaller screens if further adjustments are needed */
 @media (max-width: 768px) {
-    #l21-design {
-        position: relative; /* Change to relative for flow in flexbox on mobile */
+    #header-container {
+        position: relative;
+        flex-direction: column;
+        padding: 2vh 2vw;
+        align-items: center;
         top: unset;
-        margin-bottom: 2vh; /* Add some space below it */
     }
-    #l21-design span {
-        font-size: clamp(1.5rem, 5vw, 40px); /* Adjust font size for mobile */
+    #logo {
+        position: relative;
+        height: 8vh;
+        margin-bottom: 1vh;
+        top: unset;
+        left: unset;
+        margin: 0 auto 1vh auto;
     }
+    #l21-design {
+        font-size: clamp(1.5rem, 5vw, 40px);
+        text-align: center;
+        width: 100%;
+    }
+}
+
+/* Stile für das Popup-Inhaltslayout */
+.popup-content p,
+.popup-content h2 {
+    margin-bottom: 20px;
+    text-align: left;
+    /* color: #333; This will be set by JS dynamically */
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    justify-items: center;
+    align-items: start;
+    padding: 10px;
+}
+
+.image-grid img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.image-grid img:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.fullscreen-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+}
+
+.fullscreen-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
