@@ -424,7 +424,7 @@ body {
         width: 100%;
         display: flex;
         flex-direction: row; /* Elemente nebeneinander */
-        justify-content: space-between; /* Logo links, Text rechts */
+        justify-content: center; /* NEU: Logo mittig zentrieren */
         align-items: center;
         padding: 1vh 2vw; /* Etwas Padding oben/unten und seitlich */
         box-sizing: border-box;
@@ -443,6 +443,7 @@ body {
     }
 
     #l21-design {
+        display: none; /* NEU: Schriftzug in der mobilen Ansicht ausblenden */
         position: static; /* Entfernt absolute Positionierung */
         font-size: clamp(1.5rem, 5vw, 40px);
         text-align: right; /* Text rechtsbündig */
