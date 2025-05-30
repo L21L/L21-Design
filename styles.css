@@ -4,6 +4,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', serif; /* Bessere Schrift für das Design */
+    /* background-color: rgba(34,34,34,1);  <-- Diese Zeile entfernen oder auskommentieren */
 
     /* Animierter Farbverlauf als Hintergrund */
     background: linear-gradient(270deg, #222222, #444444, #222222); /* Dunkle Töne, die zum Design passen */
@@ -11,8 +12,8 @@ body {
     animation: gradient-animation 10s ease infinite; /* Animation anwenden */
 
     display: flex;
-    justify-content: center; /* Zentriert den #Web_1366__1 Container */
-    align-items: flex-start; /* Beginnt am oberen Rand */
+    justify-content: center;
+    align-items: flex-start;
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -30,41 +31,6 @@ body {
         background-position: 0% 50%; /* Zurück zur Startposition für den Loop */
     }
 }
-
-/* Header Container - DESKTOP-ANSICHT */
-#header-container {
-    position: absolute; /* Für Desktop bleibt es absolut, damit #Web_1366__1 darunter platziert werden kann */
-    top: 1vh;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end; /* "L21 Design" ist rechts */
-    align-items: center;
-    padding: 0 2vw;
-    box-sizing: border-box;
-    z-index: 10;
-}
-
-#logo {
-    position: absolute; /* Für Desktop absolut links */
-    height: 10vh;
-    width: auto;
-    top: 1vh;
-    left: 2vw;
-    z-index: 11;
-    display: block;
-}
-
-#l21-design {
-    font-family: 'Bauhaus 93', sans-serif;
-    font-size: clamp(1.5rem, 1vw, 70px); /* Desktop-Schriftgröße */
-    color: rgb(240, 231, 231);
-    font-weight: bold;
-    white-space: nowrap;
-    text-align: left; /* Für Desktop-Anordnung */
-}
-
-
 /* Hauptcontainer an den Viewport anpassen */
 #Web_1366__1 {
     position: relative; /* Wichtig für absolute Positionierung der Kinder */
@@ -74,7 +40,6 @@ body {
     padding-bottom: 56.22%;
     overflow: hidden; /* Verhindert, dass Kinder aus dem Container ragen */
     margin-top: 10vh; /* Platz für den Header schaffen */
-    max-width: 1366px; /* Maximalbreite für große Bildschirme */
 }
 
 /* Basisstil für alle Boxen (die ehemaligen Rechtecke) */
@@ -100,7 +65,7 @@ body {
 }
 
 .box:not([data-target]):hover {
-    filter: opacity(0%); /* Dunkelt die Farbe auf 0% der ursprünglichen Helligkeit ab */
+    filter: opacity(00%); /* Dunkelt die Farbe auf 70% der ursprünglichen Helligkeit ab */
 }
 
 
@@ -121,7 +86,7 @@ body {
 
 
 /* Umgerechnete absolute Positionierung der Boxen in vw/vh */
-/* DIESE WERTE MUSST DU JETZT IM BROWSER MANUELL FEINABSTIMMEN! */
+/* DIESE WERTE MUSST DU JETSER IM BROWSER MANUELL FEINABSTIMMEN! */
 /* Die Z-Indices wurden aus dem Original übernommen oder geschätzt */
 
 #Rechteck_1 {
@@ -282,7 +247,7 @@ body {
     line-height: 50%;
 }
 
-/* #animation { // Dies ist nun ein Bild, also keine Text-Schriftgröße mehr nötig
+/* #animation {
     font-size: clamp(1rem, 4.5vw, 75px);
     line-height: 50%;
 } */
@@ -345,7 +310,7 @@ body {
     transform: translate(-50%, -50%);
     transition: all 0.4s ease-out;
 
-    /* REMOVE background-color: #FFFFFF; (Wird von JS dynamisch gesetzt) */
+    /* REMOVE background-color: #FFFFFF; */
 }
 
 
@@ -359,7 +324,7 @@ body {
 .popup-content li {
     position: relative;
     z-index: 2;
-    /* REMOVE color: #060606; (Wird von JS dynamisch gesetzt) */
+    /* REMOVE color: #060606; This will be set by JS dynamically */
 }
 
 /* Passen Sie die Farbe des Schließen-Buttons an */
@@ -381,65 +346,23 @@ body {
     text-decoration: none;
 }
 
-/* Media Queries für MOBILE ANSICHT (max-width: 768px) */
+/* Media Queries für grundlegende Layout-Änderungen auf kleineren Bildschirmen */
 @media (max-width: 768px) {
     body {
-        /* body muss auf mobil Flex-Container sein, um Header und Web_1366__1 untereinander zu legen */
-        display: flex;
-        flex-direction: column; /* Elemente (Header, #Web_1366__1) untereinander anordnen */
-        align-items: center; /* Alles horizontal zentrieren */
-        justify-content: flex-start; /* Oben beginnen */
-        padding-top: 0; /* Kein Padding oben mehr, da Header jetzt im Fluss ist */
+        align-items: flex-start;
+        padding-top: 10vh; /* Added to push content down for fixed header */
     }
-
-    /* Header-Container für mobile Ansicht anpassen */
-    #header-container {
-        position: relative; /* Wichtig: Nicht mehr absolut oder fixed, sondern im Dokumentfluss */
-        top: unset; /* Absolute Positionierung entfernen */
-        left: unset; /* Absolute Positionierung entfernen */
-        width: 100%; /* Volle Breite */
-        display: flex;
-        flex-direction: row; /* Logo und Text nebeneinander */
-        justify-content: space-between; /* Logo links, Text rechts */
-        align-items: center;
-        padding: 1.5vh 2vw; /* Etwas Padding oben/unten und seitlich */
-        box-sizing: border-box;
-        background-color: rgba(34, 34, 34, 0.9); /* Leichter, halbtransparenter Hintergrund */
-        z-index: 100;
-        height: auto;
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        border-bottom: 1px solid rgba(255,255,255,0.1); /* Leichte Trennlinie zum Inhalt */
-    }
-
-    #logo {
-        position: static; /* Entfernt absolute Positionierung */
-        height: 7vh; /* Passende Höhe für mobile Ansicht */
-        width: auto;
-        margin: 0; /* Entfernt frühere Margins */
-    }
-
-    #l21-design {
-        position: static; /* Entfernt absolute Positionierung */
-        font-size: clamp(1.5rem, 5vw, 40px); /* Mobile Schriftgröße */
-        text-align: right; /* Text rechtsbündig */
-        width: auto;
-        margin: 0;
-        padding-right: 0; /* Kein zusätzliches Padding, da justify-content space-between das regelt */
-    }
-
-    /* Haupt-Web-Container (Rechtecke) */
     #Web_1366__1 {
-        height: auto; /* Höhe flexibel an Inhalt anpassen */
-        padding-bottom: 0; /* Kein Padding unten mehr, da Inhalte untereinander */
-        width: 95vw; /* Etwas kleiner als volle Breite */
+        height: auto;
+        padding-bottom: 0;
+        width: 95vw;
         max-width: 95vw;
         display: flex;
-        flex-direction: column; /* Rechtecke untereinander anordnen */
-        align-items: center; /* Horizontal zentrieren */
-        gap: 2vh; /* Abstand zwischen den Rechtecken */
-        padding-top: 2vh; /* Abstand zum Header */
-        margin-top: 0; /* Wichtig: Kein margin-top, da es jetzt direkt unter dem Header ist */
+        flex-direction: column;
+        align-items: center;
+        gap: 2vh;
+        padding-top: 2vh;
+        margin-top: 0;
     }
 
     /* Alle Boxen standardmäßig ausblenden */
@@ -449,8 +372,8 @@ body {
 
     /* Nur die Boxen mit data-target in der mobilen Ansicht anzeigen */
     .box[data-target] {
-        display: flex !important;
-        position: relative !important; /* Wichtig: Relative Position, da sie jetzt im Fluss sind */
+        display: flex !important; /* Setzt display wieder auf flex für diese Boxen */
+        position: relative !important;
         width: 90vw !important;
         height: 15vh !important;
         left: unset !important;
@@ -475,7 +398,9 @@ body {
     #ux-_design {
         font-size: clamp(1rem, 5vw, 2.2rem) !important;
     }
-    /* #animation ist ein Bild */
+    /* #animation {
+        font-size: clamp(1rem, 5vw, 2.2rem) !important;
+    } */
     #logos {
         font-size: clamp(1rem, 5vw, 2.2rem) !important;
     }
@@ -490,14 +415,50 @@ body {
         width: 90vw;
         padding: 2.5vh;
     }
+
+    /* Header-Container für mobile Ansicht anpassen */
+    #header-container {
+        position: fixed; /* Fest positioniert */
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: row; /* Elemente nebeneinander */
+        justify-content: space-between; /* Logo links, Text rechts */
+        align-items: center;
+        padding: 1vh 2vw; /* Etwas Padding oben/unten und seitlich */
+        box-sizing: border-box;
+        background-color: rgba(34, 34, 34, 0.9); /* Leichter, halbtransparenter Hintergrund */
+        z-index: 100; /* Sicherstellen, dass es über allem liegt */
+        height: auto; /* Höhe flexibel an Inhalt anpassen */
+        backdrop-filter: blur(5px); /* Für einen leicht verschwommenen Hintergrund */
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    #logo {
+        position: static; /* Entfernt absolute Positionierung */
+        height: 8vh; /* Passende Höhe für mobile Ansicht */
+        width: auto;
+        margin: 0; /* Entfernt frühere Margins */
+    }
+
+    #l21-design {
+        position: static; /* Entfernt absolute Positionierung */
+        font-size: clamp(1.5rem, 5vw, 40px);
+        text-align: right; /* Text rechtsbündig */
+        width: auto; /* Breite an Inhalt anpassen */
+        margin: 0; /* Entfernt frühere Margins */
+        padding-right: 2vw; /* Etwas Abstand zum rechten Rand */
+    }
 }
 
-/* Media Queries für TABLET-ANSICHT (769px - 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
     #ux-_design {
         font-size: clamp(0.9rem, 4vw, 60px);
     }
-    /* #animation ist ein Bild */
+    /* #animation {
+        font-size: clamp(0.9rem, 4vw, 60px);
+    } */
     #logos {
         font-size: clamp(0.9rem, 4vw, 60px);
     }
@@ -508,6 +469,41 @@ body {
         font-size: clamp(0.9rem, 4vw, 60px);
     }
 }
+
+#header-container {
+    position: absolute;
+    top: 1vh;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Standardmäßig L21-Design rechts */
+    align-items: center;
+    padding: 0 2vw;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+#logo {
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    top: 1vh;
+    left: 2vw;
+    z-index: 11;
+    display: block;
+}
+
+
+#l21-design {
+    font-family: 'Bauhaus 93', sans-serif;
+    font-size: clamp(1.5rem, 1vw, 70px);
+    color: rgb(240, 231, 231);
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: left;
+}
+
+
 
 /* Stile für das Popup-Inhaltslayout */
 .popup-content p,
