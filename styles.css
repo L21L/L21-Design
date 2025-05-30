@@ -17,7 +17,6 @@ body {
 #Web_1366__1 {
     position: relative; /* Wichtig für absolute Positionierung der Kinder */
     width: 100vw; /* Nimmt die volle Viewport-Breite ein */
-    max-width: 1366px; /* Beschränkt die maximale Breite auf dein Design */
     height: 0; /* Wichtig für padding-bottom, um das Seitenverhältnis zu halten */
     /* Padding-Bottom behält das Seitenverhältnis 1366x768 bei (768/1366 * 100% = ~56.22%) */
     padding-bottom: 56.22%;
