@@ -33,20 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (popupColor) {
                 popupContent.style.backgroundColor = popupColor;
             } else {
-                // Fallback color if data-popup-color is not defined for a box
                 popupContent.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Dunkelgrau als Fallback
             }
 
             // Apply the text color to the popup text
             if (textColor) {
                 popupText.style.color = textColor;
-                // Da popupText innerHTML enthält, müssen wir möglicherweise die Farbe auch direkt auf die Kinder anwenden
-                // Dies ist eine robustere Methode, falls der Inhalt des Popups weitere Elemente wie Überschriften oder Absätze hat.
                 Array.from(popupText.children).forEach(child => {
                     child.style.color = textColor;
                 });
             } else {
-                // Fallback text color for the popup
                 popupText.style.color = '#060606'; // Dunkelgrau als Fallback
                 Array.from(popupText.children).forEach(child => {
                     child.style.color = '#060606';
@@ -75,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 popupContent.style.opacity = '1';
             });
 
-            // Store the currently opened box
             const previouslyOpenedBox = document.querySelector('.box[data-current-open="true"]');
             if (previouslyOpenedBox) {
                 previouslyOpenedBox.removeAttribute('data-current-open');
@@ -101,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
             popupContent.addEventListener('transitionend', function handler() {
                 popup.style.display = 'none';
                 popupContent.style.removeProperty('transition');
-                // Entferne die inline gesetzte Hintergrundfarbe und Textfarbe, damit die CSS-Standardwerte wieder gelten
                 popupContent.style.removeProperty('background-color');
                 popupText.style.removeProperty('color');
                 Array.from(popupText.children).forEach(child => {

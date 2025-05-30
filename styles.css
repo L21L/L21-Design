@@ -4,14 +4,66 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', serif; /* Bessere Schrift für das Design */
-    background-color: rgba(34,34,34,1);
+
+    /* Animierter Farbverlauf als Hintergrund */
+    background: linear-gradient(270deg, #222222, #444444, #222222); /* Dunkle Töne, die zum Design passen */
+    background-size: 400% 400%; /* Wichtig, damit der Verlauf verschoben werden kann */
+    animation: gradient-animation 10s ease infinite; /* Animation anwenden */
+
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: center; /* Zentriert den #Web_1366__1 Container */
+    align-items: flex-start; /* Beginnt am oberen Rand */
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+/* Keyframes für die Farbverlauf-Animation */
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%; /* Startposition */
+    }
+    50% {
+        background-position: 100% 50%; /* Endposition */
+    }
+    100% {
+        background-position: 0% 50%; /* Zurück zur Startposition für den Loop */
+    }
+}
+
+/* Header Container - DESKTOP-ANSICHT */
+#header-container {
+    position: absolute; /* Für Desktop bleibt es absolut, damit #Web_1366__1 darunter platziert werden kann */
+    top: 1vh;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* "L21 Design" ist rechts */
+    align-items: center;
+    padding: 0 2vw;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+#logo {
+    position: absolute; /* Für Desktop absolut links */
+    height: 10vh;
+    width: auto;
+    top: 1vh;
+    left: 2vw;
+    z-index: 11;
+    display: block;
+}
+
+#l21-design {
+    font-family: 'Bauhaus 93', sans-serif;
+    font-size: clamp(1.5rem, 1vw, 70px); /* Desktop-Schriftgröße */
+    color: rgb(240, 231, 231);
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: left; /* Für Desktop-Anordnung */
+}
+
 
 /* Hauptcontainer an den Viewport anpassen */
 #Web_1366__1 {
@@ -22,13 +74,13 @@ body {
     padding-bottom: 56.22%;
     overflow: hidden; /* Verhindert, dass Kinder aus dem Container ragen */
     margin-top: 10vh; /* Platz für den Header schaffen */
+    max-width: 1366px; /* Maximalbreite für große Bildschirme */
 }
 
 /* Basisstil für alle Boxen (die ehemaligen Rechtecke) */
 .box {
     position: absolute;
     overflow: hidden;
-    cursor: pointer;
     box-sizing: border-box;
     z-index: 1; /* Standard z-index */
 }
@@ -40,29 +92,36 @@ body {
 
 .box[data-target]:hover {
     transform: scale(1.03); /* Leichte Vergrößerung beim Hover */
+    cursor: pointer;
+}
+/* Abdunkeln für Boxen OHNE data-target beim Hover */
+.box:not([data-target]) {
+    transition: background-color 0.3s ease-in-out; /* Fügt eine sanfte Übergangsanimation hinzu */
+}
+
+.box:not([data-target]):hover {
+    filter: opacity(0%); /* Dunkelt die Farbe auf 0% der ursprünglichen Helligkeit ab */
 }
 
 
-/* Farben der Boxen (angepasst: Schrift-Boxen knalliger, leere Boxen sanfter) */
-/* Transparency added to boxes without text (alpha set to 0.5 for 50% transparency) */
-#Rechteck_1 { background-color: rgba(255, 20, 147, 0.5); } /* Pink - Transparent */
-#Rechteck_2 { background-color: #7FFF00; } /* Knalliges Grün (UX-Design) - Opaque (has text) */
-#Rechteck_3 { background-color: rgba(255, 234, 0, 0.5); } /* Leeres Gelb - Transparent */
-#Rechteck_4 { background-color: #00BFFF; } /* Knalliges Blau (Animation) - Opaque (has text) */
-#Rechteck_5 { background-color: rgba(255, 165, 0, 0.5); } /* Leeres Orange - Transparent */
-#Rechteck_6 { background-color: rgba(255, 105, 180, 0.5); } /* Mittleres Pink - Transparent */
-#Rechteck_7 { background-color: rgba(147, 112, 219, 0.5); } /* Leeres Lila - Transparent */
-#Rechteck_8 { background-color: #32CD32; } /* Knalliges Grün (Logos) - Opaque (has text) */
-#Rechteck_9 { background-color: rgba(135, 206, 235, 0.5); } /* Leeres Hellblau - Transparent */
-#Rechteck_10 { background-color: #FF007F; } /* Kräftiges Magenta (Videos) - Opaque (has text) */
-#Rechteck_11 { background-color: #465AB4; } /* Leeres Stahlblau - Transparent */
-#Rechteck_12 { background-color: rgba(173, 255, 47, 0.5); } /* Leeres Hellgrün - Transparent */
-#Rechteck_13 { background-color: rgba(255, 69, 0, 0.5); } /* Knalliges Rot (Impressum & Datenschutz) - Transparent */
-#Rechteck_14 { background-color: #36454F; } /* Dunkles Anthrazit (About Me) - Opaque (has text) */
+#Rechteck_1 { background-color: rgb(240, 220, 230); } /* Dezentes Rosa */
+#Rechteck_2 { background-color: #7FFF00; }
+#Rechteck_3 { background-color: rgba(255, 245, 150); } /* Dezentes Gelb */
+#Rechteck_4 { background-color: #00BFFF; }
+#Rechteck_5 { background-color: rgba(255, 200, 120); } /* Dezentes Orange */
+#Rechteck_6 { background-color: rgba(255, 180, 200); } /* Dezentes Hot Pink */
+#Rechteck_7 { background-color: rgba(180, 160, 220); } /* Dezentes Slate Blue */
+#Rechteck_8 { background-color: #32CD32; }
+#Rechteck_9 { background-color: rgba(180, 220, 235); } /* Dezentes Sky Blue */
+#Rechteck_10 { background-color: #FF007F; }
+#Rechteck_11 { background-color: #FFFF00; }
+#Rechteck_12 { background-color: rgba(200, 255, 150); } /* Dezentes Grün-Gelb */
+#Rechteck_13 { background-color: rgba(255, 120, 80); } /* Dezentes Orange-Rot */
+#Rechteck_14 { background-color: #36454F; }
 
 
 /* Umgerechnete absolute Positionierung der Boxen in vw/vh */
-/* DIESE WERTE MUSST DU JETSER IM BROWSER MANUELL FEINABSTIMMEN! */
+/* DIESE WERTE MUSST DU JETZT IM BROWSER MANUELL FEINABSTIMMEN! */
 /* Die Z-Indices wurden aus dem Original übernommen oder geschätzt */
 
 #Rechteck_1 {
@@ -194,16 +253,24 @@ body {
     height: 100%; /* Text nimmt volle Höhe der Box ein */
 }
 
-/* Individuelle Stile für jedes Textfeld */
-/* Hier werden die Textfarben für hellere Boxen auf Schwarz gesetzt, wo nötig */
-/* Anpassung der Textfarbe, um auf den neuen, knalligeren Hintergrundfarben gut sichtbar zu sein */
+#animation-logo {
+    display: block; /* Stellt sicher, dass das Bild ein Blockelement ist */
+    max-width: 100%; /* Begrenzt die Breite des Bildes auf die Breite des Elterncontainers */
+    max-height: 100%; /* Begrenzt die Höhe des Bildes auf die Höhe des Elterncontainers */
+    object-fit: contain; /* Stellt sicher, dass das Bild vollständig sichtbar ist und sein Seitenverhältnis beibehält */
+    position: absolute; /* Ermöglicht die absolute Positionierung innerhalb der Box */
+    top: 50%; /* Zentriert das Bild vertikal */
+    left: 50%; /* Zentriert das Bild horizontal */
+    transform: translate(-50%, -50%); /* Verschiebt das Bild um die Hälfte seiner eigenen Breite und Höhe zurück, um es genau zu zentrieren */
+}
+
+#videos,    /* Kräftiges Magenta */
 #ux-_design, /* Knalliges Grün */
 #animation { /* Knalliges Blau */
     color: #000000; /* Schwarze Schrift für diese knalligen Hintergründe */
 }
 
 #logos,     /* Knalliges Grün */
-#videos,    /* Kräftiges Magenta */
 #impressum, /* Knalliges Rot */
 #about__me { /* Dunkles Anthrazit */
     color: #FFFFFF; /* Weiße Schrift für knallige/dunkle Hintergründe */
@@ -215,10 +282,10 @@ body {
     line-height: 50%;
 }
 
-#animation {
+/* #animation { // Dies ist nun ein Bild, also keine Text-Schriftgröße mehr nötig
     font-size: clamp(1rem, 4.5vw, 75px);
     line-height: 50%;
-}
+} */
 
 #impressum {
     font-size: clamp(1rem, 1.6vw, 75px);
@@ -278,7 +345,7 @@ body {
     transform: translate(-50%, -50%);
     transition: all 0.4s ease-out;
 
-    /* REMOVE background-color: #FFFFFF; */
+    /* REMOVE background-color: #FFFFFF; (Wird von JS dynamisch gesetzt) */
 }
 
 
@@ -292,7 +359,7 @@ body {
 .popup-content li {
     position: relative;
     z-index: 2;
-    /* REMOVE color: #060606; This will be set by JS dynamically */
+    /* REMOVE color: #060606; (Wird von JS dynamisch gesetzt) */
 }
 
 /* Passen Sie die Farbe des Schließen-Buttons an */
@@ -314,26 +381,76 @@ body {
     text-decoration: none;
 }
 
-/* Media Queries für grundlegende Layout-Änderungen auf kleineren Bildschirmen */
+/* Media Queries für MOBILE ANSICHT (max-width: 768px) */
 @media (max-width: 768px) {
     body {
-        align-items: flex-start;
-    }
-    #Web_1366__1 {
-        height: auto;
-        padding-bottom: 0;
-        width: 95vw;
-        max-width: 95vw;
+        /* body muss auf mobil Flex-Container sein, um Header und Web_1366__1 untereinander zu legen */
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2vh;
-        padding-top: 2vh;
-        margin-top: 0;
+        flex-direction: column; /* Elemente (Header, #Web_1366__1) untereinander anordnen */
+        align-items: center; /* Alles horizontal zentrieren */
+        justify-content: flex-start; /* Oben beginnen */
+        padding-top: 0; /* Kein Padding oben mehr, da Header jetzt im Fluss ist */
     }
 
+    /* Header-Container für mobile Ansicht anpassen */
+    #header-container {
+        position: relative; /* Wichtig: Nicht mehr absolut oder fixed, sondern im Dokumentfluss */
+        top: unset; /* Absolute Positionierung entfernen */
+        left: unset; /* Absolute Positionierung entfernen */
+        width: 100%; /* Volle Breite */
+        display: flex;
+        flex-direction: row; /* Logo und Text nebeneinander */
+        justify-content: space-between; /* Logo links, Text rechts */
+        align-items: center;
+        padding: 1.5vh 2vw; /* Etwas Padding oben/unten und seitlich */
+        box-sizing: border-box;
+        background-color: rgba(34, 34, 34, 0.9); /* Leichter, halbtransparenter Hintergrund */
+        z-index: 100;
+        height: auto;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-bottom: 1px solid rgba(255,255,255,0.1); /* Leichte Trennlinie zum Inhalt */
+    }
+
+    #logo {
+        position: static; /* Entfernt absolute Positionierung */
+        height: 7vh; /* Passende Höhe für mobile Ansicht */
+        width: auto;
+        margin: 0; /* Entfernt frühere Margins */
+    }
+
+    #l21-design {
+        position: static; /* Entfernt absolute Positionierung */
+        font-size: clamp(1.5rem, 5vw, 40px); /* Mobile Schriftgröße */
+        text-align: right; /* Text rechtsbündig */
+        width: auto;
+        margin: 0;
+        padding-right: 0; /* Kein zusätzliches Padding, da justify-content space-between das regelt */
+    }
+
+    /* Haupt-Web-Container (Rechtecke) */
+    #Web_1366__1 {
+        height: auto; /* Höhe flexibel an Inhalt anpassen */
+        padding-bottom: 0; /* Kein Padding unten mehr, da Inhalte untereinander */
+        width: 95vw; /* Etwas kleiner als volle Breite */
+        max-width: 95vw;
+        display: flex;
+        flex-direction: column; /* Rechtecke untereinander anordnen */
+        align-items: center; /* Horizontal zentrieren */
+        gap: 2vh; /* Abstand zwischen den Rechtecken */
+        padding-top: 2vh; /* Abstand zum Header */
+        margin-top: 0; /* Wichtig: Kein margin-top, da es jetzt direkt unter dem Header ist */
+    }
+
+    /* Alle Boxen standardmäßig ausblenden */
     .box {
-        position: relative !important;
+        display: none !important;
+    }
+
+    /* Nur die Boxen mit data-target in der mobilen Ansicht anzeigen */
+    .box[data-target] {
+        display: flex !important;
+        position: relative !important; /* Wichtig: Relative Position, da sie jetzt im Fluss sind */
         width: 90vw !important;
         height: 15vh !important;
         left: unset !important;
@@ -358,9 +475,7 @@ body {
     #ux-_design {
         font-size: clamp(1rem, 5vw, 2.2rem) !important;
     }
-    #animation {
-        font-size: clamp(1rem, 5vw, 2.2rem) !important;
-    }
+    /* #animation ist ein Bild */
     #logos {
         font-size: clamp(1rem, 5vw, 2.2rem) !important;
     }
@@ -377,13 +492,12 @@ body {
     }
 }
 
+/* Media Queries für TABLET-ANSICHT (769px - 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
     #ux-_design {
         font-size: clamp(0.9rem, 4vw, 60px);
     }
-    #animation {
-        font-size: clamp(0.9rem, 4vw, 60px);
-    }
+    /* #animation ist ein Bild */
     #logos {
         font-size: clamp(0.9rem, 4vw, 60px);
     }
@@ -392,62 +506,6 @@ body {
     }
     #videos {
         font-size: clamp(0.9rem, 4vw, 60px);
-    }
-}
-
-#header-container {
-    position: absolute;
-    top: 1vh;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0 2vw;
-    box-sizing: border-box;
-    z-index: 10;
-}
-
-#logo {
-    position: absolute;
-    height: 10vh;
-    width: auto;
-    top: 1vh;
-    left: 2vw;
-    z-index: 11;
-    display: block;
-}
-
-
-#l21-design {
-    font-family: 'Bauhaus 93', sans-serif;
-    font-size: clamp(1.5rem, 1vw, 70px);
-    color: rgb(240, 231, 231);
-    font-weight: bold;
-    white-space: nowrap;
-    text-align: left;
-}
-
-@media (max-width: 768px) {
-    #header-container {
-        position: relative;
-        flex-direction: column;
-        padding: 2vh 2vw;
-        align-items: center;
-        top: unset;
-    }
-    #logo {
-        position: relative;
-        height: 8vh;
-        margin-bottom: 1vh;
-        top: unset;
-        left: unset;
-        margin: 0 auto 1vh auto;
-    }
-    #l21-design {
-        font-size: clamp(1.5rem, 5vw, 40px);
-        text-align: center;
-        width: 100%;
     }
 }
 
@@ -513,4 +571,66 @@ body {
     object-fit: contain;
     border-radius: 5px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+/* Für WebKit-Browser (Chrome, Safari, Edge) */
+
+/* Gesamter Scrollbalken */
+::-webkit-scrollbar {
+    width: 2px; /* Breite des vertikalen Scrollbalkens */
+    height: 12px; /* Höhe des horizontalen Scrollbalkens */
+}
+
+/* Hintergrund des Scrollbalkens */
+::-webkit-scrollbar-track {
+    background: #2a2a2a; /* Dunklerer Hintergrund */
+    border-radius: 10px; /* Abgerundete Ecken */
+}
+
+/* Der bewegliche "Daumen" des Scrollbalkens */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Grauer Daumen */
+    border-radius: 10px; /* Abgerundete Ecken */
+    border: 3px solid #2a2a2a; /* Rand um den Daumen, passend zum Hintergrund */
+}
+
+/* Hover-Effekt für den Daumen */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Etwas dunkler beim Hover */
+}
+
+/* Ecke des Scrollbalkens (wo sich vertikale und horizontale Scrollbalken treffen) */
+::-webkit-scrollbar-corner {
+    background: #2a2a2a;
+}
+
+/* Für Firefox (neuere Versionen) */
+/* Dies ist eine nicht-standardisierte Eigenschaft, die aber in Firefox funktioniert */
+html {
+    scrollbar-width: thin; /* 'auto' | 'thin' | 'none' */
+    scrollbar-color: #888 #2a2a2a; /* thumb color track color */
+}
+
+/* Für den Popup-Inhalt spezifisch */
+.popup-content {
+    /* ... bestehende Stile ... */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #888 #3a3a3a; /* Firefox: thumb color track color */
+}
+
+.popup-content::-webkit-scrollbar {
+    width: 0.4vw;
+}
+
+.popup-content::-webkit-scrollbar-track {
+    background: #3a3a3a;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+    background: #666;
+    border: 2px solid #3a3a3a;
+}
+
+.popup-content::-webkit-scrollbar-thumb:hover {
+    background: #444;
 }
