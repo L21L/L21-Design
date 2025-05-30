@@ -68,7 +68,7 @@ body {
 #Rechteck_1 {
     width: 16vw;  /* 176px / 1366 * 100vw */
     height: 51vh; /* 310px / 768 * 100vh */
-    left: 1vw;    /* 82px / 1366 * 100vw */
+    left: 5vw;    /* 82px / 1366 * 100vw */
     top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 2;
 }
@@ -76,7 +76,7 @@ body {
 #Rechteck_2 {
     width: 15vw;  /* 202px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
-    left: 20vw;   /* 376px / 1366 * 100vw */
+    left: 24vw;   /* 376px / 1366 * 100vw */
     top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 3;
 }
@@ -84,7 +84,7 @@ body {
 #Rechteck_3 {
     width: 12vw;  /* 159px / 1366 * 100vw */
     height: 18vh; /* 139px / 768 * 100vh */
-    left: 38vw;   /* 621px / 1366 * 100vw */
+    left: 42vw;   /* 621px / 1366 * 100vw */
     top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 2;
 }
@@ -92,7 +92,7 @@ body {
 #Rechteck_4 {
     width: 22vw;  /* 329px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
-    left: 53vw;   /* 771px / 1366 * 100vw */
+    left: 57vw;   /* 771px / 1366 * 100vw */
     top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 2;
 }
@@ -100,7 +100,7 @@ body {
 #Rechteck_5 {
     width: 11vw;  /* 202px / 1366 * 100vw */
     height: 21vh; /* 193px / 768 * 100vh */
-    left: 78vw;   /* 1054px / 1366 * 100vw */
+    left: 82vw;   /* 1054px / 1366 * 100vw */
     top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
     z-index: 2;
 }
@@ -108,7 +108,7 @@ body {
 #Rechteck_6 {
     width: 12vw;  /* 141px / 1366 * 100vw */
     height: 23vh; /* 245px / 768 * 100vh */
-    left: 22vw;   /* 376px / 1366 * 100vw */
+    left: 26vw;   /* 376px / 1366 * 100vw */
     top: 28vh;    /* War 275px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 2;
 }
@@ -116,7 +116,7 @@ body {
 #Rechteck_7 {
     width: 14vw;  /* 159px / 1366 * 100vw */
     height: 30vh; /* 139px / 768 * 100vh */
-    left: 37vw;   /* 621px / 1366 * 100vw */
+    left: 41vw;   /* 621px / 1366 * 100vw */
     top: 21vh;    /* War 241px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 3;
 }
@@ -124,7 +124,7 @@ body {
 #Rechteck_8 {
     width: 10vw;  /* 202px / 1366 * 100vw */
     height: 21vh; /* 193px / 768 * 100vh */
-    left: 53vw;   /* 917px / 1366 * 100vw */
+    left: 57vw;   /* 917px / 1366 * 100vw */
     top: 28vh;    /* War 319px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 2;
 }
@@ -132,7 +132,7 @@ body {
 #Rechteck_9 {
     width: 23vw;  /* 329px / 1366 * 100vw */
     height: 25vh; /* 193px / 768 * 100vh */
-    left: 66vw;   /* 1054px / 1366 * 100vw */
+    left: 70vw;   /* 1054px / 1366 * 100vw */
     top: 28vh;    /* War 275px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 1;
 }
@@ -140,7 +140,7 @@ body {
 #Rechteck_10 {
     width: 14vw;  /* 202px / 1366 * 100vw */
     height: 27vh; /* 193px / 768 * 100vh */
-    left: 75vw;   /* 1093px / 1366 * 100vw */
+    left: 79vw;   /* 1093px / 1366 * 100vw */
     top: 58vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 2;
 }
@@ -148,7 +148,7 @@ body {
 #Rechteck_11 {
     width: 21vw;  /* 329px / 1366 * 100vw */
     height: 31vh; /* 193px / 768 * 100vh */
-    left: 1vw;    /* 114px / 1366 * 100vw */
+    left: 5vw;    /* 114px / 1366 * 100vw */
     top: 54vh;    /* War 406px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 2;
 }
@@ -156,7 +156,7 @@ body {
 #Rechteck_12 {
     width: 15vw;  /* 202px / 1366 * 100vw */
     height: 27vh; /* 193px / 768 * 100vh */
-    left: 25vw;   /* 376px / 1366 * 100vw */
+    left: 29vw;   /* 376px / 1366 * 100vw */
     top: 58vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 1;
 }
@@ -164,7 +164,7 @@ body {
 #Rechteck_13 {
     width: 17vw;  /* 202px / 1366 * 100vw */
     height: 31vh; /* 193px / 768 * 100vh */
-    left: 43vw;   /* 621px / 1366 * 100vw */
+    left: 47vw;   /* 621px / 1366 * 100vw */
     top: 54vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 1;
 }
@@ -172,7 +172,7 @@ body {
 #Rechteck_14 {
     width: 9vw;   /* 121px / 1366 * 100vw */
     height: 22vh; /* 169px / 768 * 100vh */
-    left: 63vw;   /* 917px / 1366 * 100vw */
+    left: 67vw;   /* 917px / 1366 * 100vw */
     top: 58vh;    /* War 319px / 768 * 100vh, jetzt angepasst an den neuen Offset */
     z-index: 1;
 }
