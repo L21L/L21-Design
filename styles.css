@@ -368,7 +368,7 @@ body.creme-bg {
     margin: 20px auto;
     padding: 3vh;
     padding-top: 50px;
-    border: 1px solid #888;
+    border: 0px solid #888;
     width: 80vw;
     max-width: 600px;
     max-height: calc(100vh - 30vh);
