@@ -21,7 +21,7 @@ body {
 
 /* Neue Klasse für cremefarbenen Hintergrund mit Animation */
 body.creme-bg {
-    background: linear-gradient(270deg, #F5F5DC, #696865, #eaeae3); /* Helle Cremetöne für den Verlauf */
+    background: linear-gradient(270deg, #F5F5DC, #a09d97, #eaeae3); /* Helle Cremetöne für den Verlauf */
     background-size: 400% 400%; /* Wichtig, damit der Verlauf verschoben werden kann */
     animation: gradient-animation-creme 10s ease infinite; /* Neue Animation für Creme */
 }
@@ -283,31 +283,43 @@ body.creme-bg {
     transform: translate(-50%, -50%); /* Verschiebt das Bild um die Hälfte seiner eigenen Breite und Höhe zurück, um es genau zu zentrieren */
 }
 
-/* Entferne oder kommentiere dies aus, da es sich nun um ein Bild handelt */
-/*
-#impressum {
-    font-size: clamp(1rem, 1.6vw, 75px);
-    line-height: 80%;
-}
-*/
-
-#logos {
-    font-size: clamp(1rem, 4vw, 75px);
-    line-height: 50%;
+#logos-logo {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%; /* Keep vertical centering */
+    right: 0; /* Align to the left edge of the parent */
+    transform: translateY(-50%); /* Only translate vertically to center */
 }
 
-#about__me {
-    font-size: clamp(1rem, 5vw, 100px);
-    line-height: 50%;
+#about-me-logo {
+    display: block; /* Ensures the image is a block element */
+    max-width: 100%; /* Limits the image width to its parent container */
+    max-height: 100%; /* Limits the image height to its parent container */
+    object-fit: contain; /* Ensures the image is fully visible and maintains its aspect ratio */
+    position: absolute; /* Allows absolute positioning within the box */
+    top: 50%; /* Centers the image vertically */
+    left: 50%; /* Centers the image horizontally */
+    transform: translate(-50%, -50%); /* Shifts the image back by half its own width and height to precisely center it */
 }
 
-#videos {
-    font-size: clamp(1rem, 5vw, 75px);
-    line-height: 50%;
+#logos,
+#impressum { /* Remove #about__me as it's an image now */
+    color: #FFFFFF;
 }
 
-
-/* Popup Styling (wie in meinen früheren Beispielen, bereits responsiv) */
+#videos-logo {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%; /* Keep vertical centering */
+    right: 0; /* Align to the left edge of the parent */
+    transform: translateY(-50%); /* Only translate vertically to center */
+}
 .popup {
     display: none;
     position: fixed;
