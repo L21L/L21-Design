@@ -47,14 +47,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // Apply the text color to the popup text
             if (textColor) {
                 popupText.style.color = textColor;
+                // Auch für die Kinder des popupText-Elements
                 Array.from(popupText.children).forEach(child => {
                     child.style.color = textColor;
                 });
+                // Setze die Farbe des Schließen-Buttons basierend auf der Textfarbe
+                closeButton.style.color = textColor;
             } else {
                 popupText.style.color = '#060606'; // Dunkelgrau als Fallback
                 Array.from(popupText.children).forEach(child => {
                     child.style.color = '#060606';
                 });
+                // Setze die Farbe des Schließen-Buttons auf den Standard
+                closeButton.style.color = '#fff'; // Standardmäßig weiß für den Close-Button
             }
 
 
@@ -77,6 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 popupContent.style.height = 'auto';
                 popupContent.style.transform = 'translate(-50%, -50%)';
                 popupContent.style.opacity = '1';
+
+                // Reset scroll position when popup is opened
+                popupContent.scrollTop = 0; // For the scrollable content within popupContent
+                popupText.scrollTop = 0;    // If popupText itself has a scrollbar
             });
 
             const previouslyOpenedBox = document.querySelector('.box[data-current-open="true"]');
@@ -109,13 +118,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 Array.from(popupText.children).forEach(child => {
                     child.style.removeProperty('color');
                 });
+                // Setze die Farbe des Schließen-Buttons auf den Standard zurück
+                closeButton.style.removeProperty('color');
                 popupContent.removeEventListener('transitionend', handler);
                 clickedBox.removeAttribute('data-current-open');
+
+                // Reset scroll position when popup is closed
+                popupContent.scrollTop = 0;
+                popupText.scrollTop = 0;
             });
         } else {
             popup.style.display = 'none';
             popupContent.style.removeProperty('background-color');
             popupText.style.removeProperty('color');
+            // Setze die Farbe des Schließen-Buttons auf den Standard zurück
+            closeButton.style.removeProperty('color');
+            // Reset scroll position even if no clickedBox
+            popupContent.scrollTop = 0;
+            popupText.scrollTop = 0;
         }
     });
 
@@ -143,13 +163,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     Array.from(popupText.children).forEach(child => {
                         child.style.removeProperty('color');
                     });
+                    // Setze die Farbe des Schließen-Buttons auf den Standard zurück
+                    closeButton.style.removeProperty('color');
                     popupContent.removeEventListener('transitionend', handler);
                     clickedBox.removeAttribute('data-current-open');
+                    // Reset scroll position when popup is closed by clicking outside
+                    popupContent.scrollTop = 0;
+                    popupText.scrollTop = 0;
                 });
             } else {
                 popup.style.display = 'none';
                 popupContent.style.removeProperty('background-color');
                 popupText.style.removeProperty('color');
+                // Setze die Farbe des Schließen-Buttons auf den Standard zurück
+                closeButton.style.removeProperty('color');
+                // Reset scroll position even if no clickedBox
+                popupContent.scrollTop = 0;
+                popupText.scrollTop = 0;
             }
         }
     });
