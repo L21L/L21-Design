@@ -445,8 +445,10 @@ body.creme-bg {
 @media (max-width: 768px) {
     body {
         align-items: flex-start;
-        padding-top: 10vh; /* Added to push content down for fixed header */
+        padding-top: 0vh; /* Added to push content down for fixed header */
     }
+
+
     #Web_1366__1 {
         height: auto;
         padding-bottom: 0;
@@ -516,7 +518,7 @@ body.creme-bg {
         position: fixed; /* Fest positioniert */
         top: 0;
         left: 0;
-        width: 100%;
+        height: auto;
         display: flex;
         flex-direction: row; /* Elemente nebeneinander */
         justify-content: center; /* NEU: Logo mittig zentrieren */
@@ -531,8 +533,9 @@ body.creme-bg {
     }
 
     #logo {
-        position: static; /* Entfernt absolute Positionierung */
-        height: 8vh; /* Passende Höhe für mobile Ansicht */
+        display: none !important;
+        position: fixed; /* Entfernt absolute Positionierung */
+        height: 4vh; /* Passende Höhe für mobile Ansicht */
         width: auto;
         margin: 0; /* Entfernt frühere Margins */
     }
@@ -568,7 +571,7 @@ body.creme-bg {
 
 #header-container {
     position: absolute;
-    top: 1vh;
+    top: 0vh;
     left: 0;
     width: 100%;
     display: flex;
