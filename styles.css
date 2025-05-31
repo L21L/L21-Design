@@ -294,6 +294,33 @@ body.creme-bg {
     transform: translateY(-50%); /* Only translate vertically to center */
 }
 
+#popup-text .image-grid img {
+    max-width: 90%;   /* Maximal 90% der Breite des Eltern-Containers (.image-grid) */
+    max-height: 45vh; /* Maximal 45% der Viewport-Höhe */
+    width: auto;      /* Wichtig: Erlaubt dem Bild, proportional zu skalieren,
+                         wenn es kleiner als max-width/-height sein muss */
+    height: auto;     /* Wichtig: Erlaubt dem Bild, proportional zu skalieren */
+    object-fit: contain; /* Behält das Seitenverhältnis bei und passt das Bild in den Container */
+    display: block;   /* Sorgt dafür, dass das Bild ein Blockelement ist,
+                         was für 'margin: auto' notwendig ist */
+    margin: 15px auto; /* Zentriert die Bilder horizontal und gibt etwas vertikalen Abstand */
+    /* Optional: Füge weitere Stile hinzu, wenn gewünscht, z.B. einen kleinen Rahmen */
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+    /* padding: 5px; */
+}
+
+/* Optional: Feinabstimmung für das Gitter-Layout im Popup */
+#popup-text .image-grid {
+    display: grid;
+    /* Passt die Spalten an: mindestens 120px breit, dehnt sich auf 1fr aus.
+       Dadurch werden mehr Bilder in einer Reihe angezeigt, wenn Platz ist. */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px; /* Abstand zwischen den Bildern im Gitter */
+    padding: 10px; /* Innenabstand des gesamten Gitters */
+    justify-items: center; /* Zentriert die Bilder innerhalb ihrer Gitterzelle */
+    align-items: center; /* Zentriert die Bilder vertikal in ihrer Gitterzelle */
+}
+
 #about-me-logo {
     display: block; /* Ensures the image is a block element */
     max-width: 100%; /* Limits the image width to its parent container */

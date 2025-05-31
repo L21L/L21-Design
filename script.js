@@ -12,12 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
 
     // Zustand, um den aktuellen Stil zu verfolgen
-    let isCremeMode = false;
+    let isCremeMode = true; // Changed this to true for default creme mode
 
     // Add a CSS class to hide the hidden content divs
     const style = document.createElement('style');
     style.innerHTML = '.popup-hidden-content { display: none; }';
     document.head.appendChild(style);
+
+    // Apply the initial creme mode styles on load
+    body.classList.add('creme-bg'); // Apply creme background initially
+    l21DesignText.style.color = '#000000'; // Black text for creme mode
+    logo.src = 'Logo_schwarz.png'; // Black logo for creme mode
 
 
     clickableBoxes.forEach(box => {
@@ -219,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- NEUER CODE FÜR LOGO-KLICK ---
     logo.addEventListener('click', () => {
         if (isCremeMode) {
-            // Zurück zum ursprünglichen Zustand
+            // Wechsel zurück zum dunklen Modus
             body.classList.remove('creme-bg');
             l21DesignText.style.color = 'rgb(240, 231, 231)'; // Ursprüngliche Farbe
             logo.src = 'Logo_weiß.png'; // Ursprüngliches Logo
