@@ -290,7 +290,7 @@ body.creme-bg {
     object-fit: contain;
     position: absolute;
     top: 50%; /* Keep vertical centering */
-    right: 0; /* Align to the left edge of the parent */
+    left: 0; /* Align to the left edge of the parent */
     transform: translateY(-50%); /* Only translate vertically to center */
 }
 
