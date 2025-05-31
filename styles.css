@@ -631,6 +631,7 @@ body.creme-bg {
 
 .image-grid img:hover {
     transform: scale(1.03);
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -760,4 +761,16 @@ html {
     .video-container {
         padding-bottom: 75%; /* Anpassung auf 4:3 oder ähnliches für Mobilgeräte, falls gewünscht */
     }
+}
+
+figure {
+    margin: 0; /* Standard-Margin von figure entfernen, falls nicht gewünscht */
+    padding: 10px; /* Optional: Innenabstand */
+    text-align: center; /* Bild und Text zentrieren */
+    font-weight: bold;
+    /* max-width: 80%; /* Optional: Maximale Breite für die Figur */
+    /* display: block; /* Optional: Damit margin auto funktioniert */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    margin-bottom: 20px; /* Abstand nach unten zu weiteren Elementen */
 }
