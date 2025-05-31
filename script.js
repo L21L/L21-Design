@@ -19,12 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     style.innerHTML = '.popup-hidden-content { display: none; }';
     document.head.appendChild(style);
 
-    // Apply the initial creme mode styles on load
-    body.classList.add('creme-bg'); // Apply creme background initially
-    l21DesignText.style.color = '#000000'; // Black text for creme mode
-    logo.src = 'Logo_schwarz.png'; // Black logo for creme mode
-
-
     clickableBoxes.forEach(box => {
         box.addEventListener('click', () => {
             const targetId = box.getAttribute('data-target');
