@@ -56,18 +56,19 @@ body {
 }
 
 .box[data-target]:hover {
-    transform: scale(1.03); /* Leichte Vergrößerung beim Hover */
+    transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
     cursor: pointer;
 }
+
 /* Abdunkeln für Boxen OHNE data-target beim Hover */
 .box:not([data-target]) {
-    transition: background-color 0.3s ease-in-out; /* Fügt eine sanfte Übergangsanimation hinzu */
+    transition: transform 1s ease-in-out; /* Changed to transform */
 }
 
 .box:not([data-target]):hover {
-    filter: opacity(00%); /* Dunkelt die Farbe auf 70% der ursprünglichen Helligkeit ab */
+    transform: scale(0.1); /* Scales down to 95% of its original size */
+    cursor: default; /* Optional: Change cursor back to default for non-clickable boxes */
 }
-
 
 #Rechteck_1 { background-color: rgb(240, 220, 230); } /* Dezentes Rosa */
 #Rechteck_2 { background-color: #7FFF00; }
