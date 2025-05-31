@@ -343,6 +343,17 @@ body.creme-bg {
     transform: translate(-50%, -50%); /* Shifts the image back by half its own width and height to precisely center it */
 }
 
+#conception-logo {
+    display: block; /* Ensures the image is a block element */
+    max-width: 100%; /* Limits the image width to its parent container */
+    max-height: 100%; /* Limits the image height to its parent container */
+    object-fit: contain; /* Ensures the image is fully visible and maintains its aspect ratio */
+    position: absolute; /* Allows absolute positioning within the box */
+    top: 50%; /* Centers the image vertically */
+    left: 50%; /* Centers the image horizontally */
+    transform: translate(-50%, -50%); /* Shifts the image back by half its own width and height to precisely center it */
+}
+
 #logos,
 #impressum { /* Remove #about__me as it's an image now */
     color: #FFFFFF;
@@ -572,7 +583,7 @@ body.creme-bg {
     position: absolute;
     height: 10vh;
     width: auto;
-    top: 1vh;
+    top: 0vh;
     left: 2vw;
     z-index: 11;
     display: block;
