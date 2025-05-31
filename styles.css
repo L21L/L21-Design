@@ -89,7 +89,7 @@ body.creme-bg {
     cursor: default; /* Optional: Change cursor back to default for non-clickable boxes */
 }
 
-#Rechteck_1 { background-color: rgb(240, 220, 230); } /* Dezentes Rosa */
+#Rechteck_1 { background-color: rgb(239, 46, 81); } /* Dezentes Rosa */
 #Rechteck_2 { background-color: #7FFF00; }
 #Rechteck_3 { background-color: rgba(255, 245, 150); } /* Dezentes Gelb */
 #Rechteck_4 { background-color: #00BFFF; }
@@ -97,7 +97,7 @@ body.creme-bg {
 #Rechteck_6 { background-color: rgba(255, 180, 200); } /* Dezentes Hot Pink */
 #Rechteck_7 { background-color: rgba(180, 160, 220); } /* Dezentes Slate Blue */
 #Rechteck_8 { background-color: #32CD32; }
-#Rechteck_9 { background-color: rgba(180, 220, 235); } /* Dezentes Sky Blue */
+#Rechteck_9 { background-color: rgb(30, 32, 158); } /* Dezentes Sky Blue */
 #Rechteck_10 { background-color: #FF007F; }
 #Rechteck_11 { background-color: #FFFF00; }
 #Rechteck_12 { background-color: rgba(200, 255, 150); } /* Dezentes Grün-Gelb */
@@ -273,6 +273,17 @@ body.creme-bg {
 } */
 
 #impressum-logo {
+    display: block; /* Stellt sicher, dass das Bild ein Blockelement ist */
+    max-width: 100%; /* Begrenzt die Breite des Bildes auf die Breite des Elterncontainers */
+    max-height: 100%; /* Begrenzt die Höhe des Bildes auf die Höhe des Elterncontainers */
+    object-fit: contain; /* Stellt sicher, dass das Bild vollständig sichtbar ist und sein Seitenverhältnis beibehält */
+    position: absolute; /* Ermöglicht die absolute Positionierung innerhalb der Box */
+    top: 50%; /* Zentriert das Bild vertikal */
+    left: 50%; /* Zentriert das Bild horizontal */
+    transform: translate(-50%, -50%); /* Verschiebt das Bild um die Hälfte seiner eigenen Breite und Höhe zurück, um es genau zu zentrieren */
+}
+
+#storytelling-logo {
     display: block; /* Stellt sicher, dass das Bild ein Blockelement ist */
     max-width: 100%; /* Begrenzt die Breite des Bildes auf die Breite des Elterncontainers */
     max-height: 100%; /* Begrenzt die Höhe des Bildes auf die Höhe des Elterncontainers */
