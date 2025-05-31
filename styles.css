@@ -7,7 +7,7 @@ body {
     /* background-color: rgba(34,34,34,1);  <-- Diese Zeile entfernen oder auskommentieren */
 
     /* Animierter Farbverlauf als Hintergrund */
-    background: linear-gradient(270deg, #222222, #444444, #222222); /* Dunkle Töne, die zum Design passen */
+    background: linear-gradient(270deg, #222222, #5b5a5a, #272626); /* Dunkle Töne, die zum Design passen */
     background-size: 400% 400%; /* Wichtig, damit der Verlauf verschoben werden kann */
     animation: gradient-animation 10s ease infinite; /* Animation anwenden */
 
