@@ -6,6 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeButton = document.querySelector('.close-button');
     const popupContent = document.querySelector('.popup-content');
 
+    // Elemente für die Logo-Funktion
+    const logo = document.getElementById('logo');
+    const l21DesignText = document.getElementById('l21-design');
+    const body = document.body;
+
+    // Zustand, um den aktuellen Stil zu verfolgen
+    let isCremeMode = false;
+
     // Add a CSS class to hide the hidden content divs
     const style = document.createElement('style');
     style.innerHTML = '.popup-hidden-content { display: none; }';
@@ -176,5 +184,21 @@ document.addEventListener('DOMContentLoaded', () => {
     fullscreenOverlay.addEventListener('click', () => {
         fullscreenOverlay.style.display = 'none'; // Blendet das Overlay aus
         fullscreenOverlay.innerHTML = ''; // Entfernt das Bild aus dem Overlay
+    });
+
+    // --- NEUER CODE FÜR LOGO-KLICK ---
+    logo.addEventListener('click', () => {
+        if (isCremeMode) {
+            // Zurück zum ursprünglichen Zustand
+            body.classList.remove('creme-bg');
+            l21DesignText.style.color = 'rgb(240, 231, 231)'; // Ursprüngliche Farbe
+            logo.src = 'Logo_weiß.png'; // Ursprüngliches Logo
+        } else {
+            // Wechsel zum cremefarbenen Modus
+            body.classList.add('creme-bg');
+            l21DesignText.style.color = '#000000'; // Schwarze Schrift
+            logo.src = 'Logo_schwarz.png'; // Neues Logo (du musst diese Datei hinzufügen)
+        }
+        isCremeMode = !isCremeMode; // Zustand umschalten
     });
 });
