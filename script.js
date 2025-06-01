@@ -37,11 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const textColor = box.getAttribute('data-text-color');
 
             // Apply the background color to the popup content
-            if (popupColor) {
-                popupContent.style.backgroundColor = popupColor;
-            } else {
-                popupContent.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Dunkelgrau als Fallback
-            }
+        if (popupColor) {
+            // ÄNDERN SIE DIESE ZEILE:
+            popupContent.style.background = popupColor; // <--- DIESE ZEILE ÄNDERN
+        } else {
+            // FÜGEN SIE DIESE ZEILE HINZU (wenn sie nicht existiert):
+            popupContent.style.background = '';
+        }
 
             // Apply the text color to the popup text
             if (textColor) {
@@ -111,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             popupContent.addEventListener('transitionend', function handler() {
                 popup.style.display = 'none';
+                popupContent.style.background = '';
                 popupContent.style.removeProperty('transition');
                 popupContent.style.removeProperty('background-color');
                 popupText.style.removeProperty('color');

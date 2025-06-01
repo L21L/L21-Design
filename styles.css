@@ -19,6 +19,17 @@ body {
     overflow-y: auto;
 }
 
+:root {
+  --gradient-pink-red: linear-gradient(to right, #EF2E51, #FF007F);
+  --gradient-green-yellow: linear-gradient(to right, #7FFF00, #FFFF00);
+  --gradient-blue-lightBlue: linear-gradient(to right, #00BFFF, #ADD8E6); /* Beispiel für einen Verlauf */
+  --gradient-darkGreen-white: linear-gradient(to right, #32CD32, #1c6a39);
+  --gradient-darkBlue-purple: linear-gradient(to right, #1E209E, #8A2BE2);
+  --gradient-magenta-orange: linear-gradient(to right, #FF007F, #FFA500);
+  --gradient-yellow-orange: linear-gradient(to right, #FFFF00, #FFA500);
+  --gradient-darkGray-white: linear-gradient(to right, #36454F, #171616);
+}
+
 /* Neue Klasse für cremefarbenen Hintergrund mit Animation */
 body.creme-bg {
     background: linear-gradient(270deg, #F5F5DC, #a09d97, #eaeae3); /* Helle Cremetöne für den Verlauf */
