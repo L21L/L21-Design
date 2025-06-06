@@ -63,7 +63,7 @@ body.creme-bg {
     position: relative;
     width: 100vw;
     height: 0;
-    padding-bottom: 40.22%;
+    padding-bottom: 80.22%;
     overflow: hidden;
     margin-top: 10vh;
 }
@@ -638,7 +638,7 @@ figure {
         position: relative;
         width: 100vw;
         height: 0;
-        padding-bottom: 120%;
+        padding-bottom: 220%;
         overflow: hidden;
         margin-top: 10vh;
     }
