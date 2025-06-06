@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logo = document.getElementById('logo');
     const l21DesignText = document.getElementById('l21-design');
     const body = document.body;
+
     let isCremeMode = true;
     const style = document.createElement('style');
     style.innerHTML = '.popup-hidden-content { display: none; }';
@@ -183,11 +184,11 @@ document.addEventListener('DOMContentLoaded', () => {
     logo.addEventListener('click', () => {
         if (isCremeMode) {
             body.classList.remove('creme-bg');
-            l21DesignText.style.color = 'rgb(240, 231, 231)';
+            l21DesignText.src = 'L21design_weiß.png';
             logo.src = 'Logo_weiß.png';
         } else {
             body.classList.add('creme-bg');
-            l21DesignText.style.color = '#000000';
+            l21DesignText.src = 'L21design_schwarz.png';
             logo.src = 'Logo_schwarz.png';
         }
         isCremeMode = !isCremeMode;

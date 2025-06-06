@@ -63,7 +63,7 @@ body.creme-bg {
     position: relative;
     width: 100vw;
     height: 0;
-    padding-bottom: 56.22%;
+    padding-bottom: 40.22%;
     overflow: hidden;
     margin-top: 10vh;
 }
@@ -486,12 +486,13 @@ body.creme-bg {
 
 
 #l21-design {
-    font-family: 'Bauhaus 93', sans-serif;
-    font-size: clamp(1.5rem, 1vw, 70px);
-    color: rgb(240, 231, 231);
-    font-weight: bold;
-    white-space: nowrap;
-    text-align: left;
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    top: -1vh;
+    right: 2vw;
+    z-index: 11;
+    display: block;
 }
 
 .popup-content p,
@@ -712,23 +713,23 @@ figure {
     }
 
     #logos-logo {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    position: absolute;
-    top: 40%;
-    left: 35%;
-}
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        position: absolute;
+        top: 40%;
+        left: 35%;
+    }
 
-#videos-logo {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    position: absolute;
-    top: 30%;
-    right: 15%;
-    transform: translateY(-50%);
-}
+    #videos-logo {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        position: absolute;
+        top: 30%;
+        right: 15%;
+        transform: translateY(-50%);
+    }
 }
