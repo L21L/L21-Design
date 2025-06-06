@@ -1,4 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
+        const video = document.getElementById('introVideo');
+    const videoOverlay = document.getElementById('video-overlay');
+    let fadeStartTime = 0;
+    const fadeDuration = 300;
+
+    video.addEventListener('timeupdate', function() {
+        const timeLeft = video.duration - video.currentTime;
+        if (timeLeft <= (fadeDuration / 300) && fadeStartTime === 0) {
+            fadeStartTime = video.currentTime; 
+        }
+
+        if (fadeStartTime > 0) {
+            const timeSinceFadeStart = video.currentTime - fadeStartTime;
+            let opacity = 1 - (timeSinceFadeStart / (fadeDuration / 300)); 
+            if (opacity < 0) {
+                opacity = 0;
+            }
+            videoOverlay.style.opacity = opacity; // Setze die Opazität des Overlays
+
+            // Wenn die Opazität 0 erreicht hat, verstecke das Overlay komplett
+            if (opacity === 0) {
+                videoOverlay.classList.add('hidden');
+                // Optional: Video pausieren und zurückspulen, um Ressourcen zu sparen
+                video.pause();
+                video.currentTime = 0;
+            }
+        }
+    });
+
+    // Optional: Wenn das Video aus irgendeinem Grund nicht abspielen kann,
+    // oder wenn es zu Ende ist und der timeupdate-Event nicht perfekt greift,
+    // kannst du auch den 'ended' Event nutzen, um das Overlay zu entfernen.
+    video.addEventListener('ended', function() {
+        // Falls der timeupdate-Mechanismus das Overlay nicht komplett ausgeblendet hat,
+        // sorge hier dafür, dass es verschwindet.
+        if (!videoOverlay.classList.contains('hidden')) {
+            videoOverlay.style.opacity = 0;
+            videoOverlay.classList.add('hidden');
+            // Optional: Nach einer kurzen Verzögerung das Element entfernen, wenn du es nicht mehr benötigst
+            // setTimeout(() => {
+            //     videoOverlay.remove();
+            // }, 500); // Warte kurz, damit die CSS-Transition abgeschlossen werden kann
+        }
+    });
+
+    // Optional: Füge eine Fallback-Logik hinzu, falls das Video nicht lädt
+    video.addEventListener('error', function() {
+        console.error('Fehler beim Laden des Videos.');
+        videoOverlay.style.opacity = 0;
+        videoOverlay.classList.add('hidden');
+    });
+
     const clickableBoxes = document.querySelectorAll('.box[data-target]');
     const popup = document.getElementById('popup');
     const popupText = document.getElementById('popup-text');
@@ -7,11 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const logo = document.getElementById('logo');
     const l21DesignText = document.getElementById('l21-design');
     const body = document.body;
-
     let isCremeMode = true;
     const style = document.createElement('style');
     style.innerHTML = '.popup-hidden-content { display: none; }';
     document.head.appendChild(style);
+
 
     clickableBoxes.forEach(box => {
         box.addEventListener('click', () => {
