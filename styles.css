@@ -1,16 +1,11 @@
-/* Globale Stile und Farben */
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', serif; /* Bessere Schrift für das Design */
-    /* background-color: rgba(34,34,34,1);  <-- Diese Zeile entfernen oder auskommentieren */
-
-    /* Animierter Farbverlauf als Hintergrund */
-    background: linear-gradient(270deg, #222222, #5b5a5a, #272626); /* Dunkle Töne, die zum Design passen */
-    background-size: 400% 400%; /* Wichtig, damit der Verlauf verschoben werden kann */
-    animation: gradient-animation 10s ease infinite; /* Animation anwenden */
-
+    font-family: 'Arial', serif;
+    background: linear-gradient(270deg, #222222, #5b5a5a, #272626);
+    background-size: 400% 400%;
+    animation: gradient-animation 10s ease infinite;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -20,289 +15,315 @@ body {
 }
 
 :root {
-  --gradient-pink-red: linear-gradient(to right, #EF2E51, #FF007F);
-  --gradient-green-yellow: linear-gradient(to right, #7FFF00, #FFFF00);
-  --gradient-blue-lightBlue: linear-gradient(to right, #00BFFF, #ADD8E6); /* Beispiel für einen Verlauf */
-  --gradient-darkGreen-white: linear-gradient(to right, #32CD32, #1c6a39);
-  --gradient-darkBlue-purple: linear-gradient(to right, #1E209E, #8A2BE2);
-  --gradient-magenta-orange: linear-gradient(to right, #FF007F, #FFA500);
-  --gradient-yellow-orange: linear-gradient(to right, #FFFF00, #FFA500);
-  --gradient-darkGray-white: linear-gradient(to right, #36454F, #171616);
+    --gradient-pink-red: linear-gradient(to right, #EF2E51, #FF007F);
+    --gradient-green-yellow: linear-gradient(to right, #7FFF00, #FFFF00);
+    --gradient-blue-lightBlue: linear-gradient(to right, #00BFFF, #ADD8E6);
+    --gradient-darkGreen-white: linear-gradient(to right, #32CD32, #1c6a39);
+    --gradient-darkBlue-purple: linear-gradient(to right, #1E209E, #8A2BE2);
+    --gradient-magenta-orange: linear-gradient(to right, #FF007F, #FFA500);
+    --gradient-yellow-orange: linear-gradient(to right, #FFFF00, #FFA500);
+    --gradient-darkGray-white: linear-gradient(to right, #36454F, #171616);
 }
 
-/* Neue Klasse für cremefarbenen Hintergrund mit Animation */
 body.creme-bg {
-    background: linear-gradient(270deg, #F5F5DC, #a09d97, #eaeae3); /* Helle Cremetöne für den Verlauf */
-    background-size: 400% 400%; /* Wichtig, damit der Verlauf verschoben werden kann */
-    animation: gradient-animation-creme 10s ease infinite; /* Neue Animation für Creme */
+    background: linear-gradient(270deg, #F5F5DC, #a09d97, #eaeae3);
+    background-size: 400% 400%;
+    animation: gradient-animation-creme 10s ease infinite;
 }
 
-/* Keyframes für die cremefarbene Animation */
 @keyframes gradient-animation-creme {
     0% {
-        background-position: 0% 50%; /* Startposition */
+        background-position: 0% 50%;
     }
+
     50% {
-        background-position: 100% 50%; /* Endposition */
+        background-position: 100% 50%;
     }
+
     100% {
-        background-position: 0% 50%; /* Zurück zur Startposition für den Loop */
+        background-position: 0% 50%;
     }
-}
-/* Keyframes für die Farbverlauf-Animation */
-@keyframes gradient-animation {
-    0% {
-        background-position: 0% 50%; /* Startposition */
-    }
-    50% {
-        background-position: 100% 50%; /* Endposition */
-    }
-    100% {
-        background-position: 0% 50%; /* Zurück zur Startposition für den Loop */
-    }
-}
-/* Hauptcontainer an den Viewport anpassen */
-#Web_1366__1 {
-    position: relative; /* Wichtig für absolute Positionierung der Kinder */
-    width: 100vw; /* Nimmt die volle Viewport-Breite ein */
-    height: 0; /* Wichtig für padding-bottom, um das Seitenverhältnis zu halten */
-    /* Padding-Bottom behält das Seitenverhältnis 1366x768 bei (768/1366 * 100% = ~56.22%) */
-    padding-bottom: 56.22%;
-    overflow: hidden; /* Verhindert, dass Kinder aus dem Container ragen */
-    margin-top: 10vh; /* Platz für den Header schaffen */
 }
 
-/* Basisstil für alle Boxen (die ehemaligen Rechtecke) */
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#Web_1366__1 {
+    position: relative;
+    width: 100vw;
+    height: 0;
+    padding-bottom: 56.22%;
+    overflow: hidden;
+    margin-top: 10vh;
+}
+
 .box {
     position: absolute;
     overflow: hidden;
     box-sizing: border-box;
-    z-index: 1; /* Standard z-index */
+    z-index: 1;
 }
 
-/* Apply hover effect ONLY to boxes that have a data-target attribute */
 .box[data-target] {
-    transition: transform 0.6s ease-in-out; /* Add transition only to clickable boxes */
+    transition: transform 0.6s ease-in-out;
 }
 
 .box[data-target]:hover {
-    transform: scale(1.1); /* Leichte Vergrößerung beim Hover */
+    transform: scale(1.1);
     cursor: pointer;
 }
 
-/* Abdunkeln für Boxen OHNE data-target beim Hover */
 .box:not([data-target]) {
-    transition: transform 1s ease-in-out; /* Changed to transform */
+    transition: transform 1s ease-in-out;
 }
 
 .box:not([data-target]):hover {
-    transform: scale(0.1); /* Scales down to 95% of its original size */
-    cursor: default; /* Optional: Change cursor back to default for non-clickable boxes */
+    transform: scale(0.1);
+    cursor: default;
 }
 
-#Rechteck_1 { background-color: rgb(239, 46, 81); } /* Dezentes Rosa */
-#Rechteck_2 { background-color: #7FFF00; }
-#Rechteck_3 { background-color: rgba(255, 245, 150); } /* Dezentes Gelb */
-#Rechteck_4 { background-color: #00BFFF; }
-#Rechteck_5 { background-color: rgba(255, 200, 120); } /* Dezentes Orange */
-#Rechteck_6 { background-color: rgba(255, 180, 200); } /* Dezentes Hot Pink */
-#Rechteck_7 { background-color: rgba(180, 160, 220); } /* Dezentes Slate Blue */
-#Rechteck_8 { background-color: #32CD32; }
-#Rechteck_9 { background-color: rgb(30, 32, 158); } /* Dezentes Sky Blue */
-#Rechteck_10 { background-color: #FF007F; }
-#Rechteck_11 { background-color: #FFFF00; }
-#Rechteck_12 { background-color: rgba(200, 255, 150); } /* Dezentes Grün-Gelb */
-#Rechteck_13 { background-color: rgba(255, 120, 80); } /* Dezentes Orange-Rot */
-#Rechteck_14 { background-color: #36454F; }
+#Rechteck_1 {
+    background-color: rgb(239, 46, 81);
+}
 
+#Rechteck_2 {
+    background-color: #7FFF00;
+}
 
-/* Umgerechnete absolute Positionierung der Boxen in vw/vh */
-/* DIESE WERTE MUSST DU JETSER IM BROWSER MANUELL FEINABSTIMMEN! */
-/* Die Z-Indices wurden aus dem Original übernommen oder geschätzt */
+#Rechteck_3 {
+    background-color: rgba(255, 245, 150);
+}
+
+#Rechteck_4 {
+    background-color: #00BFFF;
+}
+
+#Rechteck_5 {
+    background-color: rgba(255, 200, 120);
+}
+
+#Rechteck_6 {
+    background-color: rgba(255, 180, 200);
+}
+
+#Rechteck_7 {
+    background-color: rgba(180, 160, 220);
+}
+
+#Rechteck_8 {
+    background-color: #32CD32;
+}
+
+#Rechteck_9 {
+    background-color: rgb(30, 32, 158);
+}
+
+#Rechteck_10 {
+    background-color: #FF007F;
+}
+
+#Rechteck_11 {
+    background-color: #FFFF00;
+}
+
+#Rechteck_12 {
+    background-color: rgba(200, 255, 150);
+}
+
+#Rechteck_13 {
+    background-color: rgba(255, 120, 80);
+}
+
+#Rechteck_14 {
+    background-color: #36454F;
+}
 
 #Rechteck_1 {
-    width: 16vw;  /* 176px / 1366 * 100vw */
-    height: 51vh; /* 310px / 768 * 100vh */
-    left: 5vw;    /* 82px / 1366 * 100vw */
-    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
+    width: 16vw;
+    height: 51vh;
+    left: 5vw;
+    top: 0vh;
     z-index: 2;
 }
 
 #Rechteck_2 {
-    width: 15vw;  /* 202px / 1366 * 100vw */
-    height: 25vh; /* 193px / 768 * 100vh */
-    left: 24vw;   /* 376px / 1366 * 100vw */
-    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
+    width: 15vw;
+    height: 25vh;
+    left: 24vw;
+    top: 0vh;
     z-index: 3;
 }
 
 #Rechteck_3 {
-    width: 12vw;  /* 159px / 1366 * 100vw */
-    height: 18vh; /* 139px / 768 * 100vh */
-    left: 42vw;   /* 621px / 1366 * 100vw */
-    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
+    width: 12vw;
+    height: 18vh;
+    left: 42vw;
+    top: 0vh;
     z-index: 2;
 }
 
 #Rechteck_4 {
-    width: 22vw;  /* 329px / 1366 * 100vw */
-    height: 25vh; /* 193px / 768 * 100vh */
-    left: 57vw;   /* 771px / 1366 * 100vw */
-    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
+    width: 22vw;
+    height: 25vh;
+    left: 57vw;
+    top: 0vh;
     z-index: 2;
 }
 
 #Rechteck_5 {
-    width: 11vw;  /* 202px / 1366 * 100vw */
-    height: 21vh; /* 193px / 768 * 100vh */
-    left: 82vw;   /* 1054px / 1366 * 100vw */
-    top: 0vh;     /* War 74px / 768 * 100vh, jetzt 0vh relativ zum neuen Parent */
+    width: 11vw;
+    height: 21vh;
+    left: 82vw;
+    top: 0vh;
     z-index: 2;
 }
 
 #Rechteck_6 {
-    width: 12vw;  /* 141px / 1366 * 100vw */
-    height: 23vh; /* 245px / 768 * 100vh */
-    left: 26vw;   /* 376px / 1366 * 100vw */
-    top: 28vh;    /* War 275px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 12vw;
+    height: 23vh;
+    left: 26vw;
+    top: 28vh;
     z-index: 2;
 }
 
 #Rechteck_7 {
-    width: 14vw;  /* 159px / 1366 * 100vw */
-    height: 30vh; /* 139px / 768 * 100vh */
-    left: 41vw;   /* 621px / 1366 * 100vw */
-    top: 21vh;    /* War 241px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 14vw;
+    height: 30vh;
+    left: 41vw;
+    top: 21vh;
     z-index: 3;
 }
 
 #Rechteck_8 {
-    width: 10vw;  /* 202px / 1366 * 100vw */
-    height: 21vh; /* 193px / 768 * 100vh */
-    left: 57vw;   /* 917px / 1366 * 100vw */
-    top: 28vh;    /* War 319px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 10vw;
+    height: 21vh;
+    left: 57vw;
+    top: 28vh;
     z-index: 2;
 }
 
 #Rechteck_9 {
-    width: 23vw;  /* 329px / 1366 * 100vw */
-    height: 25vh; /* 193px / 768 * 100vh */
-    left: 70vw;   /* 1054px / 1366 * 100vw */
-    top: 28vh;    /* War 275px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 23vw;
+    height: 25vh;
+    left: 70vw;
+    top: 28vh;
     z-index: 1;
 }
 
 #Rechteck_10 {
-    width: 14vw;  /* 202px / 1366 * 100vw */
-    height: 27vh; /* 193px / 768 * 100vh */
-    left: 79vw;   /* 1093px / 1366 * 100vw */
-    top: 58vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 14vw;
+    height: 27vh;
+    left: 79vw;
+    top: 58vh;
     z-index: 2;
 }
 
 #Rechteck_11 {
-    width: 21vw;  /* 329px / 1366 * 100vw */
-    height: 31vh; /* 193px / 768 * 100vh */
-    left: 5vw;    /* 114px / 1366 * 100vw */
-    top: 54vh;    /* War 406px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 21vw;
+    height: 31vh;
+    left: 5vw;
+    top: 54vh;
     z-index: 2;
 }
 
 #Rechteck_12 {
-    width: 15vw;  /* 202px / 1366 * 100vw */
-    height: 27vh; /* 193px / 768 * 100vh */
-    left: 29vw;   /* 376px / 1366 * 100vw */
-    top: 58vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 15vw;
+    height: 27vh;
+    left: 29vw;
+    top: 58vh;
     z-index: 1;
 }
 
 #Rechteck_13 {
-    width: 17vw;  /* 202px / 1366 * 100vw */
-    height: 31vh; /* 193px / 768 * 100vh */
-    left: 47vw;   /* 621px / 1366 * 100vw */
-    top: 54vh;    /* War 479px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 17vw;
+    height: 31vh;
+    left: 47vw;
+    top: 54vh;
     z-index: 1;
 }
 
 #Rechteck_14 {
-    width: 9vw;   /* 121px / 1366 * 100vw */
-    height: 22vh; /* 169px / 768 * 100vh */
-    left: 67vw;   /* 917px / 1366 * 100vw */
-    top: 58vh;    /* War 319px / 768 * 100vh, jetzt angepasst an den neuen Offset */
+    width: 9vw;
+    height: 22vh;
+    left: 67vw;
+    top: 58vh;
     z-index: 1;
 }
 
-/* Basisstil für alle Textfelder innerhalb der Boxen */
 .box span {
-    position: static; /* Für Flexbox-Zentrierung */
-    display: flex; /* Flexbox aktivieren */
-    justify-content: center; /* Horizontal zentrieren */
-    align-items: center; /* Vertikal zentrieren */
-    white-space: nowrap; /* Verhindert Zeilenumbruch (für Desktop-Ansicht) */
-    text-align: center; /* Textzentrierung für den Fall, dass Textumbruch erlaubt ist */
-    font-family: 'Times New Roman', Times, serif; /* Angepasste Schriftart */
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
-    /* Anpassung der Standard-Textfarbe: Setze auf Weiß und überschreibe, wo Schwarz besser passt */
     color: #FFFFFF;
     letter-spacing: -0.7px;
-    width: 100%; /* Text nimmt volle Breite der Box ein */
-    height: 100%; /* Text nimmt volle Höhe der Box ein */
+    width: 100%;
+    height: 100%;
 }
 
 #animation-logo {
-    display: block; /* Stellt sicher, dass das Bild ein Blockelement ist */
-    max-width: 100%; /* Begrenzt die Breite des Bildes auf die Breite des Elterncontainers */
-    max-height: 100%; /* Begrenzt die Höhe des Bildes auf die Höhe des Elterncontainers */
-    object-fit: contain; /* Stellt sicher, dass das Bild vollständig sichtbar ist und sein Seitenverhältnis beibehält */
-    position: absolute; /* Ermöglicht die absolute Positionierung innerhalb der Box */
-    top: 50%; /* Zentriert das Bild vertikal */
-    left: 50%; /* Zentriert das Bild horizontal */
-    transform: translate(-50%, -50%); /* Verschiebt das Bild um die Hälfte seiner eigenen Breite und Höhe zurück, um es genau zu zentrieren */
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-#videos,    /* Kräftiges Magenta */
-#ux-_design, /* Knalliges Grün */
-#animation { /* Knalliges Blau */
-    color: #000000; /* Schwarze Schrift für diese knalligen Hintergründe */
+#videos,
+#ux-_design,
+#animation {
+    color: #000000;
 }
 
-#logos,     /* Knalliges Grün */
-#impressum, /* Knalliges Rot */
-#about__me { /* Dunkles Anthrazit */
-    color: #FFFFFF; /* Weiße Schrift für knallige/dunkle Hintergründe */
+#logos,
+#impressum,
+#about__me {
+    color: #FFFFFF;
 }
 
-/* Spezifische Schriftgrößen wie gehabt */
 #ux-_design {
     font-size: clamp(1rem, 4.5vw, 75px);
     line-height: 50%;
 }
 
-/* #animation {
-    font-size: clamp(1rem, 4.5vw, 75px);
-    line-height: 50%;
-} */
-
 #impressum-logo {
-    display: block; /* Stellt sicher, dass das Bild ein Blockelement ist */
-    max-width: 100%; /* Begrenzt die Breite des Bildes auf die Breite des Elterncontainers */
-    max-height: 100%; /* Begrenzt die Höhe des Bildes auf die Höhe des Elterncontainers */
-    object-fit: contain; /* Stellt sicher, dass das Bild vollständig sichtbar ist und sein Seitenverhältnis beibehält */
-    position: absolute; /* Ermöglicht die absolute Positionierung innerhalb der Box */
-    top: 50%; /* Zentriert das Bild vertikal */
-    left: 50%; /* Zentriert das Bild horizontal */
-    transform: translate(-50%, -50%); /* Verschiebt das Bild um die Hälfte seiner eigenen Breite und Höhe zurück, um es genau zu zentrieren */
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #storytelling-logo {
-    display: block; /* Stellt sicher, dass das Bild ein Blockelement ist */
-    max-width: 100%; /* Begrenzt die Breite des Bildes auf die Breite des Elterncontainers */
-    max-height: 100%; /* Begrenzt die Höhe des Bildes auf die Höhe des Elterncontainers */
-    object-fit: contain; /* Stellt sicher, dass das Bild vollständig sichtbar ist und sein Seitenverhältnis beibehält */
-    position: absolute; /* Ermöglicht die absolute Positionierung innerhalb der Box */
-    top: 50%; /* Zentriert das Bild vertikal */
-    left: 50%; /* Zentriert das Bild horizontal */
-    transform: translate(-50%, -50%); /* Verschiebt das Bild um die Hälfte seiner eigenen Breite und Höhe zurück, um es genau zu zentrieren */
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #logos-logo {
@@ -311,62 +332,54 @@ body.creme-bg {
     max-height: 100%;
     object-fit: contain;
     position: absolute;
-    top: 50%; /* Keep vertical centering */
-    left: 0; /* Align to the left edge of the parent */
-    transform: translateY(-50%); /* Only translate vertically to center */
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
 }
 
 #popup-text .image-grid img {
-    max-width: 90%;   /* Maximal 90% der Breite des Eltern-Containers (.image-grid) */
-    max-height: 45vh; /* Maximal 45% der Viewport-Höhe */
-    width: auto;      /* Wichtig: Erlaubt dem Bild, proportional zu skalieren,
-                         wenn es kleiner als max-width/-height sein muss */
-    height: auto;     /* Wichtig: Erlaubt dem Bild, proportional zu skalieren */
-    object-fit: contain; /* Behält das Seitenverhältnis bei und passt das Bild in den Container */
-    display: block;   /* Sorgt dafür, dass das Bild ein Blockelement ist,
-                         was für 'margin: auto' notwendig ist */
-    margin: 15px auto; /* Zentriert die Bilder horizontal und gibt etwas vertikalen Abstand */
-    /* Optional: Füge weitere Stile hinzu, wenn gewünscht, z.B. einen kleinen Rahmen */
-    /* border: 1px solid rgba(0, 0, 0, 0.1); */
-    /* padding: 5px; */
+    max-width: 90%;
+    max-height: 45vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 15px auto;
 }
 
-/* Optional: Feinabstimmung für das Gitter-Layout im Popup */
 #popup-text .image-grid {
     display: grid;
-    /* Passt die Spalten an: mindestens 120px breit, dehnt sich auf 1fr aus.
-       Dadurch werden mehr Bilder in einer Reihe angezeigt, wenn Platz ist. */
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 20px; /* Abstand zwischen den Bildern im Gitter */
-    padding: 10px; /* Innenabstand des gesamten Gitters */
-    justify-items: center; /* Zentriert die Bilder innerhalb ihrer Gitterzelle */
-    align-items: center; /* Zentriert die Bilder vertikal in ihrer Gitterzelle */
+    gap: 20px;
+    padding: 10px;
+    justify-items: center;
+    align-items: center;
 }
 
 #about-me-logo {
-    display: block; /* Ensures the image is a block element */
-    max-width: 100%; /* Limits the image width to its parent container */
-    max-height: 100%; /* Limits the image height to its parent container */
-    object-fit: contain; /* Ensures the image is fully visible and maintains its aspect ratio */
-    position: absolute; /* Allows absolute positioning within the box */
-    top: 50%; /* Centers the image vertically */
-    left: 50%; /* Centers the image horizontally */
-    transform: translate(-50%, -50%); /* Shifts the image back by half its own width and height to precisely center it */
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #conception-logo {
-    display: block; /* Ensures the image is a block element */
-    max-width: 100%; /* Limits the image width to its parent container */
-    max-height: 100%; /* Limits the image height to its parent container */
-    object-fit: contain; /* Ensures the image is fully visible and maintains its aspect ratio */
-    position: absolute; /* Allows absolute positioning within the box */
-    top: 50%; /* Centers the image vertically */
-    left: 50%; /* Centers the image horizontally */
-    transform: translate(-50%, -50%); /* Shifts the image back by half its own width and height to precisely center it */
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #logos,
-#impressum { /* Remove #about__me as it's an image now */
+#impressum {
     color: #FFFFFF;
 }
 
@@ -376,10 +389,11 @@ body.creme-bg {
     max-height: 100%;
     object-fit: contain;
     position: absolute;
-    top: 50%; /* Keep vertical centering */
-    right: 0; /* Align to the left edge of the parent */
-    transform: translateY(-50%); /* Only translate vertically to center */
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
 }
+
 .popup {
     display: none;
     position: fixed;
@@ -389,7 +403,7 @@ body.creme-bg {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     justify-content: center;
@@ -406,17 +420,14 @@ body.creme-bg {
     max-width: 600px;
     max-height: calc(100vh - 30vh);
     overflow-y: auto;
-    /* border-radius: 8px; */
     position: fixed;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: none;
 
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     transition: all 0.4s ease-out;
-
-    /* REMOVE background-color: #FFFFFF; */
 }
 
 
@@ -430,12 +441,10 @@ body.creme-bg {
 .popup-content li {
     position: relative;
     z-index: 2;
-    /* REMOVE color: #060606; This will be set by JS dynamically */
 }
 
-/* Passen Sie die Farbe des Schließen-Buttons an */
 .close-button {
-    color: #000000; /* Set a default or dynamic color here */
+    color: #000000;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -452,141 +461,13 @@ body.creme-bg {
     text-decoration: none;
 }
 
-/* Media Queries für grundlegende Layout-Änderungen auf kleineren Bildschirmen */
-@media (max-width: 768px) {
-    body {
-        align-items: flex-start;
-        padding-top: 0vh; /* Added to push content down for fixed header */
-    }
-
-
-    #Web_1366__1 {
-        height: auto;
-        padding-bottom: 0;
-        width: 95vw;
-        max-width: 95vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2vh;
-        padding-top: 2vh;
-        margin-top: 0;
-    }
-
-    /* Alle Boxen standardmäßig ausblenden */
-    .box {
-        display: none !important;
-    }
-
-    /* Nur die Boxen mit data-target in der mobilen Ansicht anzeigen */
-    .box[data-target] {
-        display: flex !important; /* Setzt display wieder auf flex für diese Boxen */
-        position: relative !important;
-        width: 90vw !important;
-        height: 15vh !important;
-        left: unset !important;
-        top: unset !important;
-        margin: 0 !important;
-        min-height: 80px;
-    }
-
-    .box span {
-        position: static !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        left: unset !important;
-        top: unset !important;
-        white-space: normal !important;
-        text-align: center !important;
-    }
-
-    #ux-_design {
-        font-size: clamp(1rem, 5vw, 2.2rem) !important;
-    }
-    /* #animation {
-        font-size: clamp(1rem, 5vw, 2.2rem) !important;
-    } */
-    #logos {
-        font-size: clamp(1rem, 5vw, 2.2rem) !important;
-    }
-    #about__me {
-        font-size: clamp(1.5rem, 6vw, 3rem) !important;
-    }
-    #videos {
-        font-size: clamp(1rem, 5vw, 2.2rem) !important;
-    }
-
-    .popup-content {
-        width: 90vw;
-        padding: 2.5vh;
-    }
-
-    /* Header-Container für mobile Ansicht anpassen */
-    #header-container {
-        position: fixed; /* Fest positioniert */
-        top: 0;
-        left: 0;
-        height: auto;
-        display: flex;
-        flex-direction: row; /* Elemente nebeneinander */
-        justify-content: center; /* NEU: Logo mittig zentrieren */
-        align-items: center;
-        padding: 1vh 2vw; /* Etwas Padding oben/unten und seitlich */
-        box-sizing: border-box;
-        background-color: rgba(34, 34, 34, 0.9); /* Leichter, halbtransparenter Hintergrund */
-        z-index: 100; /* Sicherstellen, dass es über allem liegt */
-        height: auto; /* Höhe flexibel an Inhalt anpassen */
-        backdrop-filter: blur(5px); /* Für einen leicht verschwommenen Hintergrund */
-        -webkit-backdrop-filter: blur(5px);
-    }
-
-    #logo {
-        display: none !important;
-        position: fixed; /* Entfernt absolute Positionierung */
-        height: 4vh; /* Passende Höhe für mobile Ansicht */
-        width: auto;
-        margin: 0; /* Entfernt frühere Margins */
-    }
-
-    #l21-design {
-        display: none; /* NEU: Schriftzug in der mobilen Ansicht ausblenden */
-        position: static; /* Entfernt absolute Positionierung */
-        font-size: clamp(1.5rem, 5vw, 40px);
-        text-align: right; /* Text rechtsbündig */
-        width: auto; /* Breite an Inhalt anpassen */
-        margin: 0; /* Entfernt frühere Margins */
-        padding-right: 2vw; /* Etwas Abstand zum rechten Rand */
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    #ux-_design {
-        font-size: clamp(0.9rem, 4vw, 60px);
-    }
-    /* #animation {
-        font-size: clamp(0.9rem, 4vw, 60px);
-    } */
-    #logos {
-        font-size: clamp(0.9rem, 4vw, 60px);
-    }
-    #about__me {
-        font-size: clamp(1.2rem, 5vw, 80px);
-    }
-    #videos {
-        font-size: clamp(0.9rem, 4vw, 60px);
-    }
-}
-
 #header-container {
     position: absolute;
     top: 0vh;
     left: 0;
     width: 100%;
     display: flex;
-    justify-content: flex-end; /* Standardmäßig L21-Design rechts */
+    justify-content: flex-end;
     align-items: center;
     padding: 0 2vw;
     box-sizing: border-box;
@@ -613,14 +494,10 @@ body.creme-bg {
     text-align: left;
 }
 
-
-
-/* Stile für das Popup-Inhaltslayout */
 .popup-content p,
 .popup-content h2 {
     margin-bottom: 20px;
     text-align: left;
-    /* color: #333; This will be set by JS dynamically */
 }
 
 .image-grid {
@@ -645,19 +522,6 @@ body.creme-bg {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .image-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .image-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 .fullscreen-overlay {
     display: none;
     position: fixed;
@@ -680,49 +544,38 @@ body.creme-bg {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
-/* Für WebKit-Browser (Chrome, Safari, Edge) */
-
-/* Gesamter Scrollbalken */
 ::-webkit-scrollbar {
-    width: 2px; /* Breite des vertikalen Scrollbalkens */
-    height: 12px; /* Höhe des horizontalen Scrollbalkens */
+    width: 2px;
+    height: 12px;
 }
 
-/* Hintergrund des Scrollbalkens */
 ::-webkit-scrollbar-track {
-    background: #2a2a2a; /* Dunklerer Hintergrund */
-    border-radius: 10px; /* Abgerundete Ecken */
+    background: #2a2a2a;
+    border-radius: 10px;
 }
 
-/* Der bewegliche "Daumen" des Scrollbalkens */
 ::-webkit-scrollbar-thumb {
-    background: #888; /* Grauer Daumen */
-    border-radius: 10px; /* Abgerundete Ecken */
-    border: 3px solid #2a2a2a; /* Rand um den Daumen, passend zum Hintergrund */
+    background: #888;
+    border-radius: 10px;
+    border: 3px solid #2a2a2a;
 }
 
-/* Hover-Effekt für den Daumen */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Etwas dunkler beim Hover */
+    background: #555;
 }
 
-/* Ecke des Scrollbalkens (wo sich vertikale und horizontale Scrollbalken treffen) */
 ::-webkit-scrollbar-corner {
     background: #2a2a2a;
 }
 
-/* Für Firefox (neuere Versionen) */
-/* Dies ist eine nicht-standardisierte Eigenschaft, die aber in Firefox funktioniert */
 html {
-    scrollbar-width: thin; /* 'auto' | 'thin' | 'none' */
-    scrollbar-color: #888 #2a2a2a; /* thumb color track color */
+    scrollbar-width: thin;
+    scrollbar-color: #888 #2a2a2a;
 }
 
-/* Für den Popup-Inhalt spezifisch */
 .popup-content {
-    /* ... bestehende Stile ... */
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: #888 #3a3a3a; /* Firefox: thumb color track color */
+    scrollbar-width: thin;
+    scrollbar-color: #888 #3a3a3a;
 }
 
 .popup-content::-webkit-scrollbar {
@@ -742,20 +595,18 @@ html {
     background: #444;
 }
 
-/* Cursor-Stil für das Logo beim Hover */
 #logo:hover {
     cursor: pointer;
 }
 
-/* Stile für den Video-Container, um responsive Videos zu ermöglichen */
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Seitenverhältnis (Höhe / Breite = 9 / 16 = 0.5625) */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
-    margin-bottom: 20px; /* Abstand zwischen den Videos */
-    border-radius: 8px; /* Abgerundete Ecken */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Kleiner Schatten */
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .video-container video {
@@ -764,24 +615,120 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Stellt sicher, dass das Video im Container sichtbar ist */
-}
-
-/* Anpassungen für kleinere Bildschirme */
-@media (max-width: 768px) {
-    .video-container {
-        padding-bottom: 75%; /* Anpassung auf 4:3 oder ähnliches für Mobilgeräte, falls gewünscht */
-    }
+    object-fit: contain;
 }
 
 figure {
-    margin: 0; /* Standard-Margin von figure entfernen, falls nicht gewünscht */
-    padding: 10px; /* Optional: Innenabstand */
-    text-align: center; /* Bild und Text zentrieren */
+    margin: 0;
+    padding: 10px;
+    text-align: center;
     font-weight: bold;
-    /* max-width: 80%; /* Optional: Maximale Breite für die Figur */
-    /* display: block; /* Optional: Damit margin auto funktioniert */
-    /* margin-left: auto; */
-    /* margin-right: auto; */
-    margin-bottom: 20px; /* Abstand nach unten zu weiteren Elementen */
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        align-items: flex-start;
+        padding-top: 0vh;
+    }
+
+    #Web_1366__1 {
+        position: relative;
+        width: 100vw;
+        height: 0;
+        padding-bottom: 120%;
+        overflow: hidden;
+        margin-top: 10vh;
+    }
+
+    .box {
+        display: none !important;
+    }
+
+    .box[data-target] {
+        display: flex !important;
+        align-items: flex-start;
+        width: 40vw !important;
+        height: 15vh !important;
+        margin: 0 !important;
+        min-height: 10px;
+    }
+
+    #Rechteck_1 {
+        left: 6vw;
+        top: 0vh;
+        z-index: 2;
+        border-radius: 50px;
+    }
+
+    #Rechteck_2 {
+        left: 54vw;
+        top: 0vh;
+        z-index: 2;
+        border-radius: 50px;
+    }
+
+    #Rechteck_4 {
+        left: 6vw;
+        top: 20vh;
+        z-index: 2;
+        border-radius: 50px;
+    }
+
+    #Rechteck_8 {
+        left: 54vw;
+        top: 20vh;
+        z-index: 2;
+        border-radius: 50px;
+    }
+
+    #Rechteck_9 {
+        left: 6vw;
+        top: 40vh;
+        z-index: 2;
+        border-radius: 50px;
+    }
+
+    #Rechteck_10 {
+        left: 54vw;
+        top: 40vh;
+        z-index: 2;
+        border-radius: 50px;
+    }
+
+    #Rechteck_11 {
+        left: 6vw;
+        top: 60vh;
+        z-index: 2;
+        border-radius: 50px;
+    }
+
+    #Rechteck_14 {
+        left: 54vw;
+        top: 60vh;
+        z-index: 1;
+        border-radius: 50px;
+    }
+
+    #logos-logo {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 40%;
+    left: 35%;
+}
+
+#videos-logo {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 30%;
+    right: 15%;
+    transform: translateY(-50%);
+}
 }

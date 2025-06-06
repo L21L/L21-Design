@@ -1,20 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Select boxes that have a data-target attribute
     const clickableBoxes = document.querySelectorAll('.box[data-target]');
     const popup = document.getElementById('popup');
     const popupText = document.getElementById('popup-text');
     const closeButton = document.querySelector('.close-button');
     const popupContent = document.querySelector('.popup-content');
-
-    // Elemente für die Logo-Funktion
     const logo = document.getElementById('logo');
     const l21DesignText = document.getElementById('l21-design');
     const body = document.body;
-
-    // Zustand, um den aktuellen Stil zu verfolgen
-    let isCremeMode = true; // Changed this to true for default creme mode
-
-    // Add a CSS class to hide the hidden content divs
+    let isCremeMode = true;
     const style = document.createElement('style');
     style.innerHTML = '.popup-hidden-content { display: none; }';
     document.head.appendChild(style);
@@ -25,42 +18,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const hiddenContentElement = document.getElementById(targetId);
 
             if (hiddenContentElement) {
-                // Use innerHTML to preserve any HTML formatting within the hidden content
                 popupText.innerHTML = hiddenContentElement.innerHTML;
             } else {
                 popupText.textContent = 'No content found for this section.';
             }
 
-            // Get the color from the data-popup-color attribute
             const popupColor = box.getAttribute('data-popup-color');
-            // Get the text color from the data-text-color attribute
             const textColor = box.getAttribute('data-text-color');
 
-            // Apply the background color to the popup content
-        if (popupColor) {
-            // ÄNDERN SIE DIESE ZEILE:
-            popupContent.style.background = popupColor; // <--- DIESE ZEILE ÄNDERN
-        } else {
-            // FÜGEN SIE DIESE ZEILE HINZU (wenn sie nicht existiert):
-            popupContent.style.background = '';
-        }
+            if (popupColor) {
+                popupContent.style.background = popupColor;
+            } else {
+                popupContent.style.background = '';
+            }
 
-            // Apply the text color to the popup text
             if (textColor) {
                 popupText.style.color = textColor;
-                // Auch für die Kinder des popupText-Elements
                 Array.from(popupText.children).forEach(child => {
                     child.style.color = textColor;
                 });
-                // Setze die Farbe des Schließen-Buttons basierend auf der Textfarbe
                 closeButton.style.color = textColor;
             } else {
-                popupText.style.color = '#060606'; // Dunkelgrau als Fallback
+                popupText.style.color = '#060606';
                 Array.from(popupText.children).forEach(child => {
                     child.style.color = '#060606';
                 });
-                // Setze die Farbe des Schließen-Buttons auf den Standard
-                closeButton.style.color = '#fff'; // Standardmäßig weiß für den Close-Button
+                closeButton.style.color = '#fff';
             }
 
 
@@ -83,10 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 popupContent.style.height = 'auto';
                 popupContent.style.transform = 'translate(-50%, -50%)';
                 popupContent.style.opacity = '1';
-
-                // Reset scroll position when popup is opened
-                popupContent.scrollTop = 0; // For the scrollable content within popupContent
-                popupText.scrollTop = 0;    // If popupText itself has a scrollbar
+                popupContent.scrollTop = 0;
+                popupText.scrollTop = 0;
             });
 
             const previouslyOpenedBox = document.querySelector('.box[data-current-open="true"]');
@@ -120,12 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 Array.from(popupText.children).forEach(child => {
                     child.style.removeProperty('color');
                 });
-                // Setze die Farbe des Schließen-Buttons auf den Standard zurück
                 closeButton.style.removeProperty('color');
                 popupContent.removeEventListener('transitionend', handler);
                 clickedBox.removeAttribute('data-current-open');
-
-                // Reset scroll position when popup is closed
                 popupContent.scrollTop = 0;
                 popupText.scrollTop = 0;
             });
@@ -133,9 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             popup.style.display = 'none';
             popupContent.style.removeProperty('background-color');
             popupText.style.removeProperty('color');
-            // Setze die Farbe des Schließen-Buttons auf den Standard zurück
             closeButton.style.removeProperty('color');
-            // Reset scroll position even if no clickedBox
             popupContent.scrollTop = 0;
             popupText.scrollTop = 0;
         }
@@ -159,17 +135,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 popupContent.addEventListener('transitionend', function handler() {
                     popup.style.display = 'none';
                     popupContent.style.removeProperty('transition');
-                    // Entferne die inline gesetzte Hintergrundfarbe und Textfarbe
                     popupContent.style.removeProperty('background-color');
                     popupText.style.removeProperty('color');
                     Array.from(popupText.children).forEach(child => {
                         child.style.removeProperty('color');
                     });
-                    // Setze die Farbe des Schließen-Buttons auf den Standard zurück
                     closeButton.style.removeProperty('color');
                     popupContent.removeEventListener('transitionend', handler);
                     clickedBox.removeAttribute('data-current-open');
-                    // Reset scroll position when popup is closed by clicking outside
                     popupContent.scrollTop = 0;
                     popupText.scrollTop = 0;
                 });
@@ -177,9 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 popup.style.display = 'none';
                 popupContent.style.removeProperty('background-color');
                 popupText.style.removeProperty('color');
-                // Setze die Farbe des Schließen-Buttons auf den Standard zurück
                 closeButton.style.removeProperty('color');
-                // Reset scroll position even if no clickedBox
                 popupContent.scrollTop = 0;
                 popupText.scrollTop = 0;
             }
@@ -190,47 +161,35 @@ document.addEventListener('DOMContentLoaded', () => {
         event.stopPropagation();
     });
 
-    // --- NEUER CODE FÜR VOLLBILD-BILDER ---
-
-    // Erstelle das Vollbild-Overlay-Element
     const fullscreenOverlay = document.createElement('div');
     fullscreenOverlay.classList.add('fullscreen-overlay');
     document.body.appendChild(fullscreenOverlay);
-
-    // Event Listener für Klicks auf Bilder innerhalb des Popups
     popupText.addEventListener('click', (event) => {
-        // Überprüfen, ob das geklickte Element ein Bild ist und im 'image-grid' ist
         if (event.target.tagName === 'IMG' && event.target.closest('.image-grid')) {
             const imageUrl = event.target.src;
             const imgElement = document.createElement('img');
             imgElement.src = imageUrl;
-
-            // Entferne alle vorherigen Kinder und füge das neue Bild hinzu
             fullscreenOverlay.innerHTML = '';
             fullscreenOverlay.appendChild(imgElement);
-            fullscreenOverlay.style.display = 'flex'; // Zeigt das Overlay an
+            fullscreenOverlay.style.display = 'flex';
         }
     });
 
-    // Event Listener zum Schließen des Vollbild-Overlays
     fullscreenOverlay.addEventListener('click', () => {
-        fullscreenOverlay.style.display = 'none'; // Blendet das Overlay aus
-        fullscreenOverlay.innerHTML = ''; // Entfernt das Bild aus dem Overlay
+        fullscreenOverlay.style.display = 'none';
+        fullscreenOverlay.innerHTML = '';
     });
 
-    // --- NEUER CODE FÜR LOGO-KLICK ---
     logo.addEventListener('click', () => {
         if (isCremeMode) {
-            // Wechsel zurück zum dunklen Modus
             body.classList.remove('creme-bg');
-            l21DesignText.style.color = 'rgb(240, 231, 231)'; // Ursprüngliche Farbe
-            logo.src = 'Logo_weiß.png'; // Ursprüngliches Logo
+            l21DesignText.style.color = 'rgb(240, 231, 231)';
+            logo.src = 'Logo_weiß.png';
         } else {
-            // Wechsel zum cremefarbenen Modus
             body.classList.add('creme-bg');
-            l21DesignText.style.color = '#000000'; // Schwarze Schrift
-            logo.src = 'Logo_schwarz.png'; // Neues Logo (du musst diese Datei hinzufügen)
+            l21DesignText.style.color = '#000000';
+            logo.src = 'Logo_schwarz.png';
         }
-        isCremeMode = !isCremeMode; // Zustand umschalten
+        isCremeMode = !isCremeMode;
     });
 });
