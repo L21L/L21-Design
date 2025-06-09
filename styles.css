@@ -476,10 +476,10 @@ body.creme-bg {
 
 #logo {
     position: absolute;
-    height: 10vh;
+    height: 8vh;
     width: auto;
-    top: 0vh;
-    left: 2vw;
+    top: 1vh;
+    left: 1vw;
     z-index: 11;
     display: block;
 }
@@ -487,10 +487,10 @@ body.creme-bg {
 
 #l21-design {
     position: absolute;
-    height: 10vh;
+    height: 6vh;
     width: auto;
-    top: -1vh;
-    right: 2vw;
+    top: 2vh;
+    right: 1vw;
     z-index: 11;
     display: block;
 }
