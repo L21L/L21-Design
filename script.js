@@ -1,6 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
         const video = document.getElementById('introVideo');
     const videoOverlay = document.getElementById('video-overlay');
+        function isSmallScreen() {
+        return window.matchMedia('(max-width: 768px)').matches;
+    }
+
+    if (isSmallScreen()) {
+        // Wenn es ein kleiner Bildschirm ist, verstecke das Video-Overlay sofort
+        videoOverlay.style.display = 'none';
+        // Optional: Video pausieren und zurückspulen, um Ressourcen zu sparen
+        video.pause();
+        video.currentTime = 0;
+    }
     let fadeStartTime = 0;
     const fadeDuration = 300;
 
