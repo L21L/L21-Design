@@ -761,3 +761,87 @@ figure {
     object-fit: cover; /* Schneidet das Video zu, um den Container vollständig zu füllen, ohne die Proportionen zu verzerren */
 }
 
+/* Bestehendes CSS ... */
+
+/* Styling für die neuen Elemente im Image-Grid */
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Abstand zwischen Bild und Button */
+}
+
+.view-3d-button {
+    padding: 8px 16px;
+    background-color: #36454F; /* Passend zum Impressum-Button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.view-3d-button:hover {
+    background-color: #5b6b78;
+}
+
+/* Styling für das neue 3D-Modal */
+.modal-3d {
+    display: none; /* Standardmäßig versteckt */
+    position: fixed;
+    z-index: 200; /* Über dem normalen Popup */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-3d-content {
+    position: relative;
+    background-color: #2c2c2c;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90vw;
+    height: 90vh;
+    max-width: 1200px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.close-button-3d {
+    color: #fff;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close-button-3d:hover,
+.close-button-3d:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+
+#three-d-canvas-container {
+    flex-grow: 1; /* Nimmt den verfügbaren Platz ein */
+    min-height: 0; /* Wichtig für Flexbox-Layout */
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* ... Restliches CSS ... */

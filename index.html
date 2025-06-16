@@ -7,6 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>L21-Design</title>
     <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="styles.css" />
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+        }
+    }
+</script>
 </head>
 
 <body>
@@ -167,10 +175,19 @@
             <p style="text-align: center; font-style: italic; color: #000000;">
                 Lassen Sie uns Ihre Ideen in fesselnde Bewegung umsetzen!
             </p>
-            <div class="image-grid">
-                <img src="Bogen.png" alt="Bogen">
-                <img src="Seil2.png" alt="Seil">
-                <img src="Seil1.png" alt="Seil_fertig">
+         <div class="image-grid">
+                <div class="grid-item">
+                    <img src="Bogen.png" alt="Bogen">
+                    <button class="view-3d-button" data-model="test.glb">3D-Modell</button>
+                </div>
+                <div class="grid-item">
+                    <img src="Seil2.png" alt="Seil">
+                    <button class="view-3d-button" data-model="test.glb">3D-Modell</button>
+                </div>
+                <div class="grid-item">
+                    <img src="Seil1.png" alt="Seil_fertig">
+                    <button class="view-3d-button" data-model="test.glb">3D-Modell</button>
+                </div>
             </div>
             <h2>Animations-Videos:</h2>
             <div class="video-container">
@@ -574,8 +591,12 @@
                     <p>Quelle: <a href="https://www.e-recht24.de">https://www.e-recht24.de</a></p>
                     </p>
                 </div>
-
-                <script src="script.js"></script>
+        <div class="modal-3d">
+            <div class="modal-3d-content">
+                <span class="close-button-3d">&times;</span>
+                </div>
+        </div>
+                <script type="module" src="script.js"></script>
 </body>
 
 </html>
