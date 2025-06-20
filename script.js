@@ -248,11 +248,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isCremeMode) {
             body.classList.remove('creme-bg');
             l21DesignText.src = 'L21design_weiß.png';
-            logo.src = 'Logov2_weiß.png';
+            logo.src = 'Logo_weiß.png';
         } else {
             body.classList.add('creme-bg');
             l21DesignText.src = 'L21design_schwarz.png';
-            logo.src = 'Logov2_schwarz.png';
+            logo.src = 'Logo_schwarz.png';
         }
         isCremeMode = !isCremeMode;
     });
