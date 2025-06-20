@@ -581,7 +581,7 @@ html {
 }
 
 .popup-content::-webkit-scrollbar {
-    width: 0.4vw;
+    width: 0.7vw;
 }
 
 .popup-content::-webkit-scrollbar-track {
@@ -594,7 +594,7 @@ html {
 }
 
 .popup-content::-webkit-scrollbar-thumb:hover {
-    background: #444;
+    background: #272727;
 }
 
 #logo:hover {
@@ -763,3 +763,20 @@ figure {
     object-fit: cover; /* Schneidet das Video zu, um den Container vollständig zu füllen, ohne die Proportionen zu verzerren */
 }
 
+.modal {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal model-viewer {
+    position: absolute; /* Löst das Element aus dem normalen Layout-Fluss */
+    top: 5%;             /* Positioniert es ganz oben im Container */
+    left: 5%;            /* Positioniert es ganz links im Container */
+    width: 90%;        /* Gibt ihm die volle Breite des Containers */
+    height: 90%;       /* Gibt ihm die volle Höhe des Containers */
+}
