@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D-Viewer im Modal</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* === BUTTON STILE === */
+
+        /* Basis-Stil für alle Buttons */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px; /* Starke Abrundung für modernes Aussehen */
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .button svg {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Stil 1: Farbverlauf (Standard in diesem Beispiel) */
+        .btn-gradient {
+            background-image: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+        }
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 117, 252, 0.4);
+        }
+
+        /* Stil 2: Modern & Elegant (Deaktiviert) */
+        .btn-elegant {
+            background-color: #3e624c;
+            color: white;
+        }
+        .btn-elegant:hover {
+            background-color: #203d29;
+            transform: scale(1.05);
+        }
+        
+        /* Stil 3: "Neumorphic" / Weicher 3D-Effekt (Deaktiviert) */
+        .btn-neumorphic {
+            background: #f4f4f9;
+            color: #5c5c5c;
+            box-shadow: 7px 7px 15px #d1d1d6, -7px -7px 15px #ffffff;
+            border-radius: 25px;
+        }
+        .btn-neumorphic:hover {
+            box-shadow: 4px 4px 10px #d1d1d6, -4px -4px 10px #ffffff;
+            transform: scale(0.98);
+        }
+
+
+        /* === MODAL STILE (unverändert) === */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 80vh;
+            border-radius: 1vh;
+        }
+    </style>
+</head>
+<body>
+    <button id="openModalBtn" class="button btn-elegant">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.09-.34.13-.53.13s-.37-.04-.53-.13l-7.9-4.44C3.21 17.21 3 16.88 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.09.34-.13.53-.13s.37.04.53.13l7.9 4.44c.32.17.53.5.53.88v9zm-9-11.34l-6.23 3.5L12 12.16l6.23-3.5L12 5.16zM4.91 10.13L4.5 9.88v.01L11 13.6V20l-6.09-3.43zM13 20v-6.4l6.5-3.72v-.01l-.41.23L13 16.57V20z"/>
+        </svg>
+        3D-Modell
+    </button>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <model-viewer 
+                src="test.glb"
+                alt="Ein 3D-Modell"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1">
+            </model-viewer>
+        </div>
+    </div>
+
+<script>
+    // JavaScript ist unverändert
+    const modal = document.getElementById("myModal");
+    const btn = document.getElementById("openModalBtn");
+    const span = document.getElementsByClassName("close-button")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "flex";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
