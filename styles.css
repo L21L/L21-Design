@@ -780,3 +780,6 @@ figure {
     width: 90%;        /* Gibt ihm die volle Breite des Containers */
     height: 90%;       /* Gibt ihm die volle Höhe des Containers */
 }
+.ux {
+    text-align: center;
+}
