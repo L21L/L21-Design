@@ -1,643 +1,825 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="de">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L21-Design</title>
-    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="styles.css" />
-    <link rel="icon" type="image/png" href="Logo_favicon.png">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>L21 Design — by Lasse Sündermann</title>
+    <link rel="icon" type="image/png" href="Logo_favicon.png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"/>
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+        :root{
+            --blue:#3B8BD4;
+            --green:#1D9E75;
+            --yellow:#EF9F27;
+            --dark:#0a0a0a;
+            --dark2:#111;
+            --light:#f0efe8;
+            --text:#e8e6df;
+            --text-muted:#8a887f;
+            --font:'Outfit',sans-serif;
+            --serif:'Playfair Display',serif;
+        }
+
+        html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#333 var(--dark)}
+        body{font-family:var(--font);background:var(--dark);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+        /* ======== HERO / LOGO UNIVERSE ======== */
+        .hero{
+            position:relative;
+            width:100%;height:100vh;
+            display:flex;align-items:center;justify-content:center;
+            overflow:hidden;
+        }
+
+        .hero-bg{
+            position:absolute;inset:0;
+            background:radial-gradient(ellipse at 50% 50%,#111 0%,var(--dark) 70%);
+        }
+
+        /* Floating ambient particles */
+        .particle{
+            position:absolute;border-radius:50%;
+            filter:blur(40px);opacity:0.15;
+            animation:float-particle 12s ease-in-out infinite alternate;
+        }
+        .particle:nth-child(1){width:300px;height:300px;background:var(--blue);top:20%;left:15%;animation-delay:0s}
+        .particle:nth-child(2){width:250px;height:250px;background:var(--green);bottom:15%;right:20%;animation-delay:-4s}
+        .particle:nth-child(3){width:200px;height:200px;background:var(--yellow);top:60%;left:55%;animation-delay:-8s}
+
+        @keyframes float-particle{
+            0%{transform:translate(0,0) scale(1)}
+            100%{transform:translate(40px,-30px) scale(1.15)}
+        }
+
+        /* Center logo */
+        .logo-center{
+            position:relative;z-index:2;
+            display:flex;flex-direction:column;align-items:center;gap:1rem;
+        }
+        .logo-center img{
+            width:clamp(140px,22vw,260px);height:auto;
+            filter:drop-shadow(0 0 60px rgba(59,139,212,0.2));
+            animation:logo-breathe 6s ease-in-out infinite;
+        }
+        @keyframes logo-breathe{
+            0%,100%{transform:scale(1);filter:drop-shadow(0 0 60px rgba(59,139,212,0.15))}
+            50%{transform:scale(1.03);filter:drop-shadow(0 0 80px rgba(29,158,117,0.25))}
+        }
+
+        .logo-subtitle{
+            font-size:clamp(0.75rem,1.2vw,1rem);
+            letter-spacing:0.35em;text-transform:uppercase;
+            color:var(--text-muted);font-weight:300;
+        }
+
+        /* Orbiting navigation */
+        .orbit-ring{
+            position:absolute;z-index:3;
+            width:clamp(420px,60vw,800px);height:clamp(420px,60vw,800px);
+            border-radius:50%;
+            border:1px solid rgba(255,255,255,0.04);
+            animation:orbit-spin 90s linear infinite;
+        }
+        @keyframes orbit-spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
+        .orbit-ring{top:50%;left:50%;transform:translate(-50%,-50%)}
+
+        .orbit-item{
+            position:absolute;
+            width:clamp(90px,12vw,140px);height:clamp(90px,12vw,140px);
+            border-radius:50%;
+            display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;
+            background:rgba(255,255,255,0.03);
+            border:1px solid rgba(255,255,255,0.08);
+            backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            cursor:pointer;
+            transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
+            text-decoration:none;color:var(--text);
+            animation:counter-spin 90s linear infinite;
+        }
+        @keyframes counter-spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(-360deg)}}
+
+        .orbit-item:hover{
+            background:rgba(255,255,255,0.08);
+            border-color:rgba(255,255,255,0.2);
+            transform:translate(-50%,-50%) rotate(0deg) scale(1.15) !important;
+            box-shadow:0 0 40px rgba(59,139,212,0.2);
+        }
+        .orbit-item span{
+            font-size:clamp(0.6rem,1vw,0.8rem);
+            font-weight:500;letter-spacing:0.08em;
+            text-transform:uppercase;text-align:center;
+            line-height:1.3;
+        }
+        .orbit-item .orbit-dot{
+            width:6px;height:6px;border-radius:50%;
+            margin-bottom:2px;
+        }
+
+        /* Position items around the circle */
+        .orbit-item:nth-child(1){top:0%;left:50%}
+        .orbit-item:nth-child(2){top:14.6%;left:85.4%}
+        .orbit-item:nth-child(3){top:50%;left:100%}
+        .orbit-item:nth-child(4){top:85.4%;left:85.4%}
+        .orbit-item:nth-child(5){top:100%;left:50%}
+        .orbit-item:nth-child(6){top:85.4%;left:14.6%}
+        .orbit-item:nth-child(7){top:50%;left:0%}
+        .orbit-item:nth-child(8){top:14.6%;left:14.6%}
+
+        /* Scroll indicator */
+        .scroll-hint{
+            position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+            z-index:5;display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+            color:var(--text-muted);font-size:0.75rem;letter-spacing:0.15em;
+            animation:bounce-hint 2s ease-in-out infinite;
+        }
+        .scroll-hint svg{width:20px;height:20px;stroke:var(--text-muted);stroke-width:2;fill:none}
+        @keyframes bounce-hint{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+        /* ======== SECTIONS ======== */
+        .section{
+            position:relative;
+            min-height:100vh;
+            padding:clamp(4rem,10vh,8rem) clamp(1.5rem,5vw,6rem);
+            display:flex;flex-direction:column;justify-content:center;
+        }
+
+        .section-inner{
+            max-width:900px;width:100%;
+            margin:0 auto;
+        }
+
+        .section-label{
+            font-size:clamp(0.65rem,0.9vw,0.8rem);
+            letter-spacing:0.3em;text-transform:uppercase;
+            font-weight:500;margin-bottom:1rem;
+        }
+        .section-label.blue{color:var(--blue)}
+        .section-label.green{color:var(--green)}
+        .section-label.yellow{color:var(--yellow)}
+
+        .section-title{
+            font-family:var(--serif);
+            font-size:clamp(2.2rem,5vw,4rem);
+            font-weight:700;line-height:1.1;
+            margin-bottom:1.5rem;
+            color:#fff;
+        }
+
+        .section-text{
+            font-size:clamp(0.95rem,1.2vw,1.1rem);
+            line-height:1.75;color:var(--text-muted);
+            max-width:640px;
+        }
+        .section-text strong{color:var(--text);font-weight:500}
+
+        /* Accent line */
+        .accent-line{
+            width:60px;height:3px;border-radius:2px;
+            margin-bottom:2rem;
+        }
+        .accent-line.blue{background:var(--blue)}
+        .accent-line.green{background:var(--green)}
+        .accent-line.yellow{background:var(--yellow)}
+        .accent-line.mixed{background:linear-gradient(90deg,var(--blue),var(--green),var(--yellow))}
+
+        /* Divider between sections */
+        .section + .section::before{
+            content:'';display:block;
+            width:1px;height:80px;
+            background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.08),transparent);
+            margin:0 auto 0;
+            position:absolute;top:0;left:50%;
+        }
+
+        /* ======== POPUP / DETAIL VIEW ======== */
+        .detail-overlay{
+            position:fixed;inset:0;z-index:1000;
+            background:rgba(0,0,0,0);
+            backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);
+            pointer-events:none;
+            transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
+            display:flex;align-items:center;justify-content:center;
+        }
+        .detail-overlay.active{
+            background:rgba(0,0,0,0.75);
+            backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+            pointer-events:all;
+        }
+
+        .detail-panel{
+            width:90vw;max-width:680px;
+            max-height:85vh;overflow-y:auto;
+            border-radius:20px;
+            padding:clamp(2rem,4vw,3rem);
+            transform:scale(0.9) translateY(30px);
+            opacity:0;
+            transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
+            scrollbar-width:thin;scrollbar-color:#555 transparent;
+        }
+        .detail-overlay.active .detail-panel{
+            transform:scale(1) translateY(0);
+            opacity:1;
+        }
+
+        .detail-panel h2{
+            font-family:var(--serif);
+            font-size:clamp(1.6rem,3vw,2.2rem);
+            font-weight:700;margin-bottom:1.2rem;
+            color:#000;
+        }
+        .detail-panel p{
+            font-size:0.95rem;line-height:1.75;
+            margin-bottom:1rem;color:#333;
+        }
+        .detail-panel strong{font-weight:600;color:#111}
+        .detail-panel h3{font-size:1.1rem;margin:1.5rem 0 0.8rem;color:#111;font-weight:600}
+        .detail-panel h4{font-size:1rem;margin:1.2rem 0 0.6rem;color:#222;font-weight:600}
+
+        .detail-close{
+            position:sticky;top:0;float:right;
+            width:36px;height:36px;border-radius:50%;
+            background:rgba(0,0,0,0.06);border:none;
+            display:flex;align-items:center;justify-content:center;
+            cursor:pointer;z-index:10;font-size:1.2rem;color:#333;
+            transition:background 0.2s;
+        }
+        .detail-close:hover{background:rgba(0,0,0,0.12)}
+
+        /* Color themes for detail panels */
+        .detail-panel.theme-blue{background:linear-gradient(135deg,#e6f1fb,#d0e7f9)}
+        .detail-panel.theme-green{background:linear-gradient(135deg,#e1f5ee,#c8eddf)}
+        .detail-panel.theme-yellow{background:linear-gradient(135deg,#faeeda,#f5e0c0)}
+        .detail-panel.theme-pink{background:linear-gradient(135deg,#fbeaf0,#f4d0dd)}
+        .detail-panel.theme-purple{background:linear-gradient(135deg,#eeedfe,#ddd9f8)}
+        .detail-panel.theme-coral{background:linear-gradient(135deg,#faece7,#f5d4c8)}
+        .detail-panel.theme-dark{background:linear-gradient(135deg,#2a2a2a,#1a1a1a)}
+        .detail-panel.theme-dark h2,.detail-panel.theme-dark h3,.detail-panel.theme-dark p,
+        .detail-panel.theme-dark strong,.detail-panel.theme-dark h4,.detail-panel.theme-dark li,
+        .detail-panel.theme-dark summary,.detail-panel.theme-dark a{color:#e0ded8}
+        .detail-panel.theme-dark .detail-close{color:#ccc;background:rgba(255,255,255,0.08)}
+
+        /* Image grid inside detail */
+        .detail-panel .image-grid{
+            display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+            gap:12px;margin:1rem 0;
+        }
+        .detail-panel .image-grid img{
+            width:100%;height:auto;border-radius:8px;cursor:pointer;
+            transition:transform 0.3s;
+        }
+        .detail-panel .image-grid img:hover{transform:scale(1.03)}
+
+        /* Video container */
+        .detail-panel .video-container{
+            position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
+            margin:1rem 0;border-radius:12px;
+        }
+        .detail-panel .video-container video,
+        .detail-panel .video-container iframe{
+            position:absolute;top:0;left:0;width:100%;height:100%;
+        }
+
+        /* UX iframe */
+        .detail-panel .ux{text-align:center;margin:1rem 0}
+        .detail-panel .ux iframe{border:none;border-radius:12px;max-width:100%}
+
+        .detail-panel .modal{
+            position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
+            margin:1rem 0;border-radius:12px;
+        }
+        .detail-panel .modal model-viewer{
+            position:absolute;top:0;left:0;width:100%;height:100%;
+        }
+
+        /* ======== FULLSCREEN IMAGE ======== */
+        .fullscreen-img{
+            position:fixed;inset:0;z-index:2000;
+            background:rgba(0,0,0,0.92);
+            display:none;align-items:center;justify-content:center;
+            cursor:zoom-out;
+        }
+        .fullscreen-img.active{display:flex}
+        .fullscreen-img img{max-width:90%;max-height:90%;object-fit:contain;border-radius:8px}
+
+        /* ======== HEADER ======== */
+        .site-header{
+            position:fixed;top:0;left:0;width:100%;z-index:50;
+            padding:1rem clamp(1rem,3vw,2rem);
+            display:flex;justify-content:space-between;align-items:center;
+            mix-blend-mode:difference;
+        }
+        .site-header img{height:clamp(28px,4vh,42px);width:auto}
+
+        /* ======== FOOTER ======== */
+        .site-footer{
+            text-align:center;
+            padding:3rem 1rem;
+            color:var(--text-muted);font-size:0.8rem;
+            border-top:1px solid rgba(255,255,255,0.05);
+        }
+        .site-footer a{color:var(--text-muted);text-decoration:underline}
+
+        /* ======== ANIMATIONS ======== */
+        .fade-in{
+            opacity:0;transform:translateY(30px);
+            transition:opacity 0.8s ease,transform 0.8s ease;
+        }
+        .fade-in.visible{opacity:1;transform:translateY(0)}
+
+        /* ======== RESPONSIVE ======== */
+        @media(max-width:768px){
+            .orbit-ring{
+                width:340px;height:340px;
+                animation:none;
+            }
+            .orbit-item{
+                width:72px;height:72px;
+                animation:none;
+            }
+            .orbit-item span{font-size:0.55rem}
+            .section{min-height:auto;padding:4rem 1.5rem}
+        }
+
+        @media(max-width:480px){
+            .orbit-ring{width:280px;height:280px}
+            .orbit-item{width:60px;height:60px}
+            .orbit-item span{font-size:0.5rem}
+        }
+
+        /* Impressum specifics */
+        .detail-panel ul{margin:0.5rem 0 0.5rem 1.5rem;color:#333}
+        .detail-panel.theme-dark ul{color:#ccc}
+        .detail-panel li{margin-bottom:0.3rem;font-size:0.9rem;line-height:1.6}
+        .detail-panel a{color:var(--blue)}
+        .detail-panel.theme-dark a{color:#7cb8e8}
+    </style>
 </head>
-
 <body>
-    <div id="video-overlay">
-        <video id="introVideo" preload="auto" autoplay muted playsinline>
-            <source src="Intro.mp4" type="video/mp4">
-            Dein Browser unterstützt das Video-Tag nicht.
-        </video>
+
+<!-- Header -->
+<header class="site-header">
+    <img src="Logo_weiß_Final.png" alt="L21 Design Logo" id="header-logo"/>
+    <img src="L21design_weiß.png" alt="L21 Design" style="height:clamp(22px,3vh,32px)"/>
+</header>
+
+<!-- Hero: Logo Universe -->
+<section class="hero">
+    <div class="hero-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
-    <div id="header-container">
-        <img id="logo" src="Logo_weiß.png" alt="L21 Design Logo">
-        <a href="football-simulator.html" target="_blank" rel="noopener noreferrer">
-            <img id="l21-design" src="L21design_weiß.png" alt="L21 Design"></a>
+
+    <div class="logo-center">
+        <img src="Logo_weiß_Final.png" alt="L21 Design Logo"/>
+        <span class="logo-subtitle">Medienkonzeption &amp; Design</span>
     </div>
-    <div id="Web_1366__1">
-        <div id="Rechteck_1" class="box pink" data-target="content-conception"
-            data-popup-color="var(--gradient-pink-red)" data-text-color="#000000">
-            <img id="conception-logo" src="konzeption.png" alt="conception Logo">
+
+    <div class="orbit-ring" id="orbit">
+        <a href="#sec-konzeption" class="orbit-item" data-detail="content-conception">
+            <span class="orbit-dot" style="background:var(--blue)"></span>
+            <span>Konzeption</span>
+        </a>
+        <a href="#sec-ux" class="orbit-item" data-detail="content-ux-design">
+            <span class="orbit-dot" style="background:var(--green)"></span>
+            <span>UX Design</span>
+        </a>
+        <a href="#sec-animation" class="orbit-item" data-detail="content-animation">
+            <span class="orbit-dot" style="background:var(--blue)"></span>
+            <span>Animation</span>
+        </a>
+        <a href="#sec-logos" class="orbit-item" data-detail="content-logos">
+            <span class="orbit-dot" style="background:var(--green)"></span>
+            <span>Logos</span>
+        </a>
+        <a href="#sec-videos" class="orbit-item" data-detail="content-videos">
+            <span class="orbit-dot" style="background:var(--yellow)"></span>
+            <span>Videos</span>
+        </a>
+        <a href="#sec-storytelling" class="orbit-item" data-detail="content-storytelling">
+            <span class="orbit-dot" style="background:var(--yellow)"></span>
+            <span>Storytelling</span>
+        </a>
+        <a href="#sec-about" class="orbit-item" data-detail="content-about-me">
+            <span class="orbit-dot" style="background:var(--blue)"></span>
+            <span>Über mich</span>
+        </a>
+        <a href="#sec-impressum" class="orbit-item" data-detail="content-impressum">
+            <span class="orbit-dot" style="background:var(--text-muted)"></span>
+            <span>Impressum</span>
+        </a>
+    </div>
+
+    <div class="scroll-hint">
+        <span>Scroll</span>
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+</section>
+
+<!-- Sections -->
+<section class="section" id="sec-konzeption">
+    <div class="section-inner fade-in">
+        <span class="section-label blue">01</span>
+        <div class="accent-line blue"></div>
+        <h2 class="section-title">Konzeption</h2>
+        <div class="section-text">
+            <p>Am Anfang steht die Idee. Doch was kommt dann? Als <strong>Medienkonzeptionist</strong> (Bachelor of Arts)
+            übersetze ich Visionen in konkrete Strategien — detaillierte Pläne, die Medienprojekte visuell ansprechend,
+            funktional und zielgruppenorientiert machen.</p>
+            <p style="margin-top:1rem">Das Konzept ist der Fahrplan, der aus einer Skizze ein Meisterwerk entstehen lässt.</p>
         </div>
-        <div id="Rechteck_2" class="box light-green" data-target="content-ux-design"
-            data-popup-color="var(--gradient-green-yellow)" data-text-color="#000000">
-            <span id="ux-_design">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ux-<br>design.</span>
+        <button class="detail-btn" data-detail="content-conception" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(59,139,212,0.3);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Mehr erfahren →
+        </button>
+    </div>
+</section>
+
+<section class="section" id="sec-ux">
+    <div class="section-inner fade-in">
+        <span class="section-label green">02</span>
+        <div class="accent-line green"></div>
+        <h2 class="section-title">UX / UI Design</h2>
+        <div class="section-text">
+            <p>Als <strong>UX Designer</strong> konzentriere ich mich darauf, Produkte so zu entwickeln, dass sie einfach,
+            effizient und angenehm zu bedienen sind. Der <strong>UI-Part</strong> gibt dem Ganzen ein Gesicht —
+            Farben, Schriften, Layouts und interaktive Elemente, die intuitiv führen.</p>
         </div>
-        <div id="Rechteck_3" class="box yellow"></div>
-        <div id="Rechteck_4" class="box light-blue" data-target="content-animation"
-            data-popup-color="var(--gradient-blue-lightBlue)" data-text-color="#000000">
-            <img id="animation-logo" src="Unbenannt-1.png" alt="Animation Logo">
+        <button class="detail-btn" data-detail="content-ux-design" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(29,158,117,0.3);color:var(--green);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Projekte ansehen →
+        </button>
+    </div>
+</section>
+
+<section class="section" id="sec-animation">
+    <div class="section-inner fade-in">
+        <span class="section-label blue">03</span>
+        <div class="accent-line blue"></div>
+        <h2 class="section-title">Animation</h2>
+        <div class="section-text">
+            <p>Stehende Bilder zum Leben erwecken — in <strong>2D und 3D</strong>. Mit Blender und After Effects
+            visualisiere ich komplexe Szenen, animiere Figuren und verwandle Daten in fesselnde Bilder.</p>
         </div>
-        <div id="Rechteck_5" class="box orange"></div>
-        <div id="Rechteck_6" class="box olive"></div>
-        <div id="Rechteck_7" class="box blue"></div>
-        <div id="Rechteck_8" class="box pink" data-target="content-logos"
-            data-popup-color="var(--gradient-darkGreen-white)" data-text-color="#FFFFFF">
-            <img id="logos-logo" src="logos.png" alt="Logos Logo">
+        <button class="detail-btn" data-detail="content-animation" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(59,139,212,0.3);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Animationen ansehen →
+        </button>
+    </div>
+</section>
+
+<section class="section" id="sec-logos">
+    <div class="section-inner fade-in">
+        <span class="section-label green">04</span>
+        <div class="accent-line green"></div>
+        <h2 class="section-title">Logos</h2>
+        <div class="section-text">
+            <p>Ein Logo ist das <strong>Herzstück der visuellen Identität</strong>. Ich entwickle einzigartige, einprägsame
+            Zeichen, die den Kern einer Marke einfangen und eine starke Verbindung zur Zielgruppe aufbauen.</p>
         </div>
-        <div id="Rechteck_9" class="box orange" data-target="content-storytelling"
-            data-popup-color="var(--gradient-darkBlue-purple)" data-text-color="#FFFFFF">
-            <img id="storytelling-logo" src="Storytelling.png" alt="Storytelling Logo">
+        <button class="detail-btn" data-detail="content-logos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(29,158,117,0.3);color:var(--green);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Entwürfe ansehen →
+        </button>
+    </div>
+</section>
+
+<section class="section" id="sec-videos">
+    <div class="section-inner fade-in">
+        <span class="section-label yellow">05</span>
+        <div class="accent-line yellow"></div>
+        <h2 class="section-title">Videos</h2>
+        <div class="section-text">
+            <p>Licht, Kamera, Schnitt, Vertonung — von der ersten Aufnahme bis zum fertigen Produkt.
+            Praktische Erfahrung aus der professionellen Filmproduktion fließt in jedes Projekt.</p>
         </div>
-        <div id="Rechteck_10" class="box yellow" data-target="content-about-me"
-            data-popup-color="var(--gradient-magenta-orange)" data-text-color="#FFFFFF">
-            <img id="about-me-logo" src="aboutme.png" alt="About Me Logo">
+        <button class="detail-btn" data-detail="content-videos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(239,159,39,0.3);color:var(--yellow);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Videos ansehen →
+        </button>
+    </div>
+</section>
+
+<section class="section" id="sec-storytelling">
+    <div class="section-inner fade-in">
+        <span class="section-label yellow">06</span>
+        <div class="accent-line yellow"></div>
+        <h2 class="section-title">Storytelling</h2>
+        <div class="section-text">
+            <p>Eine gut erzählte <strong>Geschichte</strong> ist der Schlüssel zum Erfolg. Ich entwickle
+            einzigartige Erzählungen, schreibe Drehbücher und schaffe das Fundament für fesselnde Filme und Projekte.</p>
         </div>
-        <div id="Rechteck_11" class="box light-pink" data-target="content-videos"
-            data-popup-color="var(--gradient-yellow-orange)" data-text-color="#000000">
-            <img id="videos-logo" src="videos.png" alt="Videos Logo">
+        <button class="detail-btn" data-detail="content-storytelling" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(239,159,39,0.3);color:var(--yellow);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Texte lesen →
+        </button>
+    </div>
+</section>
+
+<section class="section" id="sec-about">
+    <div class="section-inner fade-in">
+        <span class="section-label blue">07</span>
+        <div class="accent-line mixed"></div>
+        <h2 class="section-title">Über mich</h2>
+        <div class="section-text">
+            <p><strong>Lasse Sündermann</strong> — vielseitiger Mediendesigner mit Expertise in Videoproduktion,
+            3D/2D-Animation, Webdesign und Konzeption. Studium der Medienkonzeption, abgeschlossen 2024.</p>
         </div>
-        <div id="Rechteck_12" class="box light-blue"></div>
-        <div id="Rechteck_13" class="box light-green"></div>
-        <div id="Rechteck_14" class="box red" data-target="content-impressum"
-            data-popup-color="var(--gradient-darkGray-white)" data-text-color="#FFFFFF">
-            <img id="impressum-logo" src="Impressum.png" alt="Impressum und Datenschutz">
+        <button class="detail-btn" data-detail="content-about-me" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(59,139,212,0.3);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Mehr über mich →
+        </button>
+    </div>
+</section>
+
+<section class="section" id="sec-impressum">
+    <div class="section-inner fade-in" style="text-align:center">
+        <button class="detail-btn" data-detail="content-impressum" style="padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--text-muted);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Impressum & Datenschutz
+        </button>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <p>&copy; 2025 L21 Design — Lasse Sündermann</p>
+</footer>
+
+<!-- Detail Overlay -->
+<div class="detail-overlay" id="detailOverlay">
+    <div class="detail-panel" id="detailPanel">
+        <button class="detail-close" id="detailClose">&times;</button>
+        <div id="detailContent"></div>
+    </div>
+</div>
+
+<!-- Fullscreen image viewer -->
+<div class="fullscreen-img" id="fullscreenImg">
+    <img src="" alt="Fullscreen"/>
+</div>
+
+<!-- Hidden content blocks (same as original) -->
+<div style="display:none">
+    <div id="content-conception">
+        <h2>Konzeption</h2>
+        <p>Am Anfang steht erstmal die Idee. Doch was kommt dann? Wie kann aus dieser Idee ein beeindruckendes
+        Medienprodukt werden? Hier kommt die <strong>Konzeption</strong> ins Spiel. Ein gutes Konzept bündelt nicht nur
+        die Ideen und Visionen, sondern sorgt auch für Struktur. Und diese Struktur ist essenziell für eine reibungslose
+        Erschaffung von Medieninhalten.</p>
+        <p>Als <strong>Medienkonzeptionist</strong> (Bachelor of Arts) bin ich der Architekt Ihres Medienprodukts. Sei es
+        eine intuitive Benutzeroberfläche, eine ansprechende Gestaltung oder eine technisch hervorragende Funktionalität.
+        Für all dies lege ich den ersten Grundstein. Ich übersetze Ihre Visionen in konkrete Strategien, entwerfe detaillierte
+        Pläne und sorge dafür, dass Ihr Medienprojekt nicht nur visuell ansprechend, sondern auch funktional und
+        zielgruppenorientiert ist.</p>
+        <p>Das Konzept ist die wichtigste Säule bei der Schöpfung neuer Medieninhalte. Es ist der Fahrplan, der aus einer
+        Skizze ein Meisterwerk entstehen lässt, der die Komplexität reduziert und den gesamten Schaffensprozess
+        zielgerichtet und effizient gestaltet.</p>
+        <p><em>Ein gutes Konzept ist wie eine gute IKEA-Anleitung. Es vereinfacht den weiteren Aufbau enorm.</em></p>
+    </div>
+
+    <div id="content-ux-design">
+        <h2>UX/UI Design</h2>
+        <p>Als <strong>UX (User Experience) Designer</strong> konzentriere ich mich darauf, Produkte und Services so zu
+        entwickeln, dass sie einfach, effizient und angenehm zu bedienen und nutzen sind. Mir geht es darum, die
+        <strong>Bedürfnisse der Nutzenden</strong> zu verstehen. Darauf aufbauend gestalte ich dann Lösungen, die eine
+        positive und intuitive Nutzungserfahrung bieten.</p>
+        <p>Der <strong>UI (User Interface) Designer</strong> Part von mir kümmert sich um die visuelle und interaktive
+        Gestaltung der Oberfläche. Farben, Schriften, Layouts und interaktive Elemente. Das Ziel ist immer eine Oberfläche,
+        die nicht nur gut aussieht, sondern auch logisch aufgebaut ist und die Nutzenden intuitiv durch die Anwendung führt.
+        <strong>UX und UI gehen Hand in Hand</strong>.</p>
+        <h3>Projekte</h3>
+        <h4>HFU-App</h4>
+        <p>Während meines Studiums habe ich an der Konzeption und Gestaltung einer App gearbeitet, die den Studierenden
+        das Leben erleichtern soll — verschiedene wichtige Uni-Dienste wie <strong>FELIX, das Intranet und studentische
+        E-Mails</strong> in einer zentralen, einfach zu bedienenden Oberfläche.</p>
+        <div class="ux">
+            <iframe width="375" height="812" src="https://xd.adobe.com/embed/6bb5b95a-6a33-4f6f-94e3-ca0e837657aa-3ee6/?fullscreen" allowfullscreen></iframe>
         </div>
-
-        <div id="popup" class="popup">
-            <div class="popup-content">
-                <span class="close-button">&times;</span>
-                <p id="popup-text"></p>
-            </div>
+        <h4>Interface-Design für autonome Fahrzeuge</h4>
+        <p>Interface-Design für ein <strong>selbstfahrendes Auto im Jahr 2050</strong> — eine Vision für zukünftige
+        Mobilität in einer intuitiven Benutzeroberfläche.</p>
+        <div class="ux">
+            <iframe width="576" height="324" src="https://xd.adobe.com/embed/a9c36d46-1034-45cc-8797-bb82130a4ae7-fc90/?fullscreen" allowfullscreen></iframe>
         </div>
-        <div id="content-conception" class="popup-hidden-content"
-            style="font-family: 'Arial', sans-serif; line-height: 1.6; color: #000000;">
-            <h2 style="text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.8em;">
-                Konzeption
-            </h2>
-            <p style="margin-bottom: 15px;">
-                Am Anfang steht erstmal die Idee. Doch was kommt dann? Wie kann aus dieser Idee ein beeindruckendes
-                Medienprodukt werden?
-                Hier kommt die <b>Konzeption</b> ins Spiel. Ein gutes Konzept bündelt nicht nur die Ideen und Visionen,
-                sondern sorgt auch für Struktur.
-                Und diese Struktur ist essenziel für eine reibungslose Erschaffung von Medieninhalten.
-            </p>
-            <p style="margin-bottom: 15px;">
-                Als <b>Medienkonzeptionist</b> (Bachelor of Arts) bin ich der Architekt Ihres Medienprodukts. Sei es
-                eine intuitive Benutzeroberfläche,
-                eine ansprechende Gestaltung oder eine technisch hervorragende Funktionalität. Für all dies lege ich den
-                ersten Grundstein.
-                Ich übersetze Ihre Visionen in konkrete Strategien, entwerfe detaillierte Pläne und sorge dafür, dass
-                Ihr Medienprojekt nicht nur visuell
-                ansprechend, sondern auch funktional und zielgruppenorientiert ist. So wird aus einer bloßen Idee ein
-                greifbares und wirkungsvolles Erlebnis.
-            </p>
-            <p style="margin-bottom: 15px;">
-                Das Konzept ist die wichtigste Säule bei der Schöpfung neuer Medieninhalte.
-                Es ist der Fahrplan, der aus einer Skizze ein Meisterwerk entstehen lässt, der die Komplexität reduziert
-                und den gesamten Schaffensprozess
-                zielgerichtet und effizient gestaltet.
-            </p>
-            <p style="text-align: center; font-style: italic; color: #000000;">
-                Ein gutes Konzept ist wie eine gute IKEA-Anleitung. Es vereinfacht den weiteren Aufbau enorm.
-            </p>
+    </div>
+
+    <div id="content-animation">
+        <h2>Animation</h2>
+        <p>Animation ist die Kunst, <strong>stehende Bilder zum Leben zu erwecken</strong> und Geschichten durch Bewegung
+        zu erzählen. <strong>Bewegte Inhalte ziehen die Aufmerksamkeit an</strong> und bringen Botschaften auf eine ganz
+        besondere Art rüber.</p>
+        <p>Ich habe solides Wissen in der <strong>2D- und 3D-Animation</strong> sowie im <strong>3D-Modellieren</strong>.
+        Meine Hauptwerkzeuge sind <strong>Blender</strong> und <strong>Adobe After Effects</strong>.</p>
+        <div class="modal">
+            <model-viewer src="test.glb" alt="Ein 3D-Modell" camera-controls auto-rotate shadow-intensity="1" autoplay animation-name="ArmatureAction"></model-viewer>
         </div>
-        <div id="content-ux-design" class="popup-hidden-content"
-            style="font-family: 'Arial', sans-serif; line-height: 1.6; color: #000000;">
-            <h2 style="text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.8em;">
-                UX/UI Design</h2>
-
-                <p>Als <strong>UX (User Experience) Designer</strong> konzentriere ich mich darauf, Produkte und
-                    Services so zu entwickeln, dass sie einfach, effizient und angenehm zu bedienen und nutzen sind. Mir geht es
-                    darum, die <strong>Bedürfnisse der Nutzenden</strong> zu verstehen.
-                    Darauf aufbauend gestalte ich dann Lösungen, die eine positive und intuitive Nutzungserfahrung bieten.
-                    Ich denke dabei über die gesamte Reise der Nutzenden nach, von der ersten Berührung
-                    mit einem Produkt bis zur regelmäßigen Nutzung.</p>
-
-                <p>Der <strong>UI (User Interface) Designer</strong> Part von mir kümmert sich um die visuelle und
-                    interaktive Gestaltung der Oberfläche. Hier geht's um das Aussehen: Farben, Schriften, Layouts und
-                    wie interaktive Elemente wie Buttons und Menüs aussehen und funktionieren. Das Ziel ist immer eine
-                    Oberfläche, die nicht nur gut aussieht, sondern auch logisch aufgebaut ist und die Nutzenden intuitiv durch
-                    die Anwendung führt. <strong>UX und UI gehen Hand in Hand</strong>: UX definiert, was gebraucht
-                    wird, und UI gibt dem Ganzen dann ein Gesicht und ein Gefühl.</p>
-
-                <h3>Projekte</h3>
-
-                <h4>HFU-App</h4>
-                <p>Während meines Studiums habe ich an der Konzeption und Gestaltung einer App gearbeitet, die den
-                    Studierenden das Leben erleichtern soll. Diese App soll verschiedene wichtige Uni-Dienste wie <strong>FELIX, das Intranet und studentische E-Mails</strong>
-                    in einer zentralen, einfach zu bedienenden Oberfläche zusammenführen.</p>
-                <div class="ux">
-                    <iframe width="375" height="812" src="https://xd.adobe.com/embed/6bb5b95a-6a33-4f6f-94e3-ca0e837657aa-3ee6/?fullscreen" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <h4>Interface-Design für autonome Fahrzeuge</h4>
-                <p>Das nachfolgende Design bietet Einblick in ein weiteres Studienprojekt: das
-                    Interface-Design für ein <strong>selbstfahrendes Auto im Jahr 2050</strong>. Hier ging es darum,
-                    eine Vision für zukünftige Mobilität zu entwickeln und diese in einer intuitiven Benutzeroberfläche
-                    darzustellen.</p>
-                <div class="ux">
-<iframe width="576" height="324" src="https://xd.adobe.com/embed/a9c36d46-1034-45cc-8797-bb82130a4ae7-fc90/?fullscreen" frameborder="0" allowfullscreen></iframe>
-                </div>
+        <div class="video-container">
+            <video controls><source src="psycho.mp4" type="video/mp4"></video>
         </div>
-        <div id="content-animation" class="popup-hidden-content"
-            style="font-family: 'Arial', sans-serif; line-height: 1.6; color: #000000;">
-            <h2 style="text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.8em;">
-                Animation
-            </h2>
-            <p>Animation ist die Kunst, <strong>stehende Bilder zum Leben zu erwecken</strong> und Geschichten durch
-                Bewegung zu erzählen. Egal ob für Erklärvideos, Produkt-Demos, interaktive Elemente oder Filmsequenzen,
-                <strong>bewegte Inhalte ziehen die Aufmerksamkeit an</strong> und bringen Botschaften auf eine
-                ganz besondere Art rüber.</p>
-
-            <p>Ich habe solides Wissen und praktische Erfahrung in der <strong>2D- und 3D-Animation</strong> sowie im
-                <strong>3D-Modellieren</strong>. Das hilft mir, Konzepte nicht nur gut aussehen zu lassen, sondern sie
-                auch <strong>dynamisch und erlebbar</strong> zu machen.
-            </p>
-
-            <p>Meine Hauptwerkzeuge sind <strong>Blender</strong> für vielseitiges 3D-Modellieren und Animieren sowie
-                <strong>Adobe After Effects</strong> für professionelle 2D-Animationen, Bewegtgrafiken und die
-                Nachbearbeitung. Mit diesen Programmen kann ich komplexe Szenen visualisieren, Figuren animieren oder
-                Daten in fesselnde Bilder verwandeln.
-            </p>
-                                    <div id="myModal" class="modal">
-                <model-viewer src="test.glb" alt="Ein 3D-Modell" camera-controls auto-rotate shadow-intensity="1" autoplay animation-name="ArmatureAction">
-</model-viewer>
-            </div>
-            <div class="video-container">
-                <video controls>
-                    <source src="psycho.mp4" type="video/mp4">
-                    Dein Browser unterstützt dieses Videoformat nicht.
-                </video>
-            </div>
-            <div class="video-container">
-                <video controls>
-                    <source src="Animation1.mp4" type="video/mp4">
-                    Dein Browser unterstützt dieses Videoformat nicht.
-                </video>
-            </div>
-            <div id="myModal" class="modal">
-                <model-viewer src="mar.glb" alt="Ein 3D-Modell" camera-controls auto-rotate
-                    shadow-intensity="1">
-                </model-viewer>
-            </div>
-                        <div class="video-container">
-                <video controls>
-                    <source src="Ball_Animation.mp4" type="video/mp4">
-                    Dein Browser unterstützt dieses Videoformat nicht.
-                </video>
-            </div>
+        <div class="video-container">
+            <video controls><source src="Animation1.mp4" type="video/mp4"></video>
         </div>
-        <div id="content-logos" class="popup-hidden-content"
-            style="font-family: 'Arial', sans-serif; line-height: 1.6; color: #000000;">
-            <h2 style="text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.8em;">
-                Logos</h2>
+        <div class="modal">
+            <model-viewer src="mar.glb" alt="Ein 3D-Modell" camera-controls auto-rotate shadow-intensity="1"></model-viewer>
+        </div>
+        <div class="video-container">
+            <video controls><source src="Ball_Animation.mp4" type="video/mp4"></video>
+        </div>
+    </div>
 
-            <p>Ein Logo ist viel mehr als nur ein Bild. Es ist das <strong>Herzstück der visuellen
-                    Identität</strong> einer Firma oder Marke. Es ist der erste Eindruck, ein Versprechen und der
-                optische Anker, der im Gedächtnis bleibt. Ein gutes Logo vermittelt Werte, Gefühle und
-                Professionalität, oft mit nur wenigen Linien und Farben.</p>
+    <div id="content-logos">
+        <h2>Logos</h2>
+        <p>Ein Logo ist viel mehr als nur ein Bild. Es ist das <strong>Herzstück der visuellen Identität</strong> einer
+        Firma oder Marke. Ein gutes Logo vermittelt Werte, Gefühle und Professionalität, oft mit nur wenigen Linien und Farben.</p>
+        <p>Ich entwickle mit Leidenschaft Logos, die nicht nur gut aussehen, sondern auch den Kern einer Marke einfangen —
+        einzigartige und einprägsame Zeichen, die eine <strong>starke Verbindung zur Zielgruppe</strong> aufbauen.</p>
+        <h3>Ausgewählte Entwürfe</h3>
+        <p>Die ersten beiden Bilder zeigen mein <strong>eigenes Logo</strong>. Die anderen zeigen <strong>Ideen</strong>,
+        die ich ausprobiert habe.</p>
+        <div class="image-grid">
+            <img src="Logo_weiß_Final.png" alt="Logo hell"/>
+            <img src="Logo_Final.png" alt="Logo dunkel"/>
+            <img src="Logo_L21.png" alt="Logo Variante 1"/>
+            <img src="Logo_L21v2.png" alt="Logo Variante 2"/>
+            <img src="Logo_L21v3.png" alt="Logo Variante 3"/>
+            <img src="Logo_L21v4.png" alt="Logo Variante 4"/>
+        </div>
+        <p><em>Starke Marken beginnen mit einem starken Logo.</em></p>
+    </div>
 
-            <p>Ich entwickle mit Leidenschaft Logos, die nicht nur gut aussehen, sondern auch den Kern einer Marke
-                einfangen. Es ist meine Aufgabe, einzigartige und einprägsame Zeichen zu schaffen, die lange
-                relevant bleiben und eine <strong>starke Verbindung zur Zielgruppe</strong> aufbauen.</p>
+    <div id="content-videos">
+        <h2>Videos</h2>
+        <p>Die Welt des Videos finde ich unglaublich spannend, weil man damit Botschaften nicht nur rüberbringt, sondern
+        sie für Zuschauer zu einem echten Erlebnis macht.</p>
+        <p>Im Studium hab ich mir ein solides Fundament aufgebaut: das <strong>richtige Licht</strong>,
+        <strong>verschiedene Kameratechniken</strong>, <strong>präziser Schnitt</strong>, <strong>klare Vertonung</strong>
+        und <strong>ansprechende Bildgestaltung</strong>.</p>
+        <p>Praktische Erfahrungen konnte ich 2013 während eines Praktikums im Szenenbild beim Film "Im Spinnwebhaus" sammeln.</p>
+        <p>Beim verlinkten Video habe ich vielseitig mitgewirkt: <strong>Licht, B-Kamera, Ton und Schnitt</strong>.</p>
+        <div class="video-container">
+            <video controls><source src="Musik.mp4" type="video/mp4"></video>
+        </div>
+    </div>
 
-            <h3>Ausgewählte Entwürfe</h3>
+    <div id="content-storytelling">
+        <h2>Storytelling &amp; Creative Writing</h2>
+        <p>In unserer Informationsflut ist es die <strong>Geschichte</strong>, die uns wirklich erreicht und im Kopf bleibt.
+        Storytelling macht Fakten zu emotionalen Erlebnissen und schafft eine tiefe Verbindung zum Publikum.</p>
+        <p>Dank meiner Fähigkeiten im <strong>Creative Writing</strong> kann ich einzigartige Geschichten entwickeln, die
+        genau zu deinen Zielen passen — Inhalte, die nicht nur informieren, sondern auch mitreißen und inspirieren.</p>
+        <p>Besonders bei <strong>Videos und Filmen</strong> ist eine starke Geschichte unerlässlich. Ich schreibe
+        <strong>Drehbücher</strong> — von der ersten Idee über die Charaktere bis hin zum detaillierten Dialog.</p>
+        <h3>Meine Texte:</h3>
+        <p><a href="The_Way.pdf" target="_blank">Treatment Kurzfilm</a></p>
+        <p><a href="Entfuehrt.pdf" target="_blank">Kurzgeschichte</a></p>
+        <p><a href="Interview.pdf" target="_blank">Fiktives Interview</a></p>
+    </div>
 
-            <p>Die ersten beiden Bilder zeigen mein <strong>eigenes Logo</strong>, einmal als helle und einmal als dunkle Variante.
-                Die anderen vier Bilder zeigen <strong>Ideen für mein Logo</strong>, die ich ausprobiert, aber letztlich
-                nicht umgesetzt habe.</p>
+    <div id="content-about-me">
+        <h2>Über Mich</h2>
+        <img src="Profilbild.jpg" alt="Profilbild" style="width:140px;height:auto;float:left;margin:0 1.2rem 0.8rem 0;border-radius:10px"/>
+        <p>Mein Name ist Lasse Sündermann, und ich bin ein vielseitiger <strong>Mediendesigner und mehr</strong>.
+        Meine Expertise erstreckt sich über ein breites Spektrum digitaler Medien: von der <strong>Videoproduktion</strong>
+        über <strong>3D- und 2D-Animation</strong> bis hin zu <strong>Webdesign und -entwicklung</strong>.</p>
+        <p>Geboren 1990, schloss ich meine schulische Ausbildung 2012 mit dem Abitur ab. Mein beruflicher Werdegang vor
+        dem Studium reichte vom Postzusteller über Nachhilfelehrer bis hin zu einer besonders prägenden Erfahrung bei
+        einer ARD-Fernsehfilmproduktion.</p>
+        <p>Ende 2019 begann ich ein Studium der <strong>Medienkonzeption</strong>, welches ich 2024 erfolgreich abgeschlossen habe.</p>
+        <div style="clear:both"></div>
+    </div>
 
-            <p><em>Starke Marken beginnen mit einem starken Logo.</em></p>
-            <div class="image-grid">
-                <img src="Logo_weiß_Final.png" alt="Logo 0">
-                <img src="Logo_Final.png" alt="Logo 1">
-                <img src="Logo_L21.png" alt="Logo 2">
-                <img src="Logo_L21v2.png" alt="Logo 3">
-                <img src="Logo_L21v3.png" alt="Logo 4">
-                <img src="Logo_L21v4.png" alt="Logo 5">
-            </div>
-            <div id="content-about-me" class="popup-hidden-content"
-                style="font-family: 'Arial', sans-serif; line-height: 1.6; color: #000000;">
-                <h2 style="text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.8em;">
-                    Über Mich
-                </h2>
-                <img src="Profilbild.jpg" alt="Profilbild von Lasse Sündermann"
-                    style="width: 150px; height: auto; float: left; margin-right: 20px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <p style="margin-bottom: 15px;">
-                    Mein Name ist Lasse Sündermann, und ich bin ein vielseitiger <strong>Mediendesigner und
-                        mehr</strong>.
-                    Meine Expertise erstreckt sich über ein breites Spektrum digitaler Medien: von der
-                    <strong>Videoproduktion</strong>
-                    über <strong>3D- und 2D-Animation</strong> bis hin zu <strong>Webdesign und
-                        -entwicklung</strong>.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    Geboren im Jahr 1990, schloss ich meine schulische Ausbildung 2012 mit dem Abitur ab.
-                    Anschließend sammelte ich vielfältige Berufserfahrungen in verschiedenen Anstellungen.
-                    Mein beruflicher Werdegang vor dem Studium reichte vom Postzusteller über Nachhilfelehrer bis
-                    hin zu einer Tätigkeit bei der ich Steine sortierern musste (lol).
-                    Eine besonders prägende Erfahrung war zudem ein dreimonatiges Praktikum bei einer
-                    ARD-Fernsehfilmproduktion, das mir erste Einblicke in die Medienbranche ermöglichte.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    Um meine Kenntnisse weiter zu vertiefen und meine Leidenschaft für Medien professionell zu
-                    festigen, begann ich Ende 2019 ein Studium im Bereich <strong>Medienkonzeption</strong>,
-                    welches ich 2024 erfolgreich abgeschlossen habe.
-                </p>
-                <div style="clear: both;"></div>
-                <p style="text-align: center; font-style: italic; color: #ffffff; margin-top: 20px;">
-                    <a href="mailto:Lasse.Suendermann@web.de" style="color: white;"><b>Lasse.Suendermann@web.de</b></a>
-                </p>
-            </div>
-            <div id="content-videos" class="popup-hidden-content"
-                style="font-family: 'Arial', sans-serif; line-height: 1.6; color: #000000;">
-                <h2 style="text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.8em;">
-                    Videos
-                </h2>
-                <p style="margin-bottom: 15px;">
-                    Die Welt des Videos finde ich unglaublich spannend, weil man damit Botschaften nicht nur
-                    rüberbringt, sondern sie für Zuschauer zu einem echten Erlebnis macht.
-                    Meine Begeisterung für die Videoproduktion treibt mich an, jedes Projekt mit viel Leidenschaft
-                    und Sorgfalt umzusetzen.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    Im Studium hab ich mir ein solides Fundament in der Videoproduktion aufgebaut. Das heißt, ich
-                    kenne mich gut aus mit dem <b>richtigen Licht</b>, um die gewünschte Stimmung zu treffen,
-                    beherrsche <b>verschiedene Kameratechniken</b> für tolle Aufnahmen, weiß, wie man einen
-                    <b>präzisen Schnitt</b> macht, damit alles im Fluss bleibt, achte auf eine <b>klare
-                        Vertonung</b> und überlege mir eine <b>ansprechende Bildgestaltung</b>.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    Praktische Erfahrungen konnte ich bereits 2013 während eines dreimonatigen Praktikums im
-                    Szenenbild beim Film "Im Spinnwebhaus" sammeln. Diese Zeit gab mir wertvolle Einblicke in die
-                    komplexen Abläufe einer professionellen Filmproduktion.
-                </p>
-                <p style="margin-bottom: 15px;">
-                    Beim verlinkten Video habe ich vielseitig mitgewirkt:
-                    Am ersten Drehtag kümmerte ich mich um <b>Licht und B-Kamera</b>, am zweiten um den <b>Ton</b>,
-                    und am Ende war ich mit für den <b>Schnitt</b> zuständig.
-                </p>
-                <div class="video-container">
-                    <video controls>
-                        <source src="Musik.mp4" type="video/mp4">
-                        Dein Browser unterstützt dieses Videoformat nicht.
-                    </video>
-                </div>
-                <div id="content-storytelling" class="popup-hidden-content"
-                    style="font-family: 'Arial', sans-serif; line-height: 1.6; color: #000000;">
-                    <h2 style="text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.8em;">
-                        Storytelling & Creative Writing</h2>
+    <div id="content-impressum">
+        <h1 style="font-size:1.5rem;margin-bottom:1rem">Impressum</h1>
+        <p><strong>Lasse Sündermann</strong><br/>Jägerhofallee 75<br/>71638 Ludwigsburg</p>
+        <br/>
+        <h1 style="font-size:1.5rem;margin-bottom:1rem">Datenschutzerklärung</h1>
+        <h3>1. Datenschutz auf einen Blick</h3>
+        <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert,
+        wenn Sie diese Website besuchen.</p>
+        <h4>Wer ist verantwortlich?</h4>
+        <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber.</p>
+        <h4>Wie erfassen wir Ihre Daten?</h4>
+        <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Andere Daten werden automatisch beim
+        Besuch der Website durch unsere IT-Systeme erfasst (technische Daten).</p>
+        <h3>2. Hosting</h3>
+        <p>Diese Website wird extern gehostet bei GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.</p>
+        <h3>3. Allgemeine Hinweise und Pflichtinformationen</h3>
+        <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst.</p>
+        <h3>4. YouTube mit erweitertem Datenschutz</h3>
+        <p>Diese Website bindet Videos von YouTube ein (Google Ireland Limited). Wir nutzen YouTube im erweiterten Datenschutzmodus.</p>
+        <p>Weitere Informationen: <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer">Google Datenschutzerklärung</a></p>
+        <p style="margin-top:1rem;font-size:0.8rem;opacity:0.6">Quelle: e-recht24.de</p>
+    </div>
+</div>
 
-                    <p>In unserer Informationsflut ist es die <strong>Geschichte</strong>, die uns wirklich erreicht
-                        und im Kopf bleibt. Storytelling ist die stärkste Art, etwas zu kommunizieren, denn es macht
-                        Fakten zu emotionalen Erlebnissen und schafft eine tiefe Verbindung zum Publikum. Egal ob
-                        für Marken, Produkte oder komplexe Ideen, <strong>eine gut erzählte Geschichte ist
-                            der Schlüssel zum Erfolg.</strong></p>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-                    <p>Dank meiner Fähigkeiten im <strong>Creative Writing</strong> kann ich einzigartige
-                        Geschichten entwickeln, die genau zu deinen Zielen passen. Ich weiß, wie man Inhalte so
-                        formuliert, dass sie nicht nur informieren, sondern auch mitreißen und inspirieren.</p>
+    // --- Detail overlay ---
+    const overlay = document.getElementById('detailOverlay');
+    const panel = document.getElementById('detailPanel');
+    const content = document.getElementById('detailContent');
+    const closeBtn = document.getElementById('detailClose');
 
-                    <p>Besonders bei <strong>Videos und Filmen</strong> ist eine starke Geschichte unerlässlich. Ich
-                        habe gelernt, wie man diese Erzählstrukturen auch für audiovisuelle Medien anpasst und
-                        schreibe <strong>Drehbücher</strong>. Von der ersten Idee über die Charaktere bis hin zum
-                        detaillierten Dialog, ich schaffe das Fundament für fesselnde Filme, Werbespots oder
-                        multimediale Projekte.</p>
-                    <h2 style="text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.8em;">
-                        Meine Texte:
-                    </h2>
-                    <p><a href="The_Way.pdf" target="_blank" style="color: white;">Treatment Kurzfilm</a></p>
-                        <p><a href="Entfuehrt.pdf" target="_blank" style="color: white;">Kurzgeschichte</a></p>
-                        <p><a href="Interview.pdf" target="_blank" style="color: white;">Fiktives Interview</a></p>
-                </div>
-                <div id="content-impressum" class="popup-hidden-content">
-                    <h1>Impressum</h1>
-                    <b>
-                        <p>Lasse S&uuml;ndermann<br />
-                            Jägerhofallee 75<br />
-                            71638 Ludwigsburg</p>
-                    </b>
-                    <br>
-                    <br><br>
-                    <br>
-                    <p>
-                    <h1>
-                        <summary>Datenschutz&shy;erkl&auml;rung</summary>
-                    </h1>
-                    <h2>1. Datenschutz auf einen Blick</h2>
-                    <h3>Allgemeine Hinweise</h3>
-                    <p>Die folgenden Hinweise geben einen einfachen &Uuml;berblick dar&uuml;ber, was mit Ihren
-                        personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten
-                        sind
-                        alle Daten, mit denen Sie pers&ouml;nlich identifiziert werden k&ouml;nnen.
-                        Ausf&uuml;hrliche
-                        Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text
-                        aufgef&uuml;hrten
-                        Datenschutzerkl&auml;rung.</p>
-                    <h3>Datenerfassung auf dieser Website</h3>
-                    <h4>Wer ist verantwortlich f&uuml;r die Datenerfassung auf dieser Website?</h4>
-                    <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen
-                        Kontaktdaten
-                        k&ouml;nnen Sie dem Abschnitt &bdquo;Hinweis zur Verantwortlichen Stelle&ldquo; in dieser
-                        Datenschutzerkl&auml;rung entnehmen.</p>
-                    <h4>Wie erfassen wir Ihre Daten?</h4>
-                    <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es
-                        sich
-                        z.&nbsp;B. um Daten handeln, die Sie in ein Kontaktformular eingeben.</p>
-                    <p>Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch
-                        unsere
-                        IT-Systeme erfasst. Das sind vor allem technische Daten (z.&nbsp;B. Internetbrowser,
-                        Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt
-                        automatisch,
-                        sobald Sie diese Website betreten.</p>
-                    <h4>Wof&uuml;r nutzen wir Ihre Daten?</h4>
-                    <p>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu
-                        gew&auml;hrleisten. Andere Daten k&ouml;nnen zur Analyse Ihres Nutzerverhaltens verwendet
-                        werden.</p>
-                    <h4>Welche Rechte haben Sie bez&uuml;glich Ihrer Daten?</h4>
-                    <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft &uuml;ber Herkunft, Empf&auml;nger und
-                        Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben au&szlig;erdem ein
-                        Recht, die Berichtigung oder L&ouml;schung dieser Daten zu verlangen. Wenn Sie eine
-                        Einwilligung
-                        zur Datenverarbeitung erteilt haben, k&ouml;nnen Sie diese Einwilligung jederzeit f&uuml;r
-                        die
-                        Zukunft widerrufen. Au&szlig;erdem haben Sie das Recht, unter bestimmten Umst&auml;nden die
-                        Einschr&auml;nkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren
-                        steht Ihnen ein Beschwerderecht bei der zust&auml;ndigen Aufsichtsbeh&ouml;rde zu.</p>
-                    <p>Hierzu sowie zu weiteren Fragen zum Thema Datenschutz k&ouml;nnen Sie sich jederzeit an uns
-                        wenden.</p>
-                    <h3>Analyse-Tools und Tools von Dritt&shy;anbietern</h3>
-                    <p>Beim Besuch dieser Website kann Ihr Surf-Verhalten statistisch ausgewertet werden. Das
-                        geschieht
-                        vor allem mit sogenannten Analyseprogrammen.</p>
-                    <p>Detaillierte Informationen zu diesen Analyseprogrammen finden Sie in der folgenden
-                        Datenschutzerkl&auml;rung.</p>
-                    <h2>2. Hosting</h2>
-                    <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
-                    <h3>Externes Hosting</h3>
-                    <p>Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website
-                        erfasst
-                        werden, werden auf den Servern des Hosters / der Hoster gespeichert. Hierbei kann es sich
-                        v.&nbsp;a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten,
-                        Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die &uuml;ber eine Website
-                        generiert
-                        werden, handeln.</p>
-                    <p>Das externe Hosting erfolgt zum Zwecke der Vertragserf&uuml;llung gegen&uuml;ber unseren
-                        potenziellen und bestehenden Kunden (Art. 6 Abs. 1 lit. b DSGVO) und im Interesse einer
-                        sicheren, schnellen und effizienten Bereitstellung unseres Online-Angebots durch einen
-                        professionellen Anbieter (Art. 6 Abs. 1 lit. f DSGVO). Sofern eine entsprechende
-                        Einwilligung
-                        abgefragt wurde, erfolgt die Verarbeitung ausschlie&szlig;lich auf Grundlage von Art. 6 Abs.
-                        1
-                        lit. a DSGVO und &sect; 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies
-                        oder den Zugriff auf Informationen im Endger&auml;t des Nutzers (z.&nbsp;B.
-                        Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit
-                        widerrufbar.
-                    </p>
-                    <p>Unser(e) Hoster wird bzw. werden Ihre Daten nur insoweit verarbeiten, wie dies zur
-                        Erf&uuml;llung
-                        seiner Leistungspflichten erforderlich ist und unsere Weisungen in Bezug auf diese Daten
-                        befolgen.</p>
-                    <p>Wir setzen folgende(n) Hoster ein:</p>
-                    <p>GitHub Inc.<br />
-                        88 Colin P Kelly Jr St<br />
-                        San Francisco, CA 94107<br />
-                        Vereinigte Staaten</p>
-                    <h2>3. Allgemeine Hinweise und Pflicht&shy;informationen</h2>
-                    <h3>Datenschutz</h3>
-                    <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer pers&ouml;nlichen Daten sehr ernst. Wir
-                        behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen
-                        Datenschutzvorschriften sowie dieser Datenschutzerkl&auml;rung.</p>
-                    <p>Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben.
-                        Personenbezogene Daten sind Daten, mit denen Sie pers&ouml;nlich identifiziert werden
-                        k&ouml;nnen. Die vorliegende Datenschutzerkl&auml;rung erl&auml;utert, welche Daten wir
-                        erheben
-                        und wof&uuml;r wir sie nutzen. Sie erl&auml;utert auch, wie und zu welchem Zweck das
-                        geschieht.
-                    </p>
-                    <p>Wir weisen darauf hin, dass die Daten&uuml;bertragung im Internet (z.&nbsp;B. bei der
-                        Kommunikation per E-Mail) Sicherheitsl&uuml;cken aufweisen kann. Ein l&uuml;ckenloser Schutz
-                        der
-                        Daten vor dem Zugriff durch Dritte ist nicht m&ouml;glich.</p>
-                    <h3>Hinweis zur verantwortlichen Stelle</h3>
-                    <p>Die verantwortliche Stelle f&uuml;r die Datenverarbeitung auf dieser Website ist:</p>
-                    <p>Lasse S&uuml;ndermann<br />
-                        Jägerhofallee 75<br />
-                        71638 Ludwigsburg</p>
+    const themeMap = {
+        'content-conception': 'theme-blue',
+        'content-ux-design': 'theme-green',
+        'content-animation': 'theme-blue',
+        'content-logos': 'theme-green',
+        'content-videos': 'theme-yellow',
+        'content-storytelling': 'theme-yellow',
+        'content-about-me': 'theme-coral',
+        'content-impressum': 'theme-dark',
+    };
 
-                    <p>Telefon: +4917642071093<br />
-                        E-Mail: lasse.suendermann@web.de</p>
-                    <p>Verantwortliche Stelle ist die nat&uuml;rliche oder juristische Person, die allein oder
-                        gemeinsam
-                        mit anderen &uuml;ber die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten
-                        (z.&nbsp;B. Namen, E-Mail-Adressen o. &Auml;.) entscheidet.</p>
+    function openDetail(id) {
+        const src = document.getElementById(id);
+        if (!src) return;
+        content.innerHTML = src.innerHTML;
+        panel.className = 'detail-panel ' + (themeMap[id] || '');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
 
-                    <h3>Speicherdauer</h3>
-                    <p>Soweit innerhalb dieser Datenschutzerkl&auml;rung keine speziellere Speicherdauer genannt
-                        wurde,
-                        verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck f&uuml;r die
-                        Datenverarbeitung
-                        entf&auml;llt. Wenn Sie ein berechtigtes L&ouml;schersuchen geltend machen oder eine
-                        Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gel&ouml;scht, sofern wir
-                        keine
-                        anderen rechtlich zul&auml;ssigen Gr&uuml;nde f&uuml;r die Speicherung Ihrer
-                        personenbezogenen
-                        Daten haben (z.&nbsp;B. steuer- oder handelsrechtliche Aufbewahrungsfristen); im
-                        letztgenannten
-                        Fall erfolgt die L&ouml;schung nach Fortfall dieser Gr&uuml;nde.</p>
-                    <h3>Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website</h3>
-                    <p>Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre
-                        personenbezogenen
-                        Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern
-                        besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Im Falle einer
-                        ausdr&uuml;cklichen Einwilligung in die &Uuml;bertragung personenbezogener Daten in
-                        Drittstaaten
-                        erfolgt die Datenverarbeitung au&szlig;erdem auf Grundlage von Art. 49 Abs. 1 lit. a DSGVO.
-                        Sofern Sie in die Speicherung von Cookies oder in den Zugriff auf Informationen in Ihr
-                        Endger&auml;t (z.&nbsp;B. via Device-Fingerprinting) eingewilligt haben, erfolgt die
-                        Datenverarbeitung zus&auml;tzlich auf Grundlage von &sect; 25 Abs. 1 TDDDG. Die Einwilligung
-                        ist
-                        jederzeit widerrufbar. Sind Ihre Daten zur Vertragserf&uuml;llung oder zur Durchf&uuml;hrung
-                        vorvertraglicher Ma&szlig;nahmen erforderlich, verarbeiten wir Ihre Daten auf Grundlage des
-                        Art.
-                        6 Abs. 1 lit. b DSGVO. Des Weiteren verarbeiten wir Ihre Daten, sofern diese zur
-                        Erf&uuml;llung
-                        einer rechtlichen Verpflichtung erforderlich sind auf Grundlage von Art. 6 Abs. 1 lit. c
-                        DSGVO.
-                        Die Datenverarbeitung kann ferner auf Grundlage unseres berechtigten Interesses nach Art. 6
-                        Abs.
-                        1 lit. f DSGVO erfolgen. &Uuml;ber die jeweils im Einzelfall einschl&auml;gigen
-                        Rechtsgrundlagen
-                        wird in den folgenden Abs&auml;tzen dieser Datenschutzerkl&auml;rung informiert.</p>
-                    <h3>Empfänger von personenbezogenen Daten</h3>
-                    <p>Im Rahmen unserer Gesch&auml;ftst&auml;tigkeit arbeiten wir mit verschiedenen externen
-                        Stellen
-                        zusammen. Dabei ist teilweise auch eine &Uuml;bermittlung von personenbezogenen Daten an
-                        diese
-                        externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an externe Stellen
-                        weiter, wenn dies im Rahmen einer Vertragserf&uuml;llung erforderlich ist, wenn wir
-                        gesetzlich
-                        hierzu verpflichtet sind (z.&nbsp;B. Weitergabe von Daten an Steuerbeh&ouml;rden), wenn wir
-                        ein
-                        berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO an der Weitergabe haben oder wenn
-                        eine
-                        sonstige Rechtsgrundlage die Datenweitergabe erlaubt. Beim Einsatz von Auftragsverarbeitern
-                        geben wir personenbezogene Daten unserer Kunden nur auf Grundlage eines g&uuml;ltigen
-                        Vertrags
-                        &uuml;ber Auftragsverarbeitung weiter. Im Falle einer gemeinsamen Verarbeitung wird ein
-                        Vertrag
-                        &uuml;ber gemeinsame Verarbeitung geschlossen.</p>
-                    <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
-                    <p>Viele Datenverarbeitungsvorg&auml;nge sind nur mit Ihrer ausdr&uuml;cklichen Einwilligung
-                        m&ouml;glich. Sie k&ouml;nnen eine bereits erteilte Einwilligung jederzeit widerrufen. Die
-                        Rechtm&auml;&szlig;igkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom
-                        Widerruf
-                        unber&uuml;hrt.</p>
-                    <h3>Widerspruchsrecht gegen die Datenerhebung in besonderen F&auml;llen sowie gegen
-                        Direktwerbung
-                        (Art. 21 DSGVO)</h3>
-                    <p>WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HABEN
-                        SIE
-                        JEDERZEIT DAS RECHT, AUS GR&Uuml;NDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN,
-                        GEGEN
-                        DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH
-                        F&Uuml;R
-                        EIN AUF DIESE BESTIMMUNGEN GEST&Uuml;TZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF
-                        DENEN
-                        EINE VERARBEITUNG BERUHT, ENTNEHMEN SIE DIESER DATENSCHUTZERKL&Auml;RUNG. WENN SIE
-                        WIDERSPRUCH
-                        EINLEGEN, WERDEN WIR IHRE BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI
-                        DENN, WIR K&Ouml;NNEN ZWINGENDE SCHUTZTW&Uuml;RDIGE GR&Uuml;NDE F&Uuml;R DIE VERARBEITUNG
-                        NACHWEISEN, DIE IHRE INTERESSEN, RECHTE UND FREIHEITEN &Uuml;BERWIEGEN ODER DIE VERARBEITUNG
-                        DIENT DER GELTENDMACHUNG, AUS&Uuml;BUNG ODER VERTEIDIGUNG VON RECHTSANSPR&Uuml;CHEN
-                        (WIDERSPRUCH
-                        NACH ART. 21 ABS. 1 DSGVO).</P>
-                    <p>WERDEN IHRE PERSONENBEZOGENEN DATEN VERARBEITET, UM DIREKTWERBUNG ZU BETREIBEN, SO HABEN SIE
-                        DAS
-                        RECHT, JEDERZEIT WIDERSPRUCH GEGEN DIE VERARBEITUNG SIE BETREFFENDER PERSONENBEZOGENER DATEN
-                        ZUM
-                        ZWECKE DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH F&Uuml;R DAS PROFILING, SOWEIT ES MIT
-                        SOLCHER DIREKTWERBUNG IN VERBINDUNG STEHT. WENN SIE WIDERSPRECHEN, WERDEN IHRE
-                        PERSONENBEZOGENEN
-                        DATEN ANSCHLIESSEND NICHT MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART.
-                        21
-                        ABS. 2 DSGVO).</P>
-                    <h3>Beschwerde&shy;recht bei der zust&auml;ndigen Aufsichts&shy;beh&ouml;rde</h3>
-                    <p>Im Falle von Verst&ouml;&szlig;en gegen die DSGVO steht den Betroffenen ein Beschwerderecht
-                        bei
-                        einer Aufsichtsbeh&ouml;rde, insbesondere in dem Mitgliedstaat ihres gew&ouml;hnlichen
-                        Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutma&szlig;lichen Versto&szlig;es zu.
-                        Das
-                        Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher
-                        Rechtsbehelfe.</p>
-                    <h3>Recht auf Daten&shy;&uuml;bertrag&shy;barkeit</h3>
-                    <p>Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erf&uuml;llung
-                        eines
-                        Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem g&auml;ngigen,
-                        maschinenlesbaren Format aush&auml;ndigen zu lassen. Sofern Sie die direkte &Uuml;bertragung
-                        der
-                        Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch
-                        machbar
-                        ist.</p>
-                    <h3>Auskunft, Berichtigung und L&ouml;schung</h3>
-                    <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf
-                        unentgeltliche Auskunft &uuml;ber Ihre gespeicherten personenbezogenen Daten, deren Herkunft
-                        und
-                        Empf&auml;nger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder
-                        L&ouml;schung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten
-                        k&ouml;nnen Sie sich jederzeit an uns wenden.</p>
-                    <h3>Recht auf Einschr&auml;nkung der Verarbeitung</h3>
-                    <p>Sie haben das Recht, die Einschr&auml;nkung der Verarbeitung Ihrer personenbezogenen Daten zu
-                        verlangen. Hierzu k&ouml;nnen Sie sich jederzeit an uns wenden. Das Recht auf
-                        Einschr&auml;nkung
-                        der Verarbeitung besteht in folgenden F&auml;llen:</p>
-                    <ul>
-                        <li>Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen Daten bestreiten,
-                            ben&ouml;tigen wir in der Regel Zeit, um dies zu &uuml;berpr&uuml;fen. F&uuml;r die
-                            Dauer
-                            der Pr&uuml;fung haben Sie das Recht, die Einschr&auml;nkung der Verarbeitung Ihrer
-                            personenbezogenen Daten zu verlangen.</li>
-                        <li>Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtm&auml;&szlig;ig
-                            geschah/geschieht, k&ouml;nnen Sie statt der L&ouml;schung die Einschr&auml;nkung der
-                            Datenverarbeitung verlangen.</li>
-                        <li>Wenn wir Ihre personenbezogenen Daten nicht mehr ben&ouml;tigen, Sie sie jedoch zur
-                            Aus&uuml;bung, Verteidigung oder Geltendmachung von Rechtsanspr&uuml;chen
-                            ben&ouml;tigen,
-                            haben Sie das Recht, statt der L&ouml;schung die Einschr&auml;nkung der Verarbeitung
-                            Ihrer
-                            personenbezogenen Daten zu verlangen.</li>
-                        <li>Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt haben, muss eine
-                            Abw&auml;gung zwischen Ihren und unseren Interessen vorgenommen werden. Solange noch
-                            nicht
-                            feststeht, wessen Interessen &uuml;berwiegen, haben Sie das Recht, die
-                            Einschr&auml;nkung
-                            der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</li>
-                    </ul>
-                    <p>Wenn Sie die Verarbeitung Ihrer personenbezogenen Daten eingeschr&auml;nkt haben, d&uuml;rfen
-                        diese Daten &ndash; von ihrer Speicherung abgesehen &ndash; nur mit Ihrer Einwilligung oder
-                        zur
-                        Geltendmachung, Aus&uuml;bung oder Verteidigung von Rechtsanspr&uuml;chen oder zum Schutz
-                        der
-                        Rechte einer anderen nat&uuml;rlichen oder juristischen Person oder aus Gr&uuml;nden eines
-                        wichtigen &ouml;ffentlichen Interesses der Europ&auml;ischen Union oder eines Mitgliedstaats
-                        verarbeitet werden.</p>
-                    <h2>4. Plugins und Tools</h2>
-                    <h3>YouTube mit erweitertem Datenschutz</h3>
-                    <p>Diese Website bindet Videos der Website YouTube ein. Betreiber der Website ist die Google
-                        Ireland
-                        Limited (&bdquo;Google&rdquo;), Gordon House, Barrow Street, Dublin 4, Irland.</p>
-                    <p>Wenn Sie eine dieser Website besuchen, auf denen YouTube eingebunden ist, wird eine
-                        Verbindung zu
-                        den Servern von YouTube hergestellt. Dabei wird dem YouTube-Server mitgeteilt, welche
-                        unserer
-                        Seiten Sie besucht haben. Wenn Sie in Ihrem YouTube-Account eingeloggt sind,
-                        erm&ouml;glichen
-                        Sie YouTube, Ihr Surfverhalten direkt Ihrem pers&ouml;nlichen Profil zuzuordnen. Dies
-                        k&ouml;nnen Sie verhindern, indem Sie sich aus Ihrem YouTube-Account ausloggen.</p>
-                    <p>Wir nutzen YouTube im erweiterten Datenschutzmodus. Videos, die im erweiterten
-                        Datenschutzmodus
-                        abgespielt werden, werden nach Aussage von YouTube nicht zur Personalisierung des Surfens
-                        auf
-                        YouTube eingesetzt. Anzeigen, die im erweiterten Datenschutzmodus ausgespielt werden, sind
-                        ebenfalls nicht personalisiert. Im erweiterten Datenschutzmodus werden keine Cookies
-                        gesetzt.
-                        Stattdessen werden jedoch sogenannte Local Storage Elemente im Browser des Users
-                        gespeichert,
-                        die &auml;hnlich wie Cookies personenbezogene Daten beinhalten und zur Wiedererkennung
-                        eingesetzt werden k&ouml;nnen. Details zum erweiterten Datenschutzmodus finden Sie hier: <a
-                            href="https://support.google.com/youtube/answer/171780" target="_blank"
-                            rel="noopener noreferrer">https://support.google.com/youtube/answer/171780</a>.</p>
-                    <p>Gegebenenfalls k&ouml;nnen nach der Aktivierung eines YouTube-Videos weitere
-                        Datenverarbeitungsvorg&auml;nge ausgel&ouml;st werden, auf die wir keinen Einfluss haben.
-                    </p>
-                    <p>Die Nutzung von YouTube erfolgt im Interesse einer ansprechenden Darstellung unserer
-                        Online-Angebote. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f
-                        DSGVO
-                        dar. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung
-                        ausschlie&szlig;lich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und &sect; 25 Abs. 1
-                        TDDDG,
-                        soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im
-                        Endger&auml;t des Nutzers (z.&nbsp;B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die
-                        Einwilligung ist jederzeit widerrufbar.</p>
-                    <p>Weitere Informationen &uuml;ber Datenschutz bei YouTube finden Sie in deren
-                        Datenschutzerkl&auml;rung unter: <a href="https://policies.google.com/privacy?hl=de"
-                            target="_blank" rel="noopener noreferrer">https://policies.google.com/privacy?hl=de</a>.
-                    </p>
-                    <p>Das Unternehmen verf&uuml;gt &uuml;ber eine Zertifizierung nach dem &bdquo;EU-US Data Privacy
-                        Framework&ldquo; (DPF). Der DPF ist ein &Uuml;bereinkommen zwischen der Europ&auml;ischen
-                        Union
-                        und den USA, der die Einhaltung europ&auml;ischer Datenschutzstandards bei
-                        Datenverarbeitungen
-                        in den USA gew&auml;hrleisten soll. Jedes nach dem DPF zertifizierte Unternehmen
-                        verpflichtet
-                        sich, diese Datenschutzstandards einzuhalten. Weitere Informationen hierzu erhalten Sie vom
-                        Anbieter unter folgendem Link: <a href="https://www.dataprivacyframework.gov/participant/5780"
-                            target="_blank"
-                            rel="noopener noreferrer">https://www.dataprivacyframework.gov/participant/5780</a>.</p>
-                    <p>Quelle: <a href="https://www.e-recht24.de">https://www.e-recht24.de</a></p>
-                    </p>
-                </div>
-                <script type="module"
-                    src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-                <script src="script.js"></script>
+        // Bind image clicks inside detail
+        content.querySelectorAll('.image-grid img').forEach(img => {
+            img.addEventListener('click', () => openFullscreen(img.src));
+        });
+    }
+
+    function closeDetail() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Orbit items + detail buttons
+    document.querySelectorAll('[data-detail]').forEach(el => {
+        el.addEventListener('click', e => {
+            e.preventDefault();
+            openDetail(el.dataset.detail);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeDetail);
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) closeDetail();
+    });
+
+    // --- Fullscreen image viewer ---
+    const fsOverlay = document.getElementById('fullscreenImg');
+    const fsImg = fsOverlay.querySelector('img');
+
+    function openFullscreen(src) {
+        fsImg.src = src;
+        fsOverlay.classList.add('active');
+    }
+    fsOverlay.addEventListener('click', () => {
+        fsOverlay.classList.remove('active');
+        fsImg.src = '';
+    });
+
+    // --- Scroll fade-in ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // --- Hover effect on detail buttons ---
+    document.querySelectorAll('.detail-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            btn.style.background = 'rgba(255,255,255,0.05)';
+            btn.style.borderColor = btn.style.color;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.background = 'transparent';
+            btn.style.borderColor = '';
+        });
+    });
+
+    // --- Pause orbit on hover ---
+    const orbit = document.getElementById('orbit');
+    orbit.addEventListener('mouseenter', () => {
+        orbit.style.animationPlayState = 'paused';
+        orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'paused');
+    });
+    orbit.addEventListener('mouseleave', () => {
+        orbit.style.animationPlayState = 'running';
+        orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'running');
+    });
+
+    // --- Keyboard close ---
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            if (fsOverlay.classList.contains('active')) {
+                fsOverlay.classList.remove('active');
+            } else {
+                closeDetail();
+            }
+        }
+    });
+});
+</script>
+
 </body>
-
 </html>
