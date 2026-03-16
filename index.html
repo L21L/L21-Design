@@ -592,6 +592,46 @@
             .featured-glow{display:none}
         }
 
+        /* ======== GAMECHANGER: 3D Logo Particle Scene ======== */
+        #threeCanvas{
+            position:absolute;inset:0;z-index:1;
+            pointer-events:none;
+        }
+        #threeCanvas canvas{
+            display:block;width:100%;height:100%;
+        }
+        .hero{cursor:none}
+        .hero *{cursor:none}
+        .hero a,.hero button,.orbit-item{cursor:none}
+
+        /* Custom cursor */
+        .custom-cursor{
+            position:fixed;z-index:9998;
+            width:20px;height:20px;border-radius:50%;
+            border:1.5px solid rgba(255,255,255,0.5);
+            pointer-events:none;
+            transform:translate(-50%,-50%);
+            transition:width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+            mix-blend-mode:difference;
+        }
+        .custom-cursor.hovering{
+            width:50px;height:50px;
+            border-color:var(--blue);
+            background:rgba(59,139,212,0.1);
+        }
+        .custom-cursor-dot{
+            position:fixed;z-index:9998;
+            width:4px;height:4px;border-radius:50%;
+            background:#fff;
+            pointer-events:none;
+            transform:translate(-50%,-50%);
+        }
+
+        /* Magnetic orbit items */
+        .orbit-item{
+            transition:all 0.3s cubic-bezier(0.23,1,0.32,1) !important;
+        }
+
         /* ======== ANIMATIONS ======== */
         .fade-in{
             opacity:0;transform:translateY(30px);
@@ -791,6 +831,10 @@
 </head>
 <body class="loading">
 
+<!-- Custom cursor -->
+<div class="custom-cursor" id="customCursor"></div>
+<div class="custom-cursor-dot" id="customCursorDot"></div>
+
 <!-- Preloader -->
 <div class="preloader" id="preloader">
     <div class="preloader-inner">
@@ -820,7 +864,8 @@
 </header>
 
 <!-- Hero: Logo Universe -->
-<section class="hero">
+<section class="hero" id="heroSection">
+    <div id="threeCanvas"></div>
     <div class="hero-bg">
         <div class="particle"></div>
         <div class="particle"></div>
@@ -1497,6 +1542,258 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+    const container = document.getElementById('threeCanvas');
+    if (!container) return;
+
+    // --- Setup ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // --- Colors from logo ---
+    const BLUE = new THREE.Color(0x3B8BD4);
+    const GREEN = new THREE.Color(0x1D9E75);
+    const YELLOW = new THREE.Color(0xEF9F27);
+    const WHITE = new THREE.Color(0xe8e6df);
+    const colors = [BLUE, GREEN, YELLOW];
+
+    // --- Particle count ---
+    const PARTICLE_COUNT = 800;
+    const positions = new Float32Array(PARTICLE_COUNT * 3);
+    const colorsAttr = new Float32Array(PARTICLE_COUNT * 3);
+    const sizes = new Float32Array(PARTICLE_COUNT);
+    const targetPositions = new Float32Array(PARTICLE_COUNT * 3);
+    const velocities = new Float32Array(PARTICLE_COUNT * 3);
+    const originalPositions = new Float32Array(PARTICLE_COUNT * 3);
+
+    // --- Generate logo shape from 3 organic blobs ---
+    function generateLogoPositions(arr) {
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const idx = i * 3;
+            const group = i % 3; // 0=blue swoosh, 1=green swoosh, 2=yellow accent
+            let x, y, z;
+
+            if (group === 0) {
+                // Blue swoosh — upper right arc
+                const t = Math.random() * Math.PI * 0.8;
+                const r = 0.6 + Math.random() * 0.5;
+                x = Math.cos(t) * r * 0.8 + 0.3;
+                y = Math.sin(t) * r * 0.6 + 0.2;
+                z = (Math.random() - 0.5) * 0.3;
+            } else if (group === 1) {
+                // Green swoosh — center-right descending
+                const t = Math.random() * Math.PI * 0.9 + Math.PI * 0.3;
+                const r = 0.5 + Math.random() * 0.6;
+                x = Math.cos(t) * r * 0.7 + 0.1;
+                y = Math.sin(t) * r * 0.5 - 0.3;
+                z = (Math.random() - 0.5) * 0.3;
+            } else {
+                // Yellow accent — lower left
+                const t = Math.random() * Math.PI * 0.5 + Math.PI * 0.8;
+                const r = 0.3 + Math.random() * 0.4;
+                x = Math.cos(t) * r * 0.6 - 0.5;
+                y = Math.sin(t) * r * 0.4 - 0.2;
+                z = (Math.random() - 0.5) * 0.2;
+            }
+
+            arr[idx] = x;
+            arr[idx + 1] = y;
+            arr[idx + 2] = z;
+        }
+    }
+
+    // --- Generate exploded/scattered positions ---
+    function generateExplodedPositions(arr) {
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const idx = i * 3;
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 2 + Math.random() * 4;
+            const ySpread = (Math.random() - 0.5) * 6;
+            arr[idx] = Math.cos(angle) * radius;
+            arr[idx + 1] = ySpread;
+            arr[idx + 2] = Math.sin(angle) * radius - 3;
+        }
+    }
+
+    // --- Generate symbol positions for orbit hover ---
+    function generateCirclePositions(arr) {
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const idx = i * 3;
+            const angle = (i / PARTICLE_COUNT) * Math.PI * 2;
+            const r = 1.2 + Math.random() * 0.3;
+            arr[idx] = Math.cos(angle) * r;
+            arr[idx + 1] = Math.sin(angle) * r;
+            arr[idx + 2] = (Math.random() - 0.5) * 0.2;
+        }
+    }
+
+    // --- Init positions ---
+    generateLogoPositions(positions);
+    generateLogoPositions(originalPositions);
+    for (let i = 0; i < PARTICLE_COUNT * 3; i++) targetPositions[i] = positions[i];
+
+    // Colors and sizes
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const c = colors[i % 3];
+        const mix = 0.6 + Math.random() * 0.4;
+        colorsAttr[i * 3] = c.r * mix + WHITE.r * (1 - mix) * 0.3;
+        colorsAttr[i * 3 + 1] = c.g * mix + WHITE.g * (1 - mix) * 0.3;
+        colorsAttr[i * 3 + 2] = c.b * mix + WHITE.b * (1 - mix) * 0.3;
+        sizes[i] = 3 + Math.random() * 5;
+        velocities[i * 3] = 0;
+        velocities[i * 3 + 1] = 0;
+        velocities[i * 3 + 2] = 0;
+    }
+
+    // --- Geometry & Material ---
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colorsAttr, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+    const vertexShader = `
+        attribute float size;
+        varying vec3 vColor;
+        void main() {
+            vColor = color;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_PointSize = size * (300.0 / -mvPosition.z);
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    `;
+    const fragmentShader = `
+        varying vec3 vColor;
+        void main() {
+            float d = length(gl_PointCoord - vec2(0.5));
+            if (d > 0.5) discard;
+            float alpha = smoothstep(0.5, 0.1, d);
+            gl_FragColor = vec4(vColor, alpha * 0.85);
+        }
+    `;
+
+    const material = new THREE.ShaderMaterial({
+        vertexShader, fragmentShader,
+        vertexColors: true,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    // --- Mouse tracking ---
+    let mouseX = 0, mouseY = 0;
+    let targetRotX = 0, targetRotY = 0;
+
+    document.addEventListener('mousemove', e => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // Gyro for mobile
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', e => {
+            if (e.gamma !== null) mouseX = e.gamma / 45;
+            if (e.beta !== null) mouseY = (e.beta - 45) / 45;
+        }, { passive: true });
+    }
+
+    // --- Scroll state ---
+    let scrollProgress = 0;
+    let currentState = 'logo'; // 'logo', 'exploded', 'orbit-hover'
+    const heroSection = document.getElementById('heroSection');
+
+    window.addEventListener('scroll', () => {
+        if (!heroSection) return;
+        const rect = heroSection.getBoundingClientRect();
+        const heroH = heroSection.offsetHeight;
+        scrollProgress = Math.max(0, Math.min(1, -rect.top / (heroH * 0.6)));
+
+        if (scrollProgress > 0.15 && currentState === 'logo') {
+            currentState = 'exploded';
+            generateExplodedPositions(targetPositions);
+        } else if (scrollProgress <= 0.1 && currentState !== 'logo') {
+            currentState = 'logo';
+            for (let i = 0; i < PARTICLE_COUNT * 3; i++) targetPositions[i] = originalPositions[i];
+        }
+    }, { passive: true });
+
+    // --- Orbit hover → morph particles ---
+    let orbitHoverActive = false;
+    document.querySelectorAll('.orbit-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            if (currentState === 'exploded') {
+                orbitHoverActive = true;
+                generateCirclePositions(targetPositions);
+            }
+        });
+        item.addEventListener('mouseleave', () => {
+            if (orbitHoverActive) {
+                orbitHoverActive = false;
+                generateExplodedPositions(targetPositions);
+            }
+        });
+    });
+
+    // --- Animate ---
+    const clock = new THREE.Clock();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        const dt = Math.min(clock.getDelta(), 0.05);
+        const time = clock.elapsedTime;
+
+        // Smooth rotation follow mouse
+        targetRotY = mouseX * 0.3;
+        targetRotX = mouseY * 0.2;
+        particles.rotation.y += (targetRotY - particles.rotation.y) * 2 * dt;
+        particles.rotation.x += (targetRotX - particles.rotation.x) * 2 * dt;
+
+        // Gentle idle rotation
+        particles.rotation.y += 0.05 * dt;
+
+        // Lerp particles toward target positions
+        const posArr = geometry.attributes.position.array;
+        const speed = currentState === 'logo' ? 1.5 : 0.8;
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const idx = i * 3;
+            // Add slight organic wobble
+            const wobbleX = Math.sin(time * 1.5 + i * 0.1) * 0.003;
+            const wobbleY = Math.cos(time * 1.2 + i * 0.15) * 0.003;
+
+            posArr[idx] += (targetPositions[idx] - posArr[idx]) * speed * dt + wobbleX;
+            posArr[idx + 1] += (targetPositions[idx + 1] - posArr[idx + 1]) * speed * dt + wobbleY;
+            posArr[idx + 2] += (targetPositions[idx + 2] - posArr[idx + 2]) * speed * dt;
+        }
+        geometry.attributes.position.needsUpdate = true;
+
+        // Fade based on scroll
+        material.opacity = 1 - scrollProgress * 0.3;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // --- Resize ---
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+})();
 </script>
 
 </body>
