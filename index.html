@@ -40,15 +40,38 @@
             background:radial-gradient(ellipse at 50% 50%,#111 0%,var(--dark) 70%);
         }
 
-        /* Floating ambient particles */
+        /* Floating ambient particles — parallax layers */
         .particle{
             position:absolute;border-radius:50%;
             filter:blur(40px);opacity:0.15;
             animation:float-particle 12s ease-in-out infinite alternate;
+            will-change:transform;
         }
         .particle:nth-child(1){width:300px;height:300px;background:var(--blue);top:20%;left:15%;animation-delay:0s}
         .particle:nth-child(2){width:250px;height:250px;background:var(--green);bottom:15%;right:20%;animation-delay:-4s}
         .particle:nth-child(3){width:200px;height:200px;background:var(--yellow);top:60%;left:55%;animation-delay:-8s}
+
+        /* Extended parallax particles — float across entire page */
+        .parallax-particles{
+            position:fixed;inset:0;z-index:0;
+            pointer-events:none;overflow:hidden;
+        }
+        .parallax-particle{
+            position:absolute;border-radius:50%;
+            filter:blur(50px);
+            will-change:transform;
+            animation:float-particle 15s ease-in-out infinite alternate;
+        }
+        .parallax-particle:nth-child(1){width:350px;height:350px;background:var(--blue);opacity:0.06;top:10%;left:-5%;animation-delay:0s}
+        .parallax-particle:nth-child(2){width:280px;height:280px;background:var(--green);opacity:0.05;top:30%;right:-8%;animation-delay:-5s}
+        .parallax-particle:nth-child(3){width:220px;height:220px;background:var(--yellow);opacity:0.06;top:55%;left:20%;animation-delay:-10s}
+        .parallax-particle:nth-child(4){width:300px;height:300px;background:var(--blue);opacity:0.04;top:75%;right:15%;animation-delay:-3s}
+        .parallax-particle:nth-child(5){width:180px;height:180px;background:var(--green);opacity:0.05;top:90%;left:50%;animation-delay:-7s}
+
+        /* Parallax speed classes */
+        .parallax-slow{--parallax-speed:0.15}
+        .parallax-mid{--parallax-speed:0.35}
+        .parallax-fast{--parallax-speed:0.6}
 
         @keyframes float-particle{
             0%{transform:translate(0,0) scale(1)}
@@ -89,7 +112,6 @@
 
         .orbit-item{
             position:absolute;
-            width:clamp(90px,12vw,140px);height:clamp(90px,12vw,140px);
             border-radius:50%;
             display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;
             background:rgba(255,255,255,0.03);
@@ -100,6 +122,12 @@
             text-decoration:none;color:var(--text);
             animation:counter-spin 90s linear infinite;
         }
+        /* Size hierarchy */
+        .orbit-item.size-xl{width:clamp(110px,15vw,170px);height:clamp(110px,15vw,170px)}
+        .orbit-item.size-lg{width:clamp(95px,13vw,150px);height:clamp(95px,13vw,150px)}
+        .orbit-item.size-md{width:clamp(85px,11vw,130px);height:clamp(85px,11vw,130px)}
+        .orbit-item.size-sm{width:clamp(72px,9vw,110px);height:clamp(72px,9vw,110px)}
+        .orbit-item.size-xs{width:clamp(60px,7.5vw,90px);height:clamp(60px,7.5vw,90px)}
         @keyframes counter-spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(-360deg)}}
 
         .orbit-item:hover{
@@ -195,7 +223,7 @@
             position:absolute;top:0;left:50%;
         }
 
-        /* ======== POPUP / DETAIL VIEW ======== */
+        /* ======== DETAIL MODAL (redesigned) ======== */
         .detail-overlay{
             position:fixed;inset:0;z-index:1000;
             background:rgba(0,0,0,0);
@@ -205,78 +233,149 @@
             display:flex;align-items:center;justify-content:center;
         }
         .detail-overlay.active{
-            background:rgba(0,0,0,0.75);
-            backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+            background:rgba(0,0,0,0.8);
+            backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
             pointer-events:all;
         }
 
         .detail-panel{
-            width:90vw;max-width:680px;
-            max-height:85vh;overflow-y:auto;
-            border-radius:20px;
-            padding:clamp(2rem,4vw,3rem);
-            transform:scale(0.9) translateY(30px);
+            width:92vw;max-width:720px;
+            max-height:88vh;overflow-y:auto;
+            border-radius:24px;
+            padding:0;
+            transform:scale(0.92) translateY(40px);
             opacity:0;
             transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
             scrollbar-width:thin;scrollbar-color:#555 transparent;
+            box-shadow:0 25px 80px rgba(0,0,0,0.4);
         }
         .detail-overlay.active .detail-panel{
             transform:scale(1) translateY(0);
             opacity:1;
         }
 
-        .detail-panel h2{
+        /* Detail header bar */
+        .detail-header{
+            display:flex;align-items:center;gap:1rem;
+            padding:1.5rem 2rem 1.2rem;
+            border-bottom:1px solid rgba(0,0,0,0.06);
+            position:sticky;top:0;z-index:10;
+            backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+        }
+        .detail-header-icon{
+            width:44px;height:44px;border-radius:12px;
+            display:flex;align-items:center;justify-content:center;
+            font-size:1.2rem;font-weight:700;color:#fff;flex-shrink:0;
+        }
+        .detail-header-text{flex:1;min-width:0}
+        .detail-header-title{
             font-family:var(--serif);
-            font-size:clamp(1.6rem,3vw,2.2rem);
-            font-weight:700;margin-bottom:1.2rem;
-            color:#000;
+            font-size:clamp(1.2rem,2.5vw,1.6rem);
+            font-weight:700;line-height:1.2;color:#111;
         }
-        .detail-panel p{
-            font-size:0.95rem;line-height:1.75;
-            margin-bottom:1rem;color:#333;
+        .detail-header-sub{
+            font-size:0.75rem;letter-spacing:0.12em;
+            text-transform:uppercase;color:rgba(0,0,0,0.4);
+            margin-top:2px;
         }
-        .detail-panel strong{font-weight:600;color:#111}
-        .detail-panel h3{font-size:1.1rem;margin:1.5rem 0 0.8rem;color:#111;font-weight:600}
-        .detail-panel h4{font-size:1rem;margin:1.2rem 0 0.6rem;color:#222;font-weight:600}
+
+        /* Nav arrows for prev/next */
+        .detail-nav{
+            display:flex;gap:6px;flex-shrink:0;
+        }
+        .detail-nav button{
+            width:34px;height:34px;border-radius:50%;
+            background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.08);
+            display:flex;align-items:center;justify-content:center;
+            cursor:pointer;font-size:1rem;color:#555;
+            transition:all 0.2s;
+        }
+        .detail-nav button:hover{background:rgba(0,0,0,0.1);color:#111}
 
         .detail-close{
-            position:sticky;top:0;float:right;
-            width:36px;height:36px;border-radius:50%;
-            background:rgba(0,0,0,0.06);border:none;
+            width:34px;height:34px;border-radius:50%;
+            background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.08);
             display:flex;align-items:center;justify-content:center;
-            cursor:pointer;z-index:10;font-size:1.2rem;color:#333;
-            transition:background 0.2s;
+            cursor:pointer;z-index:10;font-size:1.1rem;color:#555;
+            transition:all 0.2s;flex-shrink:0;
         }
-        .detail-close:hover{background:rgba(0,0,0,0.12)}
+        .detail-close:hover{background:rgba(0,0,0,0.1);color:#111}
 
-        /* Color themes for detail panels */
-        .detail-panel.theme-blue{background:linear-gradient(135deg,#e6f1fb,#d0e7f9)}
-        .detail-panel.theme-green{background:linear-gradient(135deg,#e1f5ee,#c8eddf)}
-        .detail-panel.theme-yellow{background:linear-gradient(135deg,#faeeda,#f5e0c0)}
-        .detail-panel.theme-pink{background:linear-gradient(135deg,#fbeaf0,#f4d0dd)}
-        .detail-panel.theme-purple{background:linear-gradient(135deg,#eeedfe,#ddd9f8)}
-        .detail-panel.theme-coral{background:linear-gradient(135deg,#faece7,#f5d4c8)}
-        .detail-panel.theme-dark{background:linear-gradient(135deg,#2a2a2a,#1a1a1a)}
-        .detail-panel.theme-dark h2,.detail-panel.theme-dark h3,.detail-panel.theme-dark p,
-        .detail-panel.theme-dark strong,.detail-panel.theme-dark h4,.detail-panel.theme-dark li,
-        .detail-panel.theme-dark summary,.detail-panel.theme-dark a{color:#e0ded8}
-        .detail-panel.theme-dark .detail-close{color:#ccc;background:rgba(255,255,255,0.08)}
+        /* Detail body */
+        .detail-body{
+            padding:1.8rem 2rem 2.5rem;
+        }
+
+        .detail-panel h2{
+            font-family:var(--serif);
+            font-size:clamp(1.4rem,2.5vw,1.8rem);
+            font-weight:700;margin-bottom:1rem;
+            color:#111;
+        }
+        .detail-panel p{
+            font-size:0.95rem;line-height:1.8;
+            margin-bottom:1rem;color:#444;
+        }
+        .detail-panel strong{font-weight:600;color:#1a1a1a}
+        .detail-panel em{color:#666;font-style:italic}
+        .detail-panel h3{
+            font-size:1.05rem;margin:2rem 0 0.8rem;color:#111;font-weight:600;
+            padding-top:1.2rem;border-top:1px solid rgba(0,0,0,0.06);
+        }
+        .detail-panel h4{font-size:0.95rem;margin:1.2rem 0 0.6rem;color:#222;font-weight:600}
+
+        /* Color themes */
+        .detail-panel.theme-blue{background:#f2f7fc}
+        .detail-panel.theme-blue .detail-header{background:rgba(242,247,252,0.85);border-color:rgba(59,139,212,0.1)}
+        .detail-panel.theme-blue .detail-header-icon{background:var(--blue)}
+
+        .detail-panel.theme-green{background:#eef8f3}
+        .detail-panel.theme-green .detail-header{background:rgba(238,248,243,0.85);border-color:rgba(29,158,117,0.1)}
+        .detail-panel.theme-green .detail-header-icon{background:var(--green)}
+
+        .detail-panel.theme-yellow{background:#fdf6ec}
+        .detail-panel.theme-yellow .detail-header{background:rgba(253,246,236,0.85);border-color:rgba(239,159,39,0.1)}
+        .detail-panel.theme-yellow .detail-header-icon{background:var(--yellow)}
+
+        .detail-panel.theme-coral{background:#fdf1ed}
+        .detail-panel.theme-coral .detail-header{background:rgba(253,241,237,0.85);border-color:rgba(216,90,48,0.1)}
+        .detail-panel.theme-coral .detail-header-icon{background:#D85A30}
+
+        .detail-panel.theme-purple{background:#f3f2fe}
+        .detail-panel.theme-purple .detail-header{background:rgba(243,242,254,0.85);border-color:rgba(83,74,183,0.1)}
+        .detail-panel.theme-purple .detail-header-icon{background:#534AB7}
+
+        .detail-panel.theme-dark{background:#1a1a1a}
+        .detail-panel.theme-dark .detail-header{background:rgba(26,26,26,0.85);border-color:rgba(255,255,255,0.06)}
+        .detail-panel.theme-dark .detail-header-icon{background:#444}
+        .detail-panel.theme-dark .detail-header-title{color:#e8e6df}
+        .detail-panel.theme-dark .detail-header-sub{color:rgba(255,255,255,0.3)}
+        .detail-panel.theme-dark .detail-nav button,
+        .detail-panel.theme-dark .detail-close{color:#999;background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08)}
+        .detail-panel.theme-dark .detail-nav button:hover,
+        .detail-panel.theme-dark .detail-close:hover{background:rgba(255,255,255,0.12);color:#ddd}
+        .detail-panel.theme-dark h2,.detail-panel.theme-dark h3{color:#e0ded8;border-color:rgba(255,255,255,0.06)}
+        .detail-panel.theme-dark p,.detail-panel.theme-dark li{color:#aaa}
+        .detail-panel.theme-dark strong,.detail-panel.theme-dark h4{color:#ddd}
+        .detail-panel.theme-dark summary,.detail-panel.theme-dark a{color:#7cb8e8}
 
         /* Image grid inside detail */
         .detail-panel .image-grid{
             display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-            gap:12px;margin:1rem 0;
+            gap:12px;margin:1.2rem 0;
         }
         .detail-panel .image-grid img{
-            width:100%;height:auto;border-radius:8px;cursor:pointer;
+            width:100%;height:auto;border-radius:10px;cursor:pointer;
             transition:transform 0.3s;
+            box-shadow:0 2px 12px rgba(0,0,0,0.08);
         }
         .detail-panel .image-grid img:hover{transform:scale(1.03)}
 
         /* Video container */
         .detail-panel .video-container{
             position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
-            margin:1rem 0;border-radius:12px;
+            margin:1.2rem 0;border-radius:14px;
+            box-shadow:0 4px 20px rgba(0,0,0,0.1);
         }
         .detail-panel .video-container video,
         .detail-panel .video-container iframe{
@@ -284,12 +383,12 @@
         }
 
         /* UX iframe */
-        .detail-panel .ux{text-align:center;margin:1rem 0}
-        .detail-panel .ux iframe{border:none;border-radius:12px;max-width:100%}
+        .detail-panel .ux{text-align:center;margin:1.2rem 0}
+        .detail-panel .ux iframe{border:none;border-radius:14px;max-width:100%;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
 
         .detail-panel .modal{
             position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
-            margin:1rem 0;border-radius:12px;
+            margin:1.2rem 0;border-radius:14px;
         }
         .detail-panel .modal model-viewer{
             position:absolute;top:0;left:0;width:100%;height:100%;
@@ -336,18 +435,26 @@
                 width:340px;height:340px;
                 animation:none;
             }
-            .orbit-item{
-                width:72px;height:72px;
-                animation:none;
-            }
-            .orbit-item span{font-size:0.55rem}
+            .orbit-item{animation:none}
+            .orbit-item.size-xl{width:82px;height:82px}
+            .orbit-item.size-lg{width:74px;height:74px}
+            .orbit-item.size-md{width:66px;height:66px}
+            .orbit-item.size-sm{width:58px;height:58px}
+            .orbit-item.size-xs{width:50px;height:50px}
+            .orbit-item span{font-size:0.5rem}
             .section{min-height:auto;padding:4rem 1.5rem}
+            .detail-panel{width:95vw;max-width:none;padding:1.5rem;border-radius:16px}
+            .detail-header{flex-direction:column;gap:0.8rem}
         }
 
         @media(max-width:480px){
             .orbit-ring{width:280px;height:280px}
-            .orbit-item{width:60px;height:60px}
-            .orbit-item span{font-size:0.5rem}
+            .orbit-item.size-xl{width:72px;height:72px}
+            .orbit-item.size-lg{width:64px;height:64px}
+            .orbit-item.size-md{width:58px;height:58px}
+            .orbit-item.size-sm{width:50px;height:50px}
+            .orbit-item.size-xs{width:44px;height:44px}
+            .orbit-item span{font-size:0.45rem}
         }
 
         /* Impressum specifics */
@@ -356,9 +463,184 @@
         .detail-panel li{margin-bottom:0.3rem;font-size:0.9rem;line-height:1.6}
         .detail-panel a{color:var(--blue)}
         .detail-panel.theme-dark a{color:#7cb8e8}
+        /* ======== PRELOADER ======== */
+        .preloader{
+            position:fixed;inset:0;z-index:10000;
+            background:var(--dark);
+            display:flex;align-items:center;justify-content:center;
+            transition:opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .preloader.done{
+            opacity:0;visibility:hidden;pointer-events:none;
+        }
+        .preloader-inner{
+            position:relative;width:260px;height:260px;
+        }
+
+        /* Three organic shapes that represent the logo swooshes */
+        .preloader-shape{
+            position:absolute;border-radius:40% 60% 55% 45% / 50% 45% 55% 50%;
+            opacity:0;
+        }
+        .preloader-shape.s-blue{
+            width:90px;height:120px;
+            background:linear-gradient(160deg,#5BAEE6,#3B8BD4);
+            top:20px;right:30px;
+            animation:shape-blue 2.4s ease-out 0.2s forwards;
+        }
+        .preloader-shape.s-green{
+            width:80px;height:130px;
+            background:linear-gradient(170deg,#2BC48E,#1D9E75);
+            bottom:40px;right:50px;
+            border-radius:45% 55% 60% 40% / 55% 50% 50% 45%;
+            animation:shape-green 2.4s ease-out 0.5s forwards;
+        }
+        .preloader-shape.s-yellow{
+            width:70px;height:60px;
+            background:linear-gradient(140deg,#F5C842,#EF9F27);
+            bottom:60px;left:50px;
+            border-radius:50% 40% 55% 45% / 45% 55% 50% 50%;
+            animation:shape-yellow 2.4s ease-out 0.8s forwards;
+        }
+
+        @keyframes shape-blue{
+            0%{opacity:0;transform:translate(80px,-60px) scale(0.3) rotate(-20deg)}
+            40%{opacity:0.9;transform:translate(10px,-5px) scale(1.1) rotate(5deg)}
+            70%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
+            100%{opacity:0;transform:translate(0,0) scale(0.8) rotate(0deg)}
+        }
+        @keyframes shape-green{
+            0%{opacity:0;transform:translate(60px,80px) scale(0.3) rotate(15deg)}
+            40%{opacity:0.9;transform:translate(5px,5px) scale(1.1) rotate(-5deg)}
+            70%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
+            100%{opacity:0;transform:translate(0,0) scale(0.8) rotate(0deg)}
+        }
+        @keyframes shape-yellow{
+            0%{opacity:0;transform:translate(-70px,50px) scale(0.3) rotate(-10deg)}
+            40%{opacity:0.9;transform:translate(-5px,5px) scale(1.1) rotate(5deg)}
+            70%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
+            100%{opacity:0;transform:translate(0,0) scale(0.8) rotate(0deg)}
+        }
+
+        /* Logo reveal in preloader */
+        .preloader-logo{
+            position:absolute;inset:0;
+            display:flex;align-items:center;justify-content:center;
+            opacity:0;
+            animation:preloader-logo-in 1s ease-out 1.8s forwards;
+        }
+        .preloader-logo img{
+            width:160px;height:auto;
+            filter:drop-shadow(0 0 40px rgba(59,139,212,0.3));
+        }
+        @keyframes preloader-logo-in{
+            0%{opacity:0;transform:scale(0.6)}
+            60%{opacity:1;transform:scale(1.05)}
+            100%{opacity:1;transform:scale(1)}
+        }
+
+        /* Preloader text */
+        .preloader-text{
+            position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+            font-size:0.7rem;letter-spacing:0.4em;text-transform:uppercase;
+            color:var(--text-muted);opacity:0;
+            animation:preloader-text-in 0.6s ease 0.3s forwards;
+        }
+        @keyframes preloader-text-in{to{opacity:1}}
+
+        /* Hero elements hidden until preloader done */
+        body.loading .logo-center,
+        body.loading .scroll-hint{
+            opacity:0;
+        }
+        body.loading .orbit-ring{
+            opacity:0;
+            animation:none;
+        }
+        body.loading .orbit-item{
+            animation:none;
+        }
+        body.loading .site-header{
+            opacity:0;
+        }
+
+        /* Staggered entry for hero elements after preload */
+        body.loaded .site-header{
+            animation:hero-el-in 0.8s ease-out 0.1s both;
+        }
+        body.loaded .logo-center{
+            animation:hero-el-in 0.8s ease-out 0.2s both;
+        }
+        body.loaded .orbit-ring{
+            animation:orbit-ring-in 1s ease-out 0.4s both, orbit-spin 90s linear 1.4s infinite;
+        }
+        body.loaded .orbit-item:nth-child(1){animation:orbit-item-in 0.5s ease-out 0.5s both, counter-spin 90s linear 1.4s infinite}
+        body.loaded .orbit-item:nth-child(2){animation:orbit-item-in 0.5s ease-out 0.6s both, counter-spin 90s linear 1.4s infinite}
+        body.loaded .orbit-item:nth-child(3){animation:orbit-item-in 0.5s ease-out 0.7s both, counter-spin 90s linear 1.4s infinite}
+        body.loaded .orbit-item:nth-child(4){animation:orbit-item-in 0.5s ease-out 0.8s both, counter-spin 90s linear 1.4s infinite}
+        body.loaded .orbit-item:nth-child(5){animation:orbit-item-in 0.5s ease-out 0.9s both, counter-spin 90s linear 1.4s infinite}
+        body.loaded .orbit-item:nth-child(6){animation:orbit-item-in 0.5s ease-out 1.0s both, counter-spin 90s linear 1.4s infinite}
+        body.loaded .orbit-item:nth-child(7){animation:orbit-item-in 0.5s ease-out 1.1s both, counter-spin 90s linear 1.4s infinite}
+        body.loaded .orbit-item:nth-child(8){animation:orbit-item-in 0.5s ease-out 1.2s both, counter-spin 90s linear 1.4s infinite}
+        body.loaded .scroll-hint{
+            animation:hero-el-in 0.8s ease-out 1.5s both, bounce-hint 2s ease-in-out 2.3s infinite;
+        }
+
+        @keyframes hero-el-in{
+            0%{opacity:0;transform:translateY(20px)}
+            100%{opacity:1;transform:translateY(0)}
+        }
+        @keyframes orbit-ring-in{
+            0%{opacity:0;transform:translate(-50%,-50%) scale(0.5)}
+            100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+        }
+        @keyframes orbit-item-in{
+            0%{opacity:0;transform:translate(-50%,-50%) scale(0)}
+            70%{transform:translate(-50%,-50%) scale(1.1)}
+            100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+        }
+
+        /* Cursor trail */
+        .cursor-trail{
+            position:fixed;pointer-events:none;z-index:9999;
+            width:8px;height:8px;border-radius:50%;
+            opacity:0.7;
+            transform:translate(-50%,-50%) scale(1);
+            animation:trail-fade 0.8s ease-out forwards;
+        }
+        @keyframes trail-fade{
+            0%{opacity:0.7;transform:translate(-50%,-50%) scale(1)}
+            100%{opacity:0;transform:translate(-50%,-50%) scale(0.1)}
+        }
+
+        @media(max-width:768px){
+            .cursor-trail{display:none}
+        }
     </style>
 </head>
-<body>
+<body class="loading">
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-shape s-blue"></div>
+        <div class="preloader-shape s-green"></div>
+        <div class="preloader-shape s-yellow"></div>
+        <div class="preloader-logo">
+            <img src="Logo_weiß_Final.png" alt="L21 Design"/>
+        </div>
+    </div>
+    <span class="preloader-text">L21 Design laden…</span>
+</div>
+
+<!-- Parallax background particles (fixed, spans full page) -->
+<div class="parallax-particles" id="parallaxLayer">
+    <div class="parallax-particle parallax-slow"></div>
+    <div class="parallax-particle parallax-slow"></div>
+    <div class="parallax-particle parallax-mid"></div>
+    <div class="parallax-particle parallax-mid"></div>
+    <div class="parallax-particle parallax-slow"></div>
+</div>
 
 <!-- Header -->
 <header class="site-header">
@@ -380,35 +662,35 @@
     </div>
 
     <div class="orbit-ring" id="orbit">
-        <a href="#sec-konzeption" class="orbit-item" data-detail="content-conception">
+        <a href="#sec-konzeption" class="orbit-item size-xl" data-detail="content-conception">
             <span class="orbit-dot" style="background:var(--blue)"></span>
             <span>Konzeption</span>
         </a>
-        <a href="#sec-ux" class="orbit-item" data-detail="content-ux-design">
+        <a href="#sec-ux" class="orbit-item size-lg" data-detail="content-ux-design">
             <span class="orbit-dot" style="background:var(--green)"></span>
             <span>UX Design</span>
         </a>
-        <a href="#sec-animation" class="orbit-item" data-detail="content-animation">
+        <a href="#sec-animation" class="orbit-item size-lg" data-detail="content-animation">
             <span class="orbit-dot" style="background:var(--blue)"></span>
             <span>Animation</span>
         </a>
-        <a href="#sec-logos" class="orbit-item" data-detail="content-logos">
+        <a href="#sec-logos" class="orbit-item size-md" data-detail="content-logos">
             <span class="orbit-dot" style="background:var(--green)"></span>
             <span>Logos</span>
         </a>
-        <a href="#sec-videos" class="orbit-item" data-detail="content-videos">
+        <a href="#sec-videos" class="orbit-item size-md" data-detail="content-videos">
             <span class="orbit-dot" style="background:var(--yellow)"></span>
             <span>Videos</span>
         </a>
-        <a href="#sec-storytelling" class="orbit-item" data-detail="content-storytelling">
+        <a href="#sec-storytelling" class="orbit-item size-sm" data-detail="content-storytelling">
             <span class="orbit-dot" style="background:var(--yellow)"></span>
             <span>Storytelling</span>
         </a>
-        <a href="#sec-about" class="orbit-item" data-detail="content-about-me">
+        <a href="#sec-about" class="orbit-item size-sm" data-detail="content-about-me">
             <span class="orbit-dot" style="background:var(--blue)"></span>
             <span>Über mich</span>
         </a>
-        <a href="#sec-impressum" class="orbit-item" data-detail="content-impressum">
+        <a href="#sec-impressum" class="orbit-item size-xs" data-detail="content-impressum">
             <span class="orbit-dot" style="background:var(--text-muted)"></span>
             <span>Impressum</span>
         </a>
@@ -545,8 +827,19 @@
 <!-- Detail Overlay -->
 <div class="detail-overlay" id="detailOverlay">
     <div class="detail-panel" id="detailPanel">
-        <button class="detail-close" id="detailClose">&times;</button>
-        <div id="detailContent"></div>
+        <div class="detail-header" id="detailHeader">
+            <div class="detail-header-icon" id="detailIcon">K</div>
+            <div class="detail-header-text">
+                <div class="detail-header-title" id="detailTitle">Konzeption</div>
+                <div class="detail-header-sub" id="detailSub">L21 Design</div>
+            </div>
+            <div class="detail-nav">
+                <button id="detailPrev" title="Vorheriger Bereich">&#8592;</button>
+                <button id="detailNext" title="Nächster Bereich">&#8594;</button>
+            </div>
+            <button class="detail-close" id="detailClose">&times;</button>
+        </div>
+        <div class="detail-body" id="detailContent"></div>
     </div>
 </div>
 
@@ -712,30 +1005,70 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Preloader ---
+    const preloader = document.getElementById('preloader');
+    const preloadDuration = 3000;
+
+    setTimeout(() => {
+        preloader.classList.add('done');
+        document.body.classList.remove('loading');
+        document.body.classList.add('loaded');
+        // Clean up preloader after transition
+        setTimeout(() => preloader.remove(), 800);
+    }, preloadDuration);
+
     // --- Detail overlay ---
     const overlay = document.getElementById('detailOverlay');
     const panel = document.getElementById('detailPanel');
     const content = document.getElementById('detailContent');
     const closeBtn = document.getElementById('detailClose');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailSub = document.getElementById('detailSub');
+    const detailIcon = document.getElementById('detailIcon');
+    const prevBtn = document.getElementById('detailPrev');
+    const nextBtn = document.getElementById('detailNext');
 
-    const themeMap = {
-        'content-conception': 'theme-blue',
-        'content-ux-design': 'theme-green',
-        'content-animation': 'theme-blue',
-        'content-logos': 'theme-green',
-        'content-videos': 'theme-yellow',
-        'content-storytelling': 'theme-yellow',
-        'content-about-me': 'theme-coral',
-        'content-impressum': 'theme-dark',
-    };
+    const sections = [
+        { id:'content-conception',  theme:'theme-blue',   title:'Konzeption',              sub:'Strategie & Planung',      icon:'K' },
+        { id:'content-ux-design',   theme:'theme-green',  title:'UX / UI Design',          sub:'Nutzererfahrung',          icon:'UX' },
+        { id:'content-animation',   theme:'theme-blue',   title:'Animation',               sub:'2D & 3D',                  icon:'A' },
+        { id:'content-logos',       theme:'theme-green',  title:'Logos',                    sub:'Visuelle Identität',       icon:'L' },
+        { id:'content-videos',      theme:'theme-yellow', title:'Videos',                   sub:'Produktion & Schnitt',     icon:'V' },
+        { id:'content-storytelling', theme:'theme-yellow', title:'Storytelling',             sub:'Creative Writing',         icon:'S' },
+        { id:'content-about-me',    theme:'theme-coral',  title:'Über mich',                sub:'Lasse Sündermann',         icon:'LS' },
+        { id:'content-impressum',   theme:'theme-dark',   title:'Impressum & Datenschutz',  sub:'Rechtliches',              icon:'§' },
+    ];
+
+    let currentSectionIndex = 0;
 
     function openDetail(id) {
-        const src = document.getElementById(id);
-        if (!src) return;
-        content.innerHTML = src.innerHTML;
-        panel.className = 'detail-panel ' + (themeMap[id] || '');
+        const idx = sections.findIndex(s => s.id === id);
+        if (idx === -1) return;
+        currentSectionIndex = idx;
+        renderDetail();
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+    }
+
+    function renderDetail() {
+        const sec = sections[currentSectionIndex];
+        const src = document.getElementById(sec.id);
+        if (!src) return;
+
+        content.innerHTML = src.innerHTML;
+        panel.className = 'detail-panel ' + sec.theme;
+        detailTitle.textContent = sec.title;
+        detailSub.textContent = sec.sub;
+        detailIcon.textContent = sec.icon;
+
+        // Update prev/next button states
+        prevBtn.style.opacity = currentSectionIndex === 0 ? '0.3' : '1';
+        prevBtn.style.pointerEvents = currentSectionIndex === 0 ? 'none' : 'auto';
+        nextBtn.style.opacity = currentSectionIndex === sections.length - 1 ? '0.3' : '1';
+        nextBtn.style.pointerEvents = currentSectionIndex === sections.length - 1 ? 'none' : 'auto';
+
+        // Scroll panel to top
+        panel.scrollTop = 0;
 
         // Bind image clicks inside detail
         content.querySelectorAll('.image-grid img').forEach(img => {
@@ -747,6 +1080,20 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.classList.remove('active');
         document.body.style.overflow = '';
     }
+
+    prevBtn.addEventListener('click', () => {
+        if (currentSectionIndex > 0) {
+            currentSectionIndex--;
+            renderDetail();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentSectionIndex < sections.length - 1) {
+            currentSectionIndex++;
+            renderDetail();
+        }
+    });
 
     // Orbit items + detail buttons
     document.querySelectorAll('[data-detail]').forEach(el => {
@@ -797,24 +1144,128 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Pause orbit on hover ---
+    // --- Toggle orbit on center logo click ---
     const orbit = document.getElementById('orbit');
+    const logoCenter = document.querySelector('.logo-center');
+    let orbitPaused = false;
+
+    logoCenter.style.cursor = 'pointer';
+    logoCenter.addEventListener('click', () => {
+        orbitPaused = !orbitPaused;
+        const state = orbitPaused ? 'paused' : 'running';
+        orbit.style.animationPlayState = state;
+        orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = state);
+        // Visual feedback: slight scale change when paused
+        logoCenter.querySelector('img').style.filter = orbitPaused
+            ? 'drop-shadow(0 0 80px rgba(239,159,39,0.3))'
+            : '';
+    });
+
+    // Also pause on orbit hover for easier clicking
     orbit.addEventListener('mouseenter', () => {
         orbit.style.animationPlayState = 'paused';
         orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'paused');
     });
     orbit.addEventListener('mouseleave', () => {
-        orbit.style.animationPlayState = 'running';
-        orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'running');
+        if (!orbitPaused) {
+            orbit.style.animationPlayState = 'running';
+            orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'running');
+        }
     });
 
-    // --- Keyboard close ---
+    // --- Parallax scroll ---
+    const parallaxEls = document.querySelectorAll('.parallax-particle');
+    const heroParticles = document.querySelectorAll('.hero-bg .particle');
+    const heroBg = document.querySelector('.hero-bg');
+    const heroSection = document.querySelector('.hero');
+    let ticking = false;
+
+    function updateParallax() {
+        const scrollY = window.scrollY;
+        const heroH = heroSection.offsetHeight;
+
+        // Parallax background particles — move slowly upward
+        parallaxEls.forEach(el => {
+            const speed = parseFloat(getComputedStyle(el).getPropertyValue('--parallax-speed')) || 0.15;
+            el.style.transform = `translateY(${scrollY * -speed}px)`;
+        });
+
+        // Hero particles — move even slower (they "stay behind")
+        heroParticles.forEach((p, i) => {
+            const speed = 0.08 + i * 0.04;
+            p.style.transform = `translateY(${scrollY * -speed}px)`;
+        });
+
+        // Hero content — subtle parallax on logo and orbit
+        if (scrollY < heroH) {
+            const progress = scrollY / heroH;
+            const logoShift = scrollY * 0.25;
+            const orbitShift = scrollY * 0.4;
+
+            const lc = document.querySelector('.logo-center');
+            if (lc) lc.style.transform = `translateY(${logoShift}px)`;
+
+            const orbitEl = document.getElementById('orbit');
+            if (orbitEl) {
+                orbitEl.style.marginTop = `${orbitShift}px`;
+            }
+
+            // Fade hero content as user scrolls down
+            const fadeOpacity = Math.max(0, 1 - progress * 1.5);
+            if (lc) lc.style.opacity = fadeOpacity;
+            const sh = document.querySelector('.scroll-hint');
+            if (sh) sh.style.opacity = Math.max(0, 1 - progress * 3);
+        }
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // --- Cursor trail ---
+    const trailColors = ['#3B8BD4','#1D9E75','#EF9F27'];
+    let trailIndex = 0;
+    let lastTrailTime = 0;
+    const trailInterval = 40;
+
+    document.addEventListener('mousemove', e => {
+        const now = Date.now();
+        if (now - lastTrailTime < trailInterval) return;
+        lastTrailTime = now;
+
+        const dot = document.createElement('div');
+        dot.className = 'cursor-trail';
+        dot.style.left = e.clientX + 'px';
+        dot.style.top = e.clientY + 'px';
+        dot.style.background = trailColors[trailIndex % trailColors.length];
+        trailIndex++;
+        document.body.appendChild(dot);
+
+        dot.addEventListener('animationend', () => dot.remove());
+    });
+
+    // --- Keyboard navigation ---
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
             if (fsOverlay.classList.contains('active')) {
                 fsOverlay.classList.remove('active');
             } else {
                 closeDetail();
+            }
+        }
+        // Arrow keys for detail nav
+        if (overlay.classList.contains('active')) {
+            if (e.key === 'ArrowLeft' && currentSectionIndex > 0) {
+                currentSectionIndex--;
+                renderDetail();
+            } else if (e.key === 'ArrowRight' && currentSectionIndex < sections.length - 1) {
+                currentSectionIndex++;
+                renderDetail();
             }
         }
     });
