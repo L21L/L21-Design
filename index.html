@@ -700,47 +700,51 @@
 
         /* Three organic shapes that represent the logo swooshes */
         .preloader-shape{
-            position:absolute;border-radius:40% 60% 55% 45% / 50% 45% 55% 50%;
+            position:absolute;
             opacity:0;
         }
+        /* Blue swoosh — large C-curve on the right side */
         .preloader-shape.s-blue{
-            width:90px;height:120px;
-            background:linear-gradient(160deg,#5BAEE6,#3B8BD4);
-            top:20px;right:30px;
+            width:100px;height:160px;
+            background:linear-gradient(175deg,#5BAEE6,#3B8BD4);
+            top:30px;right:30px;
+            border-radius:30% 70% 60% 40% / 30% 30% 70% 70%;
             animation:shape-blue 2.4s ease-out 0.2s forwards;
         }
+        /* Green swoosh — tall curve nestled inside the blue */
         .preloader-shape.s-green{
-            width:80px;height:130px;
+            width:70px;height:150px;
             background:linear-gradient(170deg,#2BC48E,#1D9E75);
-            bottom:40px;right:50px;
-            border-radius:45% 55% 60% 40% / 55% 50% 50% 45%;
+            top:60px;right:55px;
+            border-radius:50% 50% 50% 50% / 30% 25% 75% 70%;
             animation:shape-green 2.4s ease-out 0.5s forwards;
         }
+        /* Yellow swoosh — small teardrop bottom-left */
         .preloader-shape.s-yellow{
-            width:70px;height:60px;
+            width:55px;height:50px;
             background:linear-gradient(140deg,#F0E830,#DEDE20);
-            bottom:60px;left:50px;
-            border-radius:50% 40% 55% 45% / 45% 55% 50% 50%;
+            bottom:55px;left:55px;
+            border-radius:60% 40% 50% 50% / 60% 50% 50% 40%;
             animation:shape-yellow 2.4s ease-out 0.8s forwards;
         }
 
         @keyframes shape-blue{
-            0%{opacity:0;transform:translate(80px,-60px) scale(0.3) rotate(-20deg)}
-            40%{opacity:0.9;transform:translate(10px,-5px) scale(1.1) rotate(5deg)}
-            70%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
-            100%{opacity:0;transform:translate(0,0) scale(0.8) rotate(0deg)}
+            0%{opacity:0;transform:translate(60px,-40px) scale(0.2) rotate(-15deg)}
+            35%{opacity:0.9;transform:translate(5px,-3px) scale(1.08) rotate(3deg)}
+            65%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
+            100%{opacity:0;transform:translate(0,0) scale(0.85) rotate(0deg)}
         }
         @keyframes shape-green{
-            0%{opacity:0;transform:translate(60px,80px) scale(0.3) rotate(15deg)}
-            40%{opacity:0.9;transform:translate(5px,5px) scale(1.1) rotate(-5deg)}
-            70%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
-            100%{opacity:0;transform:translate(0,0) scale(0.8) rotate(0deg)}
+            0%{opacity:0;transform:translate(40px,60px) scale(0.2) rotate(12deg)}
+            35%{opacity:0.9;transform:translate(3px,3px) scale(1.08) rotate(-3deg)}
+            65%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
+            100%{opacity:0;transform:translate(0,0) scale(0.85) rotate(0deg)}
         }
         @keyframes shape-yellow{
-            0%{opacity:0;transform:translate(-70px,50px) scale(0.3) rotate(-10deg)}
-            40%{opacity:0.9;transform:translate(-5px,5px) scale(1.1) rotate(5deg)}
-            70%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
-            100%{opacity:0;transform:translate(0,0) scale(0.8) rotate(0deg)}
+            0%{opacity:0;transform:translate(-50px,35px) scale(0.2) rotate(-8deg)}
+            35%{opacity:0.9;transform:translate(-3px,3px) scale(1.08) rotate(4deg)}
+            65%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
+            100%{opacity:0;transform:translate(0,0) scale(0.85) rotate(0deg)}
         }
 
         /* Logo reveal in preloader */
@@ -1225,6 +1229,237 @@
         }
         body.magazine-mode .site-footer a{
             color:#f5f3ee;
+        }
+
+        /* ======== DETAIL MODAL — MAGAZINE MODE ======== */
+        body.magazine-mode .detail-overlay.active{
+            background:rgba(245,243,238,0.92) !important;
+            backdrop-filter:blur(6px) !important;-webkit-backdrop-filter:blur(6px) !important;
+        }
+
+        body.magazine-mode .detail-panel{
+            border-radius:0 !important;
+            box-shadow:8px 8px 0 #111 !important;
+            border:3px solid #111 !important;
+            max-width:760px !important;
+            scrollbar-color:#111 transparent !important;
+        }
+
+        /* All theme backgrounds become stark off-white */
+        body.magazine-mode .detail-panel.theme-blue,
+        body.magazine-mode .detail-panel.theme-green,
+        body.magazine-mode .detail-panel.theme-yellow,
+        body.magazine-mode .detail-panel.theme-coral,
+        body.magazine-mode .detail-panel.theme-purple{
+            background:#f5f3ee !important;
+        }
+        body.magazine-mode .detail-panel.theme-dark{
+            background:#111 !important;
+        }
+
+        /* Header bar — bold stripe */
+        body.magazine-mode .detail-panel:not(.theme-dark) .detail-header{
+            background:#111 !important;
+            border-bottom:none !important;
+            backdrop-filter:none !important;
+            padding:1.2rem 2rem !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) .detail-header-icon{
+            background:var(--blue) !important;
+            border-radius:0 !important;
+            width:48px !important;height:48px !important;
+            font-family:'Anton',sans-serif !important;
+            font-size:1rem !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) .detail-header-title{
+            color:#f5f3ee !important;
+            font-family:'Anton',sans-serif !important;
+            font-size:clamp(1.3rem,3vw,1.8rem) !important;
+            letter-spacing:0.06em !important;
+            text-transform:uppercase !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) .detail-header-sub{
+            color:rgba(245,243,238,0.5) !important;
+            font-family:'Space Mono',monospace !important;
+            font-size:0.65rem !important;
+            letter-spacing:0.2em !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) .detail-nav button,
+        body.magazine-mode .detail-panel:not(.theme-dark) .detail-close{
+            background:transparent !important;
+            border:2px solid rgba(245,243,238,0.3) !important;
+            border-radius:0 !important;
+            color:#f5f3ee !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) .detail-nav button:hover,
+        body.magazine-mode .detail-panel:not(.theme-dark) .detail-close:hover{
+            background:#f5f3ee !important;
+            color:#111 !important;
+            border-color:#f5f3ee !important;
+        }
+
+        /* Dark theme header in magazine */
+        body.magazine-mode .detail-panel.theme-dark .detail-header{
+            background:#222 !important;
+            border-bottom:2px solid rgba(255,255,255,0.1) !important;
+            backdrop-filter:none !important;
+        }
+        body.magazine-mode .detail-panel.theme-dark .detail-header-icon{
+            border-radius:0 !important;
+            font-family:'Anton',sans-serif !important;
+        }
+        body.magazine-mode .detail-panel.theme-dark .detail-header-title{
+            font-family:'Anton',sans-serif !important;
+            letter-spacing:0.06em !important;
+            text-transform:uppercase !important;
+        }
+        body.magazine-mode .detail-panel.theme-dark .detail-header-sub{
+            font-family:'Space Mono',monospace !important;
+        }
+        body.magazine-mode .detail-panel.theme-dark .detail-nav button,
+        body.magazine-mode .detail-panel.theme-dark .detail-close{
+            border-radius:0 !important;
+        }
+
+        /* Body content — editorial typography */
+        body.magazine-mode .detail-body{
+            padding:2rem 2.5rem 3rem !important;
+        }
+
+        body.magazine-mode .detail-panel:not(.theme-dark) h2{
+            font-family:'Anton',sans-serif !important;
+            font-size:clamp(1.8rem,4vw,2.8rem) !important;
+            color:#111 !important;
+            text-transform:uppercase !important;
+            letter-spacing:-0.01em !important;
+            line-height:0.95 !important;
+            margin-bottom:1.2rem !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) h3{
+            font-family:'Anton',sans-serif !important;
+            font-size:clamp(1rem,2vw,1.3rem) !important;
+            color:#111 !important;
+            text-transform:uppercase !important;
+            letter-spacing:0.08em !important;
+            border-top:2px solid #111 !important;
+            padding-top:1.5rem !important;
+            margin-top:2rem !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) h4{
+            font-family:'Anton',sans-serif !important;
+            font-size:1rem !important;
+            color:#111 !important;
+            letter-spacing:0.05em !important;
+            text-transform:uppercase !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) p{
+            font-family:'Space Mono',monospace !important;
+            font-size:0.85rem !important;
+            line-height:1.9 !important;
+            color:#333 !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) strong{
+            color:#111 !important;
+            font-weight:700 !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) em{
+            color:#666 !important;
+            font-family:'Space Mono',monospace !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) a{
+            color:var(--blue) !important;
+            text-decoration:none !important;
+            border-bottom:2px solid var(--blue) !important;
+            font-family:'Space Mono',monospace !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) a:hover{
+            color:#111 !important;
+            border-color:#111 !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) ul{
+            color:#333 !important;
+            font-family:'Space Mono',monospace !important;
+        }
+        body.magazine-mode .detail-panel:not(.theme-dark) li{
+            color:#333 !important;
+            font-family:'Space Mono',monospace !important;
+            font-size:0.85rem !important;
+        }
+
+        /* Dark theme body in magazine */
+        body.magazine-mode .detail-panel.theme-dark h2{
+            font-family:'Anton',sans-serif !important;
+            font-size:clamp(1.8rem,4vw,2.8rem) !important;
+            text-transform:uppercase !important;
+            letter-spacing:-0.01em !important;
+            line-height:0.95 !important;
+        }
+        body.magazine-mode .detail-panel.theme-dark h3{
+            font-family:'Anton',sans-serif !important;
+            text-transform:uppercase !important;
+            letter-spacing:0.08em !important;
+            border-top:2px solid rgba(255,255,255,0.15) !important;
+        }
+        body.magazine-mode .detail-panel.theme-dark p,
+        body.magazine-mode .detail-panel.theme-dark li{
+            font-family:'Space Mono',monospace !important;
+            font-size:0.85rem !important;
+            line-height:1.9 !important;
+        }
+        body.magazine-mode .detail-panel.theme-dark a{
+            font-family:'Space Mono',monospace !important;
+            border-bottom:2px solid currentColor !important;
+            text-decoration:none !important;
+        }
+
+        /* Image grids in magazine modal — sharp edges */
+        body.magazine-mode .detail-panel .image-grid img{
+            border-radius:0 !important;
+            box-shadow:4px 4px 0 rgba(0,0,0,0.15) !important;
+        }
+        body.magazine-mode .detail-panel .image-grid img:hover{
+            box-shadow:6px 6px 0 rgba(0,0,0,0.25) !important;
+        }
+
+        /* Video containers in magazine modal */
+        body.magazine-mode .detail-panel .video-container{
+            border-radius:0 !important;
+            box-shadow:4px 4px 0 rgba(0,0,0,0.15) !important;
+            border:2px solid #111 !important;
+        }
+
+        /* UX iframes in magazine modal */
+        body.magazine-mode .detail-panel .ux iframe{
+            border-radius:0 !important;
+            box-shadow:4px 4px 0 rgba(0,0,0,0.15) !important;
+            border:2px solid #111 !important;
+        }
+
+        /* 3D model viewer in magazine modal */
+        body.magazine-mode .detail-panel .modal{
+            border-radius:0 !important;
+            border:2px solid #111 !important;
+        }
+
+        /* Fullscreen image viewer in magazine mode */
+        body.magazine-mode .fullscreen-img{
+            background:rgba(245,243,238,0.95) !important;
+        }
+        body.magazine-mode .fullscreen-img img{
+            border-radius:0 !important;
+            box-shadow:8px 8px 0 rgba(0,0,0,0.2) !important;
+            border:3px solid #111 !important;
+        }
+
+        /* Magazine-mode panel entrance — hard slam from top */
+        body.magazine-mode .detail-panel{
+            transform:translateY(-60px) !important;
+            opacity:0;
+            transition:all 0.35s cubic-bezier(0.2,0,0,1) !important;
+        }
+        body.magazine-mode .detail-overlay.active .detail-panel{
+            transform:translateY(0) !important;
+            opacity:1;
         }
 
         /* Custom cursor in magazine mode */
