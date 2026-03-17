@@ -111,6 +111,7 @@
             border-radius:50%;
             border:1px solid rgba(255,255,255,0.04);
             animation:orbit-spin 90s linear infinite;
+            pointer-events:none;
         }
         @keyframes orbit-spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
         .orbit-ring{top:50%;left:50%;transform:translate(-50%,-50%)}
@@ -123,6 +124,7 @@
             border:1px solid rgba(255,255,255,0.08);
             backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
             cursor:pointer;
+            pointer-events:auto;
             transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
             text-decoration:none;color:var(--text);
             animation:counter-spin 90s linear infinite;
