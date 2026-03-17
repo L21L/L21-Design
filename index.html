@@ -1218,21 +1218,6 @@
             border-radius:0 !important;
         }
 
-        /* Magazine mode toggle hint */
-        .mode-hint{
-            position:fixed;bottom:1.5rem;right:1.5rem;z-index:100;
-            font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
-            color:var(--text-muted);
-            opacity:0;
-            transition:opacity 0.6s;
-            pointer-events:none;
-            font-family:'Space Mono',monospace;
-        }
-        body.magazine-mode .mode-hint{
-            color:#aaa;
-        }
-        .mode-hint.visible{opacity:1}
-
         /* Morph animation for individual elements */
         body.morphing *{
             transition:all 0.8s cubic-bezier(0.23,1,0.32,1) !important;
@@ -1369,9 +1354,6 @@
 
 <!-- Morph transition overlay -->
 <div class="morph-overlay" id="morphOverlay"></div>
-
-<!-- Mode hint -->
-<div class="mode-hint" id="modeHint">3× Logo klicken → Secret Mode</div>
 
 <!-- Featured Project -->
 <section class="featured" id="sec-featured">
@@ -1963,50 +1945,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Toggle orbit on center logo click + LIQUID MORPH on triple click ---
+    // --- LIQUID MORPH on logo click ---
     const orbit = document.getElementById('orbit');
     const logoCenter = document.querySelector('.logo-center');
-    let orbitPaused = false;
-
-    // Triple-click detection for magazine mode
-    let clickCount = 0;
-    let clickTimer = null;
     let isMagazineMode = false;
+    let morphing = false;
     const morphOverlay = document.getElementById('morphOverlay');
-    const modeHint = document.getElementById('modeHint');
-
-    // Show hint briefly on first visit
-    setTimeout(() => { modeHint.classList.add('visible'); }, 6000);
-    setTimeout(() => { modeHint.classList.remove('visible'); }, 12000);
 
     logoCenter.style.cursor = 'pointer';
     logoCenter.addEventListener('click', (e) => {
-        clickCount++;
-
-        if (clickCount === 1) {
-            clickTimer = setTimeout(() => {
-                // Single click — toggle orbit pause
-                if (clickCount < 3) {
-                    orbitPaused = !orbitPaused;
-                    const state = orbitPaused ? 'paused' : 'running';
-                    orbit.style.animationPlayState = state;
-                    orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = state);
-                    logoCenter.querySelector('img').style.filter = orbitPaused
-                        ? 'drop-shadow(0 0 80px rgba(222,222,32,0.3))'
-                        : '';
-                }
-                clickCount = 0;
-            }, 500);
-        }
-
-        if (clickCount >= 3) {
-            clearTimeout(clickTimer);
-            clickCount = 0;
-            triggerLiquidMorph();
-        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (morphing) return;
+        triggerLiquidMorph();
     });
 
     function triggerLiquidMorph() {
+        morphing = true;
         const entering = !isMagazineMode;
 
         // --- Phase 1: Liquid blobs expand from logo ---
@@ -2043,7 +1998,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             if (entering) {
                 document.body.classList.add('magazine-mode');
-                // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'instant' });
             } else {
                 document.body.classList.remove('magazine-mode');
@@ -2057,16 +2011,8 @@ document.addEventListener('DOMContentLoaded', () => {
             morphOverlay.classList.remove('active');
             morphOverlay.innerHTML = '';
             document.body.style.animation = '';
+            morphing = false;
         }, 1000);
-
-        // Show return hint
-        if (entering) {
-            modeHint.textContent = '3× Logo → zurück';
-            setTimeout(() => modeHint.classList.add('visible'), 1200);
-            setTimeout(() => modeHint.classList.remove('visible'), 5000);
-        } else {
-            modeHint.textContent = '3× Logo klicken → Secret Mode';
-        }
     }
 
     // Also pause on orbit hover for easier clicking
@@ -2075,10 +2021,8 @@ document.addEventListener('DOMContentLoaded', () => {
         orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'paused');
     });
     orbit.addEventListener('mouseleave', () => {
-        if (!orbitPaused) {
-            orbit.style.animationPlayState = 'running';
-            orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'running');
-        }
+        orbit.style.animationPlayState = 'running';
+        orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'running');
     });
 
     // --- Parallax scroll ---
