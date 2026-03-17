@@ -608,6 +608,20 @@
         #threeCanvas canvas{
             display:block;width:100%;height:100%;
         }
+
+        /* Pixel canvas for magazine mode */
+        #pixelCanvas{
+            position:absolute;
+            top:0;left:0;
+            width:100%;height:100%;
+            z-index:1;
+            pointer-events:none;
+            display:none;
+        }
+        body.magazine-mode #pixelCanvas{
+            display:block;
+            z-index:4;
+        }
         /* Hide default cursor on desktop — custom cursor replaces it */
         @media(min-width:769px){
             body,body *{cursor:none !important}
@@ -894,7 +908,7 @@
             height:auto !important;
             min-height:100vh;
             background:#f5f3ee !important;
-            overflow:visible !important;
+            overflow:hidden !important;
         }
 
         body.magazine-mode .hero-bg{
@@ -967,14 +981,14 @@
             flex-direction:row !important;
             gap:0.8rem !important;
             border:2px solid #111 !important;
-            border-right:none !important;
+            margin:-1px !important;
             background:transparent !important;
             backdrop-filter:none !important;
             color:#111 !important;
             transition:all 0.2s ease !important;
         }
         body.magazine-mode .orbit-item:last-child{
-            border-right:2px solid #111 !important;
+            border:2px solid #111 !important;
         }
         body.magazine-mode .orbit-item:hover{
             transform:none !important;
@@ -1013,7 +1027,7 @@
         body.magazine-mode .orbit-item.orbit-featured{
             background:transparent !important;
             border:2px solid #111 !important;
-            border-right:none !important;
+            margin:-1px !important;
         }
         body.magazine-mode .orbit-item.orbit-featured::before,
         body.magazine-mode .orbit-item.orbit-featured::after{
@@ -1584,6 +1598,7 @@
 <!-- Hero: Logo Universe -->
 <section class="hero" id="heroSection">
     <div id="threeCanvas"></div>
+    <canvas id="pixelCanvas"></canvas>
     <div class="hero-bg">
         <div class="particle"></div>
         <div class="particle"></div>
@@ -2522,7 +2537,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colors = [BLUE, GREEN, YELLOW];
 
     // --- Particle count ---
-    const PARTICLE_COUNT = 400;
+    const PARTICLE_COUNT = 300;
     const positions = new Float32Array(PARTICLE_COUNT * 3);
     const colorsAttr = new Float32Array(PARTICLE_COUNT * 3);
     const sizes = new Float32Array(PARTICLE_COUNT);
@@ -2530,37 +2545,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const velocities = new Float32Array(PARTICLE_COUNT * 3);
     const originalPositions = new Float32Array(PARTICLE_COUNT * 3);
 
-    // --- Generate logo shape — ring AROUND center, well away from logo ---
+    // --- Generate ring around logo ---
+    // The logo is centered on screen. Camera at z=7, FOV 60°.
+    // At z=-2 (particle depth), visible height ≈ 2 * tan(30°) * 9 ≈ 10.4 units.
+    // Logo is roughly 22vw wide ≈ ~25% of screen → ~2.6 units in 3D.
+    // Ring radius should be just outside the logo: ~1.6 to give a nice halo.
+    const RING_RADIUS = 1.65;
+    const RING_DEPTH = -2;
+
+    // Each particle gets a base angle on the ring (evenly spaced)
+    const particleBaseAngle = new Float32Array(PARTICLE_COUNT);
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particleBaseAngle[i] = (i / PARTICLE_COUNT) * Math.PI * 2;
+    }
+
     function generateLogoPositions(arr) {
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             const idx = i * 3;
-            const group = i % 3;
-            let x, y, z;
-            const minR = 2.2;
-
-            if (group === 0) {
-                const t = Math.random() * Math.PI * 0.7 - 0.2;
-                const r = minR + Math.random() * 1.2;
-                x = Math.cos(t) * r * 0.8;
-                y = Math.sin(t) * r * 0.6 + 0.5;
-                z = -2 + (Math.random() - 0.5) * 0.5;
-            } else if (group === 1) {
-                const t = Math.random() * Math.PI * 0.8 + Math.PI * 0.2;
-                const r = minR + Math.random() * 1.0;
-                x = Math.cos(t) * r * 0.7 + 0.3;
-                y = Math.sin(t) * r * 0.5 - 0.7;
-                z = -2 + (Math.random() - 0.5) * 0.5;
-            } else {
-                const t = Math.random() * Math.PI * 0.6 + Math.PI * 0.9;
-                const r = minR + Math.random() * 0.9;
-                x = Math.cos(t) * r * 0.6 - 0.4;
-                y = Math.sin(t) * r * 0.4 - 0.6;
-                z = -2 + (Math.random() - 0.5) * 0.4;
-            }
-
-            arr[idx] = x;
-            arr[idx + 1] = y;
-            arr[idx + 2] = z;
+            const angle = particleBaseAngle[i];
+            // Wide radius scatter so particles are clearly separated
+            const r = RING_RADIUS + (Math.random() - 0.5) * 0.6;
+            arr[idx] = Math.cos(angle) * r;
+            arr[idx + 1] = Math.sin(angle) * r;
+            arr[idx + 2] = RING_DEPTH + (Math.random() - 0.5) * 0.8;
         }
     }
 
@@ -2594,14 +2601,28 @@ document.addEventListener('DOMContentLoaded', () => {
     generateLogoPositions(originalPositions);
     for (let i = 0; i < PARTICLE_COUNT * 3; i++) targetPositions[i] = positions[i];
 
-    // Colors and sizes — small and subtle
+    // Colors by ring position — smooth gradient around the circle
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const c = colors[i % 3];
-        const mix = 0.4 + Math.random() * 0.4;
+        const t = i / PARTICLE_COUNT; // 0 to 1 around the ring
+        let c;
+        if (t < 0.333) {
+            // blue → green
+            const f = t / 0.333;
+            c = new THREE.Color().copy(BLUE).lerp(GREEN, f);
+        } else if (t < 0.666) {
+            // green → yellow
+            const f = (t - 0.333) / 0.333;
+            c = new THREE.Color().copy(GREEN).lerp(YELLOW, f);
+        } else {
+            // yellow → blue
+            const f = (t - 0.666) / 0.334;
+            c = new THREE.Color().copy(YELLOW).lerp(BLUE, f);
+        }
+        const mix = 0.6 + Math.random() * 0.4;
         colorsAttr[i * 3] = c.r * mix;
         colorsAttr[i * 3 + 1] = c.g * mix;
         colorsAttr[i * 3 + 2] = c.b * mix;
-        sizes[i] = 1.5 + Math.random() * 2.5;
+        sizes[i] = 1.5 + Math.random() * 2.0;
         velocities[i * 3] = 0;
         velocities[i * 3 + 1] = 0;
         velocities[i * 3 + 2] = 0;
@@ -2629,7 +2650,7 @@ document.addEventListener('DOMContentLoaded', () => {
             float d = length(gl_PointCoord - vec2(0.5));
             if (d > 0.5) discard;
             float alpha = smoothstep(0.5, 0.2, d);
-            gl_FragColor = vec4(vColor, alpha * 0.4);
+            gl_FragColor = vec4(vColor, alpha * 0.35);
         }
     `;
 
@@ -2706,27 +2727,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const dt = Math.min(clock.getDelta(), 0.05);
         const time = clock.elapsedTime;
 
-        // Smooth rotation follow mouse — subtle
+        // Smooth rotation follow mouse — subtle tilt
         targetRotY = mouseX * 0.15;
         targetRotX = mouseY * 0.1;
         particles.rotation.y += (targetRotY - particles.rotation.y) * 1.5 * dt;
         particles.rotation.x += (targetRotX - particles.rotation.x) * 1.5 * dt;
 
-        // Gentle idle rotation
-        particles.rotation.y += 0.03 * dt;
+        // When in logo state, continuously rotate ring target positions
+        if (currentState === 'logo') {
+            const rotSpeed = 0.08;
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                const idx = i * 3;
+                const angle = particleBaseAngle[i] + time * rotSpeed;
+                // Each particle floats at its own radius band
+                const rOff = Math.sin(i * 2.37) * 0.3; // fixed per-particle offset
+                const r = RING_RADIUS + rOff + Math.sin(time * 0.25 + i * 0.3) * 0.1;
+                const wave = Math.sin(angle * 2 + time * 0.4) * 0.12;
+                targetPositions[idx] = Math.cos(angle) * r;
+                targetPositions[idx + 1] = Math.sin(angle) * r + wave;
+                targetPositions[idx + 2] = RING_DEPTH + Math.sin(i * 1.73) * 0.4 + Math.sin(time * 0.2 + i) * 0.1;
+            }
+        }
 
         // Lerp particles toward target positions
         const posArr = geometry.attributes.position.array;
-        const speed = currentState === 'logo' ? 1.5 : 0.8;
+        const speed = currentState === 'logo' ? 3.0 : 0.8;
 
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             const idx = i * 3;
-            // Add slight organic wobble
-            const wobbleX = Math.sin(time * 1.5 + i * 0.1) * 0.003;
-            const wobbleY = Math.cos(time * 1.2 + i * 0.15) * 0.003;
-
-            posArr[idx] += (targetPositions[idx] - posArr[idx]) * speed * dt + wobbleX;
-            posArr[idx + 1] += (targetPositions[idx + 1] - posArr[idx + 1]) * speed * dt + wobbleY;
+            posArr[idx] += (targetPositions[idx] - posArr[idx]) * speed * dt;
+            posArr[idx + 1] += (targetPositions[idx + 1] - posArr[idx + 1]) * speed * dt;
             posArr[idx + 2] += (targetPositions[idx + 2] - posArr[idx + 2]) * speed * dt;
         }
         geometry.attributes.position.needsUpdate = true;
@@ -2745,6 +2775,172 @@ document.addEventListener('DOMContentLoaded', () => {
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
+})();
+</script>
+
+<!-- Pixel particles for magazine mode -->
+<script>
+(function(){
+    const canvas = document.getElementById('pixelCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    // Inverted palette for magazine mode
+    const COLORS = ['#C4742B','#E2618A','#2121DF','#111111'];
+    const PIXEL_COUNT = 120;
+    const pixels = [];
+
+    function resize() {
+        const hero = document.getElementById('heroSection');
+        if (hero) {
+            canvas.width = hero.offsetWidth;
+            canvas.height = hero.offsetHeight;
+        } else {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+    }
+    resize();
+
+    // Initialize pixels in a ring around the logo
+    function initPixels() {
+        resize();
+        pixels.length = 0;
+
+        const hero = document.getElementById('heroSection');
+        const logoEl = document.querySelector('.logo-center');
+        let cx, cy, logoSize;
+        if (logoEl && hero) {
+            const logoRect = logoEl.getBoundingClientRect();
+            const heroRect = hero.getBoundingClientRect();
+            // Convert to hero-relative coordinates
+            cx = (logoRect.left - heroRect.left) + logoRect.width / 2;
+            cy = (logoRect.top - heroRect.top) + logoRect.height / 2;
+            logoSize = Math.max(logoRect.width, logoRect.height) * 0.5;
+        } else {
+            cx = canvas.width / 2;
+            cy = canvas.height * 0.35;
+            logoSize = Math.min(canvas.width, canvas.height) * 0.14;
+        }
+        const ringR = logoSize + 40;
+
+        for (let i = 0; i < PIXEL_COUNT; i++) {
+            const baseAngle = (i / PIXEL_COUNT) * Math.PI * 2;
+            const rOff = (Math.random() - 0.5) * logoSize * 0.7;
+            const r = ringR + rOff;
+            const size = 4 + Math.floor(Math.random() * 8);
+            pixels.push({
+                baseAngle,
+                r,
+                cx, cy,
+                x: cx + Math.cos(baseAngle) * r,
+                y: cy + Math.sin(baseAngle) * r,
+                size,
+                color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                alpha: 0.4 + Math.random() * 0.4,
+                phaseX: Math.random() * Math.PI * 2,
+                phaseY: Math.random() * Math.PI * 2,
+            });
+        }
+    }
+    initPixels();
+    window.addEventListener('resize', () => { if (running) initPixels(); });
+
+    let animId = null;
+    let running = false;
+
+    function animate(time) {
+        if (!running) return;
+        animId = requestAnimationFrame(animate);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Track logo position in hero-relative coordinates
+        const heroEl = document.getElementById('heroSection');
+        const logoEl = document.querySelector('.logo-center');
+        let liveCx, liveCy;
+        if (logoEl && heroEl) {
+            const logoRect = logoEl.getBoundingClientRect();
+            const heroRect = heroEl.getBoundingClientRect();
+            liveCx = (logoRect.left - heroRect.left) + logoRect.width / 2;
+            liveCy = (logoRect.top - heroRect.top) + logoRect.height / 2;
+        } else {
+            liveCx = canvas.width / 2;
+            liveCy = canvas.height * 0.35;
+        }
+
+        // Scroll progress
+        let scrollProg = 0;
+        if (heroEl) {
+            const hRect = heroEl.getBoundingClientRect();
+            scrollProg = Math.max(0, Math.min(1, -hRect.top / (heroEl.offsetHeight * 0.6)));
+        }
+
+        const t = time * 0.001;
+        const explode = scrollProg > 0.12 ? Math.min(1, (scrollProg - 0.12) / 0.3) : 0;
+
+        for (const p of pixels) {
+            const angle = p.baseAngle + t * 0.04;
+            const r = p.r + Math.sin(t * 0.2 + p.phaseX) * 10;
+            const wave = Math.sin(angle * 2 + t * 0.3) * 8;
+
+            const ringX = liveCx + Math.cos(angle) * r;
+            const ringY = liveCy + Math.sin(angle) * r + wave;
+
+            if (explode > 0) {
+                // Scatter mostly horizontally, stay within hero
+                const expAngle = p.baseAngle + p.phaseX;
+                const expR = 200 + p.r * 2.5 + Math.sin(p.phaseY + t * 0.15) * 30;
+                const expX = canvas.width / 2 + Math.cos(expAngle) * expR;
+                const expY = Math.max(20, Math.min(canvas.height - 20,
+                    canvas.height * 0.4 + Math.sin(expAngle) * expR * 0.35
+                ));
+
+                p.x += ((ringX * (1 - explode) + expX * explode) - p.x) * 0.08;
+                p.y += ((ringY * (1 - explode) + expY * explode) - p.y) * 0.08;
+            } else {
+                p.x += (ringX - p.x) * 0.08;
+                p.y += (ringY - p.y) * 0.08;
+            }
+
+            const a = (p.alpha + Math.sin(t * 0.5 + p.phaseY) * 0.1) * (1 - explode * 0.6);
+
+            ctx.globalAlpha = Math.max(0.05, Math.min(0.8, a));
+            ctx.fillStyle = p.color;
+            ctx.fillRect(
+                Math.round(p.x - p.size / 2),
+                Math.round(p.y - p.size / 2),
+                p.size,
+                p.size
+            );
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    // Start/stop based on magazine mode
+    function checkMode() {
+        const isMag = document.body.classList.contains('magazine-mode');
+        if (isMag && !running) {
+            running = true;
+            // Wait two frames for CSS display:block to take effect
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    resize();
+                    initPixels();
+                    animId = requestAnimationFrame(animate);
+                });
+            });
+        } else if (!isMag && running) {
+            running = false;
+            if (animId) cancelAnimationFrame(animId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    // Observe body class changes
+    const obs = new MutationObserver(checkMode);
+    obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    checkMode();
 })();
 </script>
 
