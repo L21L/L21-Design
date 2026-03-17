@@ -871,6 +871,9 @@
 
         /* Magazine mode active — radical override */
         body.magazine-mode{
+            --blue:#C4742B;
+            --green:#E2618A;
+            --yellow:#2121DF;
             background:#f5f3ee !important;
             color:#111 !important;
         }
@@ -911,7 +914,7 @@
             margin-top:clamp(80px,12vh,140px);
         }
         body.magazine-mode .logo-center img{
-            filter:invert(1) drop-shadow(none) !important;
+            filter:invert(1) !important;
             width:clamp(100px,15vw,180px) !important;
             animation:none !important;
         }
@@ -976,7 +979,7 @@
         }
         body.magazine-mode .orbit-item:nth-child(3n):hover{
             background:var(--yellow) !important;
-            color:#111 !important;
+            color:#fff !important;
         }
 
         body.magazine-mode .orbit-item span{
@@ -1119,9 +1122,31 @@
         }
         body.magazine-mode #sec-storytelling .section-title,
         body.magazine-mode #sec-storytelling .section-label{
+            color:#fff !important;
+        }
+        body.magazine-mode #sec-storytelling .section-text,
+        body.magazine-mode #sec-storytelling .section-text strong{
+            color:#fff !important;
+        }
+        body.magazine-mode #sec-storytelling .accent-line{background:#fff !important}
+        body.magazine-mode #sec-storytelling .detail-btn{
+            border-color:#fff !important;
+            color:#fff !important;
+        }
+        body.magazine-mode #sec-storytelling .detail-btn:hover{
+            background:#fff !important;
+            color:var(--yellow) !important;
+        }
+
+        /* Impressum section in magazine mode */
+        body.magazine-mode #sec-impressum .detail-btn{
+            border-color:#111 !important;
             color:#111 !important;
         }
-        body.magazine-mode #sec-storytelling .accent-line{background:#111 !important}
+        body.magazine-mode #sec-impressum .detail-btn:hover{
+            background:#111 !important;
+            color:#f5f3ee !important;
+        }
 
         /* Buttons in magazine mode */
         body.magazine-mode .detail-btn{
@@ -1197,6 +1222,9 @@
             color:#f5f3ee;
             border-top:3px solid #111;
             font-family:'Space Mono',monospace;
+        }
+        body.magazine-mode .site-footer a{
+            color:#f5f3ee;
         }
 
         /* Custom cursor in magazine mode */
@@ -1303,7 +1331,7 @@
             <span>Meine<br/>Trickfilm<br/>Werkstatt</span>
         </a>
         <a href="#sec-storytelling" class="orbit-item size-sm" data-detail="content-storytelling">
-            <span class="orbit-dot" style="background:#DEDE20"></span>
+            <span class="orbit-dot" style="background:var(--yellow)"></span>
             <span>Storytelling</span>
         </a>
         <a href="#sec-ux" class="orbit-item size-lg" data-detail="content-ux-design">
@@ -1315,7 +1343,7 @@
             <span>Logos</span>
         </a>
         <a href="#sec-videos" class="orbit-item size-sm" data-detail="content-videos">
-            <span class="orbit-dot" style="background:#DEDE20"></span>
+            <span class="orbit-dot" style="background:var(--yellow)"></span>
             <span>Videos</span>
         </a>
         <a href="#sec-animation" class="orbit-item size-md" data-detail="content-animation">
@@ -1973,8 +2001,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const cy = logoRect.top + logoRect.height / 2;
 
         const blobColors = entering
-            ? ['#f5f3ee','var(--blue)','var(--green)','var(--yellow)']
-            : ['#0a0a0a','var(--blue)','var(--green)','var(--yellow)'];
+            ? ['#f5f3ee','#C4742B','#E2618A','#2121DF']
+            : ['#0a0a0a','#3B8BD4','#1D9E75','#DEDE20'];
 
         blobColors.forEach((color, i) => {
             const blob = document.createElement('div');
@@ -1998,11 +2026,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- Phase 2: Toggle mode after blobs cover screen ---
         setTimeout(() => {
+            const logoImg = logoCenter.querySelector('img');
             if (entering) {
                 document.body.classList.add('magazine-mode');
+                // Force-stop animation and apply invert filter via JS as backup
+                if (logoImg) {
+                    logoImg.style.animation = 'none';
+                    logoImg.style.filter = 'invert(1)';
+                }
                 window.scrollTo({ top: 0, behavior: 'instant' });
             } else {
                 document.body.classList.remove('magazine-mode');
+                // Restore original animation and filter
+                if (logoImg) {
+                    logoImg.style.animation = '';
+                    logoImg.style.filter = '';
+                }
                 window.scrollTo({ top: 0, behavior: 'instant' });
             }
             isMagazineMode = entering;
@@ -2127,7 +2166,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Cursor trail ---
-    const trailColors = ['#3B8BD4','#1D9E75','#DEDE20'];
+    const defaultTrailColors = ['#3B8BD4','#1D9E75','#DEDE20'];
+    const magazineTrailColors = ['#C4742B','#E2618A','#2121DF'];
     let trailIndex = 0;
     let lastTrailTime = 0;
     const trailInterval = 40;
@@ -2137,11 +2177,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (now - lastTrailTime < trailInterval) return;
         lastTrailTime = now;
 
+        const colors = document.body.classList.contains('magazine-mode') ? magazineTrailColors : defaultTrailColors;
         const dot = document.createElement('div');
         dot.className = 'cursor-trail';
         dot.style.left = e.clientX + 'px';
         dot.style.top = e.clientY + 'px';
-        dot.style.background = trailColors[trailIndex % trailColors.length];
+        dot.style.background = colors[trailIndex % colors.length];
         trailIndex++;
         document.body.appendChild(dot);
 
