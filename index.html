@@ -689,6 +689,7 @@
             position:fixed;inset:0;z-index:10000;
             background:var(--dark);
             display:flex;align-items:center;justify-content:center;
+            flex-direction:column;gap:2rem;
             transition:opacity 0.6s ease, visibility 0.6s ease;
         }
         .preloader.done{
@@ -698,53 +699,60 @@
             position:relative;width:260px;height:260px;
         }
 
-        /* Three organic shapes that represent the logo swooshes */
-        .preloader-shape{
-            position:absolute;
-            opacity:0;
+        /* SVG swoosh draw animation */
+        .preloader-svg{
+            position:absolute;inset:0;
+            width:100%;height:100%;
         }
-        /* Blue swoosh — large C-curve on the right side */
-        .preloader-shape.s-blue{
-            width:100px;height:160px;
-            background:linear-gradient(175deg,#5BAEE6,#3B8BD4);
-            top:30px;right:30px;
-            border-radius:30% 70% 60% 40% / 30% 30% 70% 70%;
-            animation:shape-blue 2.4s ease-out 0.2s forwards;
+        .preloader-svg .swoosh-path{
+            fill:none;
+            stroke-linecap:round;
+            stroke-linejoin:round;
+            stroke-dasharray:var(--path-len);
+            stroke-dashoffset:var(--path-len);
         }
-        /* Green swoosh — tall curve nestled inside the blue */
-        .preloader-shape.s-green{
-            width:70px;height:150px;
-            background:linear-gradient(170deg,#2BC48E,#1D9E75);
-            top:60px;right:55px;
-            border-radius:50% 50% 50% 50% / 30% 25% 75% 70%;
-            animation:shape-green 2.4s ease-out 0.5s forwards;
+        .swoosh-green{
+            stroke:#1D9E75;stroke-width:12;
+            --path-len:500;
+            animation:draw-swoosh 1s cubic-bezier(0.4,0,0.2,1) 0.2s forwards,
+                       fill-swoosh-green 0.4s ease 1.05s forwards;
         }
-        /* Yellow swoosh — small teardrop bottom-left */
-        .preloader-shape.s-yellow{
-            width:55px;height:50px;
-            background:linear-gradient(140deg,#F0E830,#DEDE20);
-            bottom:55px;left:55px;
-            border-radius:60% 40% 50% 50% / 60% 50% 50% 40%;
-            animation:shape-yellow 2.4s ease-out 0.8s forwards;
+        .swoosh-blue{
+            stroke:#3B8BD4;stroke-width:10;
+            --path-len:400;
+            animation:draw-swoosh 0.8s cubic-bezier(0.4,0,0.2,1) 0.5s forwards,
+                       fill-swoosh-blue 0.4s ease 1.15s forwards;
+        }
+        .swoosh-yellow{
+            stroke:#DEDE20;stroke-width:8;
+            --path-len:500;
+            animation:draw-swoosh 0.7s cubic-bezier(0.4,0,0.2,1) 0.75s forwards,
+                       fill-swoosh-yellow 0.4s ease 1.25s forwards;
         }
 
-        @keyframes shape-blue{
-            0%{opacity:0;transform:translate(60px,-40px) scale(0.2) rotate(-15deg)}
-            35%{opacity:0.9;transform:translate(5px,-3px) scale(1.08) rotate(3deg)}
-            65%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
-            100%{opacity:0;transform:translate(0,0) scale(0.85) rotate(0deg)}
+        @keyframes draw-swoosh{
+            to{stroke-dashoffset:0}
         }
-        @keyframes shape-green{
-            0%{opacity:0;transform:translate(40px,60px) scale(0.2) rotate(12deg)}
-            35%{opacity:0.9;transform:translate(3px,3px) scale(1.08) rotate(-3deg)}
-            65%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
-            100%{opacity:0;transform:translate(0,0) scale(0.85) rotate(0deg)}
+        @keyframes fill-swoosh-green{
+            0%{fill:transparent;stroke-width:12}
+            100%{fill:#1D9E75;stroke-width:0}
         }
-        @keyframes shape-yellow{
-            0%{opacity:0;transform:translate(-50px,35px) scale(0.2) rotate(-8deg)}
-            35%{opacity:0.9;transform:translate(-3px,3px) scale(1.08) rotate(4deg)}
-            65%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
-            100%{opacity:0;transform:translate(0,0) scale(0.85) rotate(0deg)}
+        @keyframes fill-swoosh-blue{
+            0%{fill:transparent;stroke-width:10}
+            100%{fill:#3B8BD4;stroke-width:0}
+        }
+        @keyframes fill-swoosh-yellow{
+            0%{fill:transparent;stroke-width:8}
+            100%{fill:#DEDE20;stroke-width:0}
+        }
+
+        /* Entire SVG fades out as logo fades in */
+        .preloader-svg{
+            animation:preloader-svg-out 0.6s ease 1.8s forwards;
+        }
+        @keyframes preloader-svg-out{
+            0%{opacity:1;transform:scale(1)}
+            100%{opacity:0;transform:scale(0.85)}
         }
 
         /* Logo reveal in preloader */
@@ -752,15 +760,14 @@
             position:absolute;inset:0;
             display:flex;align-items:center;justify-content:center;
             opacity:0;
-            animation:preloader-logo-in 1s ease-out 1.8s forwards;
+            animation:preloader-logo-in 0.8s cubic-bezier(0.2,0,0,1) 1.9s forwards;
         }
         .preloader-logo img{
             width:160px;height:auto;
             filter:drop-shadow(0 0 40px rgba(59,139,212,0.3));
         }
         @keyframes preloader-logo-in{
-            0%{opacity:0;transform:scale(0.6)}
-            60%{opacity:1;transform:scale(1.05)}
+            0%{opacity:0;transform:scale(1.15)}
             100%{opacity:1;transform:scale(1)}
         }
 
@@ -1513,9 +1520,44 @@
 <!-- Preloader -->
 <div class="preloader" id="preloader">
     <div class="preloader-inner">
-        <div class="preloader-shape s-blue"></div>
-        <div class="preloader-shape s-green"></div>
-        <div class="preloader-shape s-yellow"></div>
+        <!-- SVG swooshes traced from actual logo pixel data -->
+        <svg class="preloader-svg" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="swoosh-glow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="4" result="blur"/>
+                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+            </defs>
+            <!-- Green: tall flame from bottom (136,167) curving up-right to (159,110), back down -->
+            <path class="swoosh-path swoosh-green" filter="url(#swoosh-glow)"
+                  d="M136,167 C138,165 140,163 141,155
+                     C142,140 143,120 145,114
+                     C147,110 150,108 153,108
+                     C157,108 160,112 160,120
+                     C160,132 158,143 155,151
+                     C152,158 148,163 144,166
+                     C141,168 138,168 136,167 Z"/>
+            <!-- Blue: thin crescent arc from (142,68) down-right to (165,142) -->
+            <path class="swoosh-path swoosh-blue" filter="url(#swoosh-glow)"
+                  d="M143,91 C143,80 143,70 145,68
+                     C148,67 151,70 154,76
+                     C157,82 160,90 162,100
+                     C164,110 165,125 165,142
+                     C165,142 163,120 161,107
+                     C159,98 156,92 152,88
+                     C149,86 146,87 143,91 Z"/>
+            <!-- Yellow: wide banana from (69,128) curving right to (141,148), back -->
+            <path class="swoosh-path swoosh-yellow" filter="url(#swoosh-glow)"
+                  d="M69,128 C73,129 78,134 85,140
+                     C92,146 100,149 108,150
+                     C116,150 124,149 131,150
+                     C137,151 141,154 141,158
+                     C141,160 139,161 135,160
+                     C128,161 120,160 112,159
+                     C104,157 96,153 88,149
+                     C80,145 74,138 70,133
+                     C68,130 68,128 69,128 Z"/>
+        </svg>
         <div class="preloader-logo">
             <img src="Logo_weiß_Final.png" alt="L21 Design"/>
         </div>
@@ -2073,7 +2115,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Preloader ---
     const preloader = document.getElementById('preloader');
-    const preloadDuration = 3000;
+    const preloadDuration = 3200;
+
+    // Calculate real SVG path lengths for stroke animation
+    document.querySelectorAll('.swoosh-path').forEach(path => {
+        const len = path.getTotalLength();
+        path.style.setProperty('--path-len', len);
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+    });
 
     setTimeout(() => {
         preloader.classList.add('done');
