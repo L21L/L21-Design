@@ -700,8 +700,7 @@
             .site-header img{height:clamp(22px,3.5vh,32px)}
             .logo-center img{margin-left:0}
             .scroll-hint{bottom:1.5rem}
-            .preloader-inner{width:200px;height:200px}
-            .preloader-logo img{width:120px}
+            .preloader-logo-reveal img{width:120px}
         }
 
         @media(max-width:480px){
@@ -725,8 +724,7 @@
             .featured-preview-body{aspect-ratio:9/14}
             .logo-center img{width:clamp(100px,30vw,160px) !important}
             .logo-subtitle{font-size:clamp(0.6rem,2.5vw,0.8rem)}
-            .preloader-inner{width:160px;height:160px}
-            .preloader-logo img{width:90px}
+            .preloader-logo-reveal img{width:90px}
         }
 
         /* Impressum specifics */
@@ -735,101 +733,53 @@
         .detail-panel li{margin-bottom:0.3rem;font-size:0.9rem;line-height:1.6}
         .detail-panel a{color:var(--blue)}
         .detail-panel.theme-dark a{color:#7cb8e8}
-        /* ======== PRELOADER ======== */
+        /* ======== PRELOADER — Particle Assembly ======== */
         .preloader{
             position:fixed;inset:0;z-index:10000;
             background:var(--dark);
             display:flex;align-items:center;justify-content:center;
-            flex-direction:column;gap:2rem;
-            transition:opacity 0.6s ease, visibility 0.6s ease;
+            flex-direction:column;
+            transition:opacity 0.8s cubic-bezier(0.4,0,0.2,1), visibility 0.8s;
+            overflow:hidden;
         }
         .preloader.done{
             opacity:0;visibility:hidden;pointer-events:none;
         }
-        .preloader-inner{
-            position:relative;width:260px;height:260px;
+        .preloader canvas{
+            position:absolute;inset:0;width:100%;height:100%;
         }
-
-        /* SVG swoosh draw animation */
-        .preloader-svg{
-            position:absolute;inset:0;
-            width:100%;height:100%;
-        }
-        .preloader-svg .swoosh-path{
-            fill:none;
-            stroke-linecap:round;
-            stroke-linejoin:round;
-            stroke-dasharray:var(--path-len);
-            stroke-dashoffset:var(--path-len);
-        }
-        .swoosh-green{
-            stroke:#1D9E75;stroke-width:12;
-            --path-len:500;
-            animation:draw-swoosh 1s cubic-bezier(0.4,0,0.2,1) 0.2s forwards,
-                       fill-swoosh-green 0.4s ease 1.05s forwards;
-        }
-        .swoosh-blue{
-            stroke:#3B8BD4;stroke-width:10;
-            --path-len:400;
-            animation:draw-swoosh 0.8s cubic-bezier(0.4,0,0.2,1) 0.5s forwards,
-                       fill-swoosh-blue 0.4s ease 1.15s forwards;
-        }
-        .swoosh-yellow{
-            stroke:#DEDE20;stroke-width:8;
-            --path-len:500;
-            animation:draw-swoosh 0.7s cubic-bezier(0.4,0,0.2,1) 0.75s forwards,
-                       fill-swoosh-yellow 0.4s ease 1.25s forwards;
-        }
-
-        @keyframes draw-swoosh{
-            to{stroke-dashoffset:0}
-        }
-        @keyframes fill-swoosh-green{
-            0%{fill:transparent;stroke-width:12}
-            100%{fill:#1D9E75;stroke-width:0}
-        }
-        @keyframes fill-swoosh-blue{
-            0%{fill:transparent;stroke-width:10}
-            100%{fill:#3B8BD4;stroke-width:0}
-        }
-        @keyframes fill-swoosh-yellow{
-            0%{fill:transparent;stroke-width:8}
-            100%{fill:#DEDE20;stroke-width:0}
-        }
-
-        /* Entire SVG fades out as logo fades in */
-        .preloader-svg{
-            animation:preloader-svg-out 0.6s ease 1.8s forwards;
-        }
-        @keyframes preloader-svg-out{
-            0%{opacity:1;transform:scale(1)}
-            100%{opacity:0;transform:scale(0.85)}
-        }
-
-        /* Logo reveal in preloader */
-        .preloader-logo{
-            position:absolute;inset:0;
-            display:flex;align-items:center;justify-content:center;
+        .preloader-logo-reveal{
+            position:relative;z-index:2;
             opacity:0;
-            animation:preloader-logo-in 0.8s cubic-bezier(0.2,0,0,1) 1.9s forwards;
+            transform:scale(0.8);
+            transition:opacity 0.6s cubic-bezier(0.2,0,0,1), transform 0.6s cubic-bezier(0.2,0,0,1);
         }
-        .preloader-logo img{
+        .preloader-logo-reveal.visible{
+            opacity:1;transform:scale(1);
+        }
+        .preloader-logo-reveal img{
             width:160px;height:auto;
-            filter:drop-shadow(0 0 40px rgba(59,139,212,0.3));
+            filter:drop-shadow(0 0 50px rgba(59,139,212,0.4)) drop-shadow(0 0 100px rgba(29,158,117,0.2));
         }
-        @keyframes preloader-logo-in{
-            0%{opacity:0;transform:scale(1.15)}
-            100%{opacity:1;transform:scale(1)}
-        }
-
-        /* Preloader text */
         .preloader-text{
             position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
             font-size:0.7rem;letter-spacing:0.4em;text-transform:uppercase;
-            color:var(--text-muted);opacity:0;
-            animation:preloader-text-in 0.6s ease 0.3s forwards;
+            color:var(--text-muted);opacity:0;z-index:2;
+            transition:opacity 0.5s ease;
         }
-        @keyframes preloader-text-in{to{opacity:1}}
+        .preloader-text.visible{opacity:0.6}
+        .preloader-progress{
+            position:absolute;bottom:60px;left:50%;transform:translateX(-50%);
+            width:120px;height:2px;background:rgba(255,255,255,0.06);
+            border-radius:1px;overflow:hidden;z-index:2;
+            opacity:0;transition:opacity 0.4s ease;
+        }
+        .preloader-progress.visible{opacity:1}
+        .preloader-progress-bar{
+            height:100%;width:0%;border-radius:1px;
+            background:linear-gradient(90deg,var(--blue),var(--green),var(--yellow));
+            transition:width 0.1s linear;
+        }
 
         /* Hero elements hidden until preloader done */
         body.loading .logo-center,
@@ -1662,50 +1612,14 @@
 
 <!-- Preloader -->
 <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-        <!-- SVG swooshes traced from actual logo pixel data -->
-        <svg class="preloader-svg" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <filter id="swoosh-glow" x="-30%" y="-30%" width="160%" height="160%">
-                    <feGaussianBlur stdDeviation="4" result="blur"/>
-                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-                </filter>
-            </defs>
-            <!-- Green: tall flame from bottom (136,167) curving up-right to (159,110), back down -->
-            <path class="swoosh-path swoosh-green" filter="url(#swoosh-glow)"
-                  d="M136,167 C138,165 140,163 141,155
-                     C142,140 143,120 145,114
-                     C147,110 150,108 153,108
-                     C157,108 160,112 160,120
-                     C160,132 158,143 155,151
-                     C152,158 148,163 144,166
-                     C141,168 138,168 136,167 Z"/>
-            <!-- Blue: thin crescent arc from (142,68) down-right to (165,142) -->
-            <path class="swoosh-path swoosh-blue" filter="url(#swoosh-glow)"
-                  d="M143,91 C143,80 143,70 145,68
-                     C148,67 151,70 154,76
-                     C157,82 160,90 162,100
-                     C164,110 165,125 165,142
-                     C165,142 163,120 161,107
-                     C159,98 156,92 152,88
-                     C149,86 146,87 143,91 Z"/>
-            <!-- Yellow: wide banana from (69,128) curving right to (141,148), back -->
-            <path class="swoosh-path swoosh-yellow" filter="url(#swoosh-glow)"
-                  d="M69,128 C73,129 78,134 85,140
-                     C92,146 100,149 108,150
-                     C116,150 124,149 131,150
-                     C137,151 141,154 141,158
-                     C141,160 139,161 135,160
-                     C128,161 120,160 112,159
-                     C104,157 96,153 88,149
-                     C80,145 74,138 70,133
-                     C68,130 68,128 69,128 Z"/>
-        </svg>
-        <div class="preloader-logo">
-            <img src="Logo_weiß_Final.png" alt="L21 Design"/>
-        </div>
+    <canvas id="preloaderCanvas"></canvas>
+    <div class="preloader-logo-reveal" id="preloaderLogo">
+        <img src="Logo_weiß_Final.png" alt="L21 Design"/>
     </div>
-    <span class="preloader-text">L21 Design laden…</span>
+    <div class="preloader-progress" id="preloaderProgress">
+        <div class="preloader-progress-bar" id="preloaderBar"></div>
+    </div>
+    <span class="preloader-text" id="preloaderText">L21 Design</span>
 </div>
 
 <!-- Parallax background particles (fixed, spans full page) -->
@@ -2257,25 +2171,222 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Preloader ---
+    // --- Preloader: Particle Assembly ---
     const preloader = document.getElementById('preloader');
-    const preloadDuration = 3200;
+    const preloaderCanvas = document.getElementById('preloaderCanvas');
+    const preloaderLogo = document.getElementById('preloaderLogo');
+    const preloaderText = document.getElementById('preloaderText');
+    const preloaderProgress = document.getElementById('preloaderProgress');
+    const preloaderBar = document.getElementById('preloaderBar');
+    const ctx = preloaderCanvas.getContext('2d');
 
-    // Calculate real SVG path lengths for stroke animation
-    document.querySelectorAll('.swoosh-path').forEach(path => {
-        const len = path.getTotalLength();
-        path.style.setProperty('--path-len', len);
-        path.style.strokeDasharray = len;
-        path.style.strokeDashoffset = len;
-    });
+    const COLORS = [
+        {r:59,g:139,b:212},   // blue
+        {r:29,g:158,b:117},   // green
+        {r:222,g:222,b:32},   // yellow
+    ];
+    const PCOUNT = window.innerWidth < 768 ? 80 : 160;
+    const particles = [];
+    let cw, ch, cx, cy;
+    let phase = 'scatter'; // scatter → gather → pulse → done
+    let phaseStart = 0;
+    let animId;
 
+    function resizeCanvas(){
+        cw = preloaderCanvas.width = window.innerWidth;
+        ch = preloaderCanvas.height = window.innerHeight;
+        cx = cw / 2;
+        cy = ch / 2;
+    }
+    resizeCanvas();
+
+    // Target positions: ring around center (where logo will appear)
+    const logoRadius = Math.min(cw, ch) * 0.12;
+
+    for(let i = 0; i < PCOUNT; i++){
+        const angle = (i / PCOUNT) * Math.PI * 2;
+        const col = COLORS[i % 3];
+        const rOff = (Math.random() - 0.5) * logoRadius * 0.6;
+        const targetR = logoRadius + rOff;
+        // Start from random edges of the screen
+        const edge = Math.random();
+        let sx, sy;
+        if(edge < 0.25){ sx = Math.random() * cw; sy = -20; }
+        else if(edge < 0.5){ sx = cw + 20; sy = Math.random() * ch; }
+        else if(edge < 0.75){ sx = Math.random() * cw; sy = ch + 20; }
+        else{ sx = -20; sy = Math.random() * ch; }
+
+        particles.push({
+            x: sx, y: sy,
+            tx: cx + Math.cos(angle) * targetR,
+            ty: cy + Math.sin(angle) * targetR,
+            sx: sx, sy: sy,
+            vx: (Math.random() - 0.5) * 3,
+            vy: (Math.random() - 0.5) * 3,
+            size: 1.5 + Math.random() * 2.5,
+            col: col,
+            alpha: 0.3 + Math.random() * 0.5,
+            trailAlpha: 0,
+            angle: angle,
+            delay: Math.random() * 0.4, // stagger gather start
+            orbitSpeed: 0.2 + Math.random() * 0.3,
+            orbitPhase: Math.random() * Math.PI * 2,
+        });
+    }
+
+    // Phase timing
+    const SCATTER_DUR = 800;   // particles float randomly
+    const GATHER_DUR = 1600;   // particles fly to ring
+    const HOLD_DUR = 400;      // ring holds before pulse
+    const PULSE_DUR = 600;     // pulse + logo reveal
+    const TOTAL_DUR = SCATTER_DUR + GATHER_DUR + HOLD_DUR + PULSE_DUR;
+
+    phaseStart = performance.now();
+
+    // Show text and progress bar after short delay
     setTimeout(() => {
-        preloader.classList.add('done');
-        document.body.classList.remove('loading');
-        document.body.classList.add('loaded');
-        // Clean up preloader after transition
-        setTimeout(() => preloader.remove(), 800);
-    }, preloadDuration);
+        preloaderText.classList.add('visible');
+        preloaderProgress.classList.add('visible');
+    }, 200);
+
+    function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+    function easeInOutQuart(t){ return t < 0.5 ? 8*t*t*t*t : 1 - Math.pow(-2*t+2,4)/2; }
+
+    function drawParticle(p, glow){
+        if(glow > 0){
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size * 4 * glow, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.col.r},${p.col.g},${p.col.b},${0.08 * glow})`;
+            ctx.fill();
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.col.r},${p.col.g},${p.col.b},${p.alpha})`;
+        ctx.fill();
+    }
+
+    function animatePreloader(now){
+        animId = requestAnimationFrame(animatePreloader);
+        const elapsed = now - phaseStart;
+        const progress = Math.min(1, elapsed / TOTAL_DUR);
+
+        // Update progress bar
+        preloaderBar.style.width = (progress * 100) + '%';
+
+        ctx.clearRect(0, 0, cw, ch);
+
+        // Determine phase
+        let gatherProgress = 0;
+        let pulseProgress = 0;
+        let holdProgress = 0;
+
+        if(elapsed < SCATTER_DUR){
+            // Phase 1: Scatter — particles drift from edges toward general area
+            const t = elapsed / SCATTER_DUR;
+            for(const p of particles){
+                p.x += p.vx;
+                p.y += p.vy;
+                // Gentle pull toward center
+                p.vx += (cx - p.x) * 0.0003;
+                p.vy += (cy - p.y) * 0.0003;
+                p.alpha = 0.15 + t * 0.3;
+                drawParticle(p, 0);
+            }
+        } else if(elapsed < SCATTER_DUR + GATHER_DUR){
+            // Phase 2: Gather — particles fly to their ring positions
+            const rawT = (elapsed - SCATTER_DUR) / GATHER_DUR;
+
+            for(const p of particles){
+                const pT = Math.max(0, Math.min(1, (rawT - p.delay) / (1 - p.delay)));
+                const eased = easeInOutQuart(pT);
+
+                // Lerp to target with slight spiral
+                const spiralAngle = p.angle + (1 - eased) * 2;
+                const spiralR = logoRadius * (1 + (1 - eased) * 2.5);
+                const interX = cx + Math.cos(spiralAngle) * spiralR;
+                const interY = cy + Math.sin(spiralAngle) * spiralR;
+
+                p.x += (p.tx * eased + interX * (1 - eased) - p.x) * 0.12;
+                p.y += (p.ty * eased + interY * (1 - eased) - p.y) * 0.12;
+
+                // Trail effect during gathering
+                p.trailAlpha = (1 - eased) * 0.3;
+                p.alpha = 0.4 + eased * 0.5;
+
+                // Draw trail
+                if(p.trailAlpha > 0.01){
+                    const dx = p.tx - p.x;
+                    const dy = p.ty - p.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist > 3){
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p.x - dx * 0.15, p.y - dy * 0.15);
+                        ctx.strokeStyle = `rgba(${p.col.r},${p.col.g},${p.col.b},${p.trailAlpha})`;
+                        ctx.lineWidth = p.size * 0.6;
+                        ctx.stroke();
+                    }
+                }
+                drawParticle(p, eased * 0.5);
+            }
+            gatherProgress = rawT;
+        } else if(elapsed < SCATTER_DUR + GATHER_DUR + HOLD_DUR){
+            // Phase 3: Hold — ring is formed, particles orbit gently
+            holdProgress = (elapsed - SCATTER_DUR - GATHER_DUR) / HOLD_DUR;
+            const time = elapsed * 0.001;
+
+            for(const p of particles){
+                const orbAngle = p.angle + time * p.orbitSpeed;
+                const r = logoRadius + Math.sin(time * 2 + p.orbitPhase) * 3;
+                p.x += (cx + Math.cos(orbAngle) * r - p.x) * 0.15;
+                p.y += (cy + Math.sin(orbAngle) * r - p.y) * 0.15;
+                p.alpha = 0.7 + Math.sin(time * 3 + p.orbitPhase) * 0.2;
+                drawParticle(p, 0.6);
+            }
+        } else {
+            // Phase 4: Pulse — particles rush inward and fade, logo appears
+            pulseProgress = Math.min(1, (elapsed - SCATTER_DUR - GATHER_DUR - HOLD_DUR) / PULSE_DUR);
+            const eased = easeOutCubic(pulseProgress);
+
+            // Ring contracts inward
+            for(const p of particles){
+                const contractR = logoRadius * (1 - eased * 0.7);
+                p.x += (cx + Math.cos(p.angle) * contractR - p.x) * 0.2;
+                p.y += (cy + Math.sin(p.angle) * contractR - p.y) * 0.2;
+                p.alpha = (1 - eased) * 0.8;
+                p.size *= 0.997;
+                drawParticle(p, (1 - eased) * 1.5);
+            }
+
+            // Central glow burst
+            const burstAlpha = Math.sin(pulseProgress * Math.PI) * 0.15;
+            if(burstAlpha > 0.01){
+                const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, logoRadius * 2);
+                grad.addColorStop(0, `rgba(59,139,212,${burstAlpha})`);
+                grad.addColorStop(0.4, `rgba(29,158,117,${burstAlpha * 0.6})`);
+                grad.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, cw, ch);
+            }
+
+            // Show logo
+            if(pulseProgress > 0.2 && !preloaderLogo.classList.contains('visible')){
+                preloaderLogo.classList.add('visible');
+            }
+        }
+
+        // End animation
+        if(elapsed >= TOTAL_DUR + 600){
+            cancelAnimationFrame(animId);
+            preloader.classList.add('done');
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+            setTimeout(() => preloader.remove(), 800);
+        }
+    }
+
+    animId = requestAnimationFrame(animatePreloader);
+    window.addEventListener('resize', resizeCanvas);
 
     // --- Detail overlay ---
     const overlay = document.getElementById('detailOverlay');
