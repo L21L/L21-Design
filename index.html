@@ -33,7 +33,7 @@
             position:relative;
             width:100%;height:100vh;
             display:flex;align-items:center;justify-content:center;
-            overflow:hidden;
+            overflow:visible;
         }
 
         .hero-bg{
@@ -625,8 +625,8 @@
         /* Hide default cursor on desktop — custom cursor replaces it */
         @media(min-width:769px){
             body,body *{cursor:none !important}
+            .hero a,.hero button,.orbit-item{cursor:none}
         }
-        .hero a,.hero button,.orbit-item{cursor:none}
 
         /* Custom cursor */
         .custom-cursor{
@@ -667,6 +667,9 @@
 
         /* ======== RESPONSIVE ======== */
         @media(max-width:768px){
+            .hero{
+                overflow:hidden;
+            }
             .orbit-ring{
                 width:340px;height:340px;
                 animation:none;
@@ -679,18 +682,52 @@
             .orbit-item.size-xs{width:50px;height:50px}
             .orbit-item span{font-size:0.5rem}
             .section{min-height:auto;padding:4rem 1.5rem}
-            .detail-panel{width:95vw;max-width:none;padding:1.5rem;border-radius:16px}
-            .detail-header{flex-direction:column;gap:0.8rem}
+            .section-title{font-size:clamp(1.8rem,7vw,2.8rem)}
+            .section-text{font-size:clamp(0.85rem,3.5vw,1rem)}
+            .detail-panel{width:95vw;max-width:none;border-radius:16px}
+            .detail-header{flex-direction:row;gap:0.8rem;padding:1rem 1.2rem}
+            .detail-header-icon{width:36px;height:36px;font-size:0.9rem}
+            .detail-header-title{font-size:1.1rem}
+            .detail-body{padding:1.2rem 1.2rem 2rem}
+            .detail-panel h2{font-size:clamp(1.2rem,5vw,1.6rem)}
+            .detail-panel p{font-size:0.88rem}
+            .detail-panel .image-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px}
+            .detail-panel .ux iframe{width:100%;height:auto;aspect-ratio:375/812}
+            .featured-inner{grid-template-columns:1fr;gap:2rem}
+            .featured-preview{max-width:400px;margin:0 auto}
+            .featured-glow{display:none}
+            .featured-cta{padding:0.7rem 1.5rem;font-size:0.85rem}
+            .site-header{padding:0.8rem 1rem}
+            .site-header img{height:clamp(22px,3.5vh,32px)}
+            .logo-center img{margin-left:0}
+            .scroll-hint{bottom:1.5rem}
+            .preloader-inner{width:200px;height:200px}
+            .preloader-logo img{width:120px}
         }
 
         @media(max-width:480px){
-            .orbit-ring{width:280px;height:280px}
-            .orbit-item.size-xl{width:72px;height:72px}
-            .orbit-item.size-lg{width:64px;height:64px}
-            .orbit-item.size-md{width:58px;height:58px}
-            .orbit-item.size-sm{width:50px;height:50px}
-            .orbit-item.size-xs{width:44px;height:44px}
-            .orbit-item span{font-size:0.45rem}
+            .hero{
+                overflow:hidden;
+            }
+            .orbit-ring{width:260px;height:260px}
+            .orbit-item.size-xl{width:65px;height:65px}
+            .orbit-item.size-lg{width:58px;height:58px}
+            .orbit-item.size-md{width:52px;height:52px}
+            .orbit-item.size-sm{width:46px;height:46px}
+            .orbit-item.size-xs{width:40px;height:40px}
+            .orbit-item span{font-size:0.4rem}
+            .orbit-item .orbit-dot{width:4px;height:4px}
+            .section{padding:3rem 1.2rem}
+            .section-title{font-size:clamp(1.5rem,8vw,2.2rem)}
+            .detail-panel{width:100vw;border-radius:12px 12px 0 0}
+            .detail-panel .video-container{margin:0.8rem -1.2rem;border-radius:0}
+            .detail-panel .ux{margin:0.8rem -1.2rem}
+            .detail-panel .ux iframe{border-radius:0}
+            .featured-preview-body{aspect-ratio:9/14}
+            .logo-center img{width:clamp(100px,30vw,160px) !important}
+            .logo-subtitle{font-size:clamp(0.6rem,2.5vw,0.8rem)}
+            .preloader-inner{width:160px;height:160px}
+            .preloader-logo img{width:90px}
         }
 
         /* Impressum specifics */
@@ -1517,12 +1554,104 @@
                 padding:0 1rem;
             }
             body.magazine-mode .orbit-item{
-                border-right:2px solid #111 !important;
+                border:2px solid #111 !important;
+                margin:0 !important;
                 border-bottom:none !important;
             }
             body.magazine-mode .orbit-item:last-child{
                 border-bottom:2px solid #111 !important;
             }
+
+            /* Magazine modal on mobile */
+            body.magazine-mode .detail-panel{
+                box-shadow:4px 4px 0 #111 !important;
+                border-width:2px !important;
+                max-width:none !important;
+                width:95vw !important;
+            }
+            body.magazine-mode .detail-body{
+                padding:1.2rem 1.2rem 2rem !important;
+            }
+            body.magazine-mode .detail-panel:not(.theme-dark) .detail-header{
+                padding:1rem 1.2rem !important;
+                flex-direction:row !important;
+            }
+            body.magazine-mode .detail-panel:not(.theme-dark) h2{
+                font-size:clamp(1.4rem,6vw,2rem) !important;
+            }
+            body.magazine-mode .detail-panel:not(.theme-dark) p,
+            body.magazine-mode .detail-panel:not(.theme-dark) li{
+                font-size:0.8rem !important;
+            }
+
+            /* Magazine section titles on mobile */
+            body.magazine-mode .section-title{
+                font-size:clamp(2rem,10vw,4rem) !important;
+            }
+
+            /* Featured section magazine mobile */
+            body.magazine-mode .featured-title{
+                font-size:clamp(1.8rem,8vw,3rem) !important;
+            }
+
+            /* Pixel canvas fewer particles on mobile (handled in JS) */
+        }
+
+        @media(max-width:480px){
+            body.magazine-mode .orbit-item{
+                padding:0.8rem 1rem !important;
+            }
+            body.magazine-mode .orbit-item span{
+                font-size:clamp(0.7rem,3vw,1rem) !important;
+            }
+            body.magazine-mode .logo-center img{
+                width:clamp(70px,20vw,120px) !important;
+            }
+            body.magazine-mode .logo-subtitle{
+                font-size:clamp(0.7rem,3vw,1rem) !important;
+            }
+
+            /* Detail modal fullscreen on small phones */
+            body.magazine-mode .detail-panel{
+                width:100vw !important;
+                max-height:95vh !important;
+                box-shadow:none !important;
+                border-left:none !important;
+                border-right:none !important;
+            }
+        }
+
+        /* Tablet-specific (768-1024) */
+        @media(min-width:769px) and (max-width:1024px){
+            /* Normal design tablet */
+            .orbit-ring{
+                width:clamp(380px,48vw,550px);height:clamp(380px,48vw,550px);
+            }
+            .orbit-item.size-xl{width:clamp(85px,11vw,120px);height:clamp(85px,11vw,120px)}
+            .orbit-item.size-lg{width:clamp(75px,9.5vw,105px);height:clamp(75px,9.5vw,105px)}
+            .orbit-item.size-md{width:clamp(65px,8.5vw,95px);height:clamp(65px,8.5vw,95px)}
+            .orbit-item.size-sm{width:clamp(55px,7vw,82px);height:clamp(55px,7vw,82px)}
+            .orbit-item.size-xs{width:clamp(48px,6vw,70px);height:clamp(48px,6vw,70px)}
+            .section{padding:clamp(3rem,8vh,6rem) clamp(2rem,4vw,4rem)}
+            .featured{padding:clamp(4rem,8vh,6rem) clamp(2rem,4vw,4rem)}
+            .featured-preview-body{max-height:420px !important}
+
+            /* Magazine tablet */
+            body.magazine-mode .orbit-item{
+                padding:0.8rem 1.2rem !important;
+            }
+            body.magazine-mode .orbit-item span{
+                font-size:clamp(0.7rem,1.5vw,1.1rem) !important;
+            }
+            body.magazine-mode .section-title{
+                font-size:clamp(2.5rem,7vw,5rem) !important;
+            }
+        }
+
+        /* Touch devices — restore normal cursors */
+        @media(hover:none){
+            body,body *{cursor:auto !important}
+            .custom-cursor,.custom-cursor-dot,.cursor-trail{display:none !important}
         }
     </style>
 </head>
@@ -2537,7 +2666,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colors = [BLUE, GREEN, YELLOW];
 
     // --- Particle count ---
-    const PARTICLE_COUNT = 300;
+    const PARTICLE_COUNT = window.innerWidth < 768 ? 150 : 300;
     const positions = new Float32Array(PARTICLE_COUNT * 3);
     const colorsAttr = new Float32Array(PARTICLE_COUNT * 3);
     const sizes = new Float32Array(PARTICLE_COUNT);
@@ -2787,7 +2916,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inverted palette for magazine mode
     const COLORS = ['#C4742B','#E2618A','#2121DF','#111111'];
-    const PIXEL_COUNT = 120;
+    const PIXEL_COUNT = window.innerWidth < 768 ? 60 : 120;
     const pixels = [];
 
     function resize() {
@@ -2893,7 +3022,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const expR = 200 + p.r * 2.5 + Math.sin(p.phaseY + t * 0.15) * 30;
                 const expX = canvas.width / 2 + Math.cos(expAngle) * expR;
                 const expY = Math.max(20, Math.min(canvas.height - 20,
-                    canvas.height * 0.4 + Math.sin(expAngle) * expR * 0.35
+                    canvas.height * 0.45 + Math.sin(expAngle) * expR * 0.55
                 ));
 
                 p.x += ((ringX * (1 - explode) + expX * explode) - p.x) * 0.08;
