@@ -33,7 +33,7 @@
             position:relative;
             width:100%;height:100vh;
             display:flex;align-items:center;justify-content:center;
-            overflow:visible;
+            overflow:hidden;
         }
 
         .hero-bg{
@@ -220,6 +220,8 @@
         /* ======== SECTIONS ======== */
         .section{
             position:relative;
+            z-index:1;
+            background:var(--dark);
             padding:clamp(4rem,10vh,8rem) clamp(1.5rem,5vw,6rem);
             display:flex;flex-direction:column;justify-content:center;
         }
@@ -464,6 +466,9 @@
 
         /* ======== FOOTER ======== */
         .site-footer{
+            position:relative;
+            z-index:1;
+            background:var(--dark);
             text-align:center;
             padding:3rem 1rem;
             color:var(--text-muted);font-size:0.8rem;
@@ -474,6 +479,8 @@
         /* ======== FEATURED PROJECT ======== */
         .featured{
             position:relative;
+            z-index:1;
+            background:var(--dark);
             padding:clamp(5rem,12vh,10rem) clamp(1.5rem,5vw,6rem);
             overflow:hidden;
         }
