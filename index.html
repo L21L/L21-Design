@@ -51,6 +51,9 @@
         .particle:nth-child(1){width:200px;height:200px;background:var(--blue);top:15%;left:10%;animation-delay:0s}
         .particle:nth-child(2){width:180px;height:180px;background:var(--green);bottom:20%;right:15%;animation-delay:-4s}
         .particle:nth-child(3){width:150px;height:150px;background:var(--yellow);top:65%;left:50%;animation-delay:-8s}
+        .particle:nth-child(4){width:170px;height:170px;background:var(--blue);top:35%;right:25%;animation-delay:-2s}
+        .particle:nth-child(5){width:160px;height:160px;background:var(--green);top:10%;left:55%;animation-delay:-6s}
+        .particle:nth-child(6){width:140px;height:140px;background:var(--yellow);bottom:30%;left:20%;animation-delay:-10s}
 
         /* Extended parallax particles — float across entire page */
         .parallax-particles{
@@ -68,6 +71,11 @@
         .parallax-particle:nth-child(3){width:180px;height:180px;background:var(--yellow);opacity:0.03;top:55%;left:20%;animation-delay:-10s}
         .parallax-particle:nth-child(4){width:200px;height:200px;background:var(--blue);opacity:0.02;top:75%;right:15%;animation-delay:-3s}
         .parallax-particle:nth-child(5){width:150px;height:150px;background:var(--green);opacity:0.025;top:90%;left:50%;animation-delay:-7s}
+        .parallax-particle:nth-child(6){width:220px;height:220px;background:var(--yellow);opacity:0.025;top:5%;right:25%;animation-delay:-2s}
+        .parallax-particle:nth-child(7){width:170px;height:170px;background:var(--blue);opacity:0.03;top:42%;left:65%;animation-delay:-9s}
+        .parallax-particle:nth-child(8){width:190px;height:190px;background:var(--green);opacity:0.02;top:68%;left:5%;animation-delay:-6s}
+        .parallax-particle:nth-child(9){width:160px;height:160px;background:var(--yellow);opacity:0.025;top:18%;left:40%;animation-delay:-1s}
+        .parallax-particle:nth-child(10){width:210px;height:210px;background:var(--blue);opacity:0.02;top:85%;right:35%;animation-delay:-11s}
 
         /* Parallax speed classes */
         .parallax-slow{--parallax-speed:0.15}
@@ -121,9 +129,9 @@
             position:absolute;
             border-radius:50%;
             display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;
-            background:rgba(255,255,255,0.03);
-            border:1px solid rgba(255,255,255,0.08);
-            backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.12);
+            backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
             cursor:pointer;
             pointer-events:auto;
             transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
@@ -139,16 +147,17 @@
         @keyframes counter-spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(-360deg)}}
 
         .orbit-item:hover{
-            background:rgba(255,255,255,0.08);
-            border-color:rgba(255,255,255,0.2);
+            background:rgba(255,255,255,0.12);
+            border-color:rgba(255,255,255,0.25);
             transform:translate(-50%,-50%) rotate(0deg) scale(1.15) !important;
-            box-shadow:0 0 40px rgba(59,139,212,0.2);
+            box-shadow:0 0 40px rgba(59,139,212,0.25);
         }
         .orbit-item span{
-            font-size:clamp(0.6rem,1vw,0.8rem);
-            font-weight:500;letter-spacing:0.08em;
+            font-size:clamp(0.65rem,1.1vw,0.9rem);
+            font-weight:600;letter-spacing:0.06em;
             text-transform:uppercase;text-align:center;
             line-height:1.3;
+            text-shadow:0 1px 4px rgba(0,0,0,0.5);
         }
         .orbit-item .orbit-dot{
             width:6px;height:6px;border-radius:50%;
@@ -679,7 +688,7 @@
             .orbit-item.size-md{width:66px;height:66px}
             .orbit-item.size-sm{width:58px;height:58px}
             .orbit-item.size-xs{width:50px;height:50px}
-            .orbit-item span{font-size:0.5rem}
+            .orbit-item span{font-size:0.55rem;font-weight:600}
             .section{padding:4rem 1.5rem}
             .section-title{font-size:clamp(1.8rem,7vw,2.8rem)}
             .section-text{font-size:clamp(0.85rem,3.5vw,1rem)}
@@ -713,7 +722,7 @@
             .orbit-item.size-md{width:52px;height:52px}
             .orbit-item.size-sm{width:46px;height:46px}
             .orbit-item.size-xs{width:40px;height:40px}
-            .orbit-item span{font-size:0.4rem}
+            .orbit-item span{font-size:0.45rem;font-weight:600}
             .orbit-item .orbit-dot{width:4px;height:4px}
             .section{padding:3rem 1.2rem}
             .section-title{font-size:clamp(1.5rem,8vw,2.2rem)}
@@ -1629,6 +1638,11 @@
     <div class="parallax-particle parallax-mid"></div>
     <div class="parallax-particle parallax-mid"></div>
     <div class="parallax-particle parallax-slow"></div>
+    <div class="parallax-particle parallax-fast"></div>
+    <div class="parallax-particle parallax-mid"></div>
+    <div class="parallax-particle parallax-slow"></div>
+    <div class="parallax-particle parallax-fast"></div>
+    <div class="parallax-particle parallax-mid"></div>
 </div>
 
 <!-- Header -->
@@ -1642,6 +1656,9 @@
     <div id="threeCanvas"></div>
     <canvas id="pixelCanvas"></canvas>
     <div class="hero-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
@@ -1728,13 +1745,14 @@
             <div class="featured-badge">Highlight-Projekt</div>
             <h2 class="featured-title">Meine<br/><em>Trickfilm Werkstatt</em></h2>
             <p class="featured-desc">
-                Eine vollständige <strong>Stop-Motion Web-App</strong> — direkt im Browser. 
+                Eine vollständige <strong>Stop-Motion Web-App</strong> — direkt im Browser, entwickelt durch <strong>Vibe Coding</strong> mit KI-gestützten Tools. 
                 Kamera, Editor, Timeline, Audio, Spezialeffekte, Greenscreen, Storyboard-Planung 
                 und Export. Alles was man braucht, um eigene Trickfilme zu erstellen.
             </p>
             <div class="featured-tags">
                 <span class="featured-tag">Stop-Motion</span>
                 <span class="featured-tag">Web-App</span>
+                <span class="featured-tag">Vibe Coding</span>
                 <span class="featured-tag">Kamera & Editor</span>
                 <span class="featured-tag">Greenscreen</span>
                 <span class="featured-tag">Audio & Effekte</span>
@@ -1877,7 +1895,7 @@
         <div class="section-text">
             <p>Am Anfang steht die Idee. Doch was kommt dann? Als <strong>Medienkonzeptionist</strong> (Bachelor of Arts)
             übersetze ich Visionen in konkrete Strategien — detaillierte Pläne, die Medienprojekte visuell ansprechend,
-            funktional und zielgruppenorientiert machen.</p>
+            funktional und zielgruppenorientiert machen. Durch <strong>Vibe Coding</strong> bringe ich Konzepte mithilfe von KI direkt in interaktive Prototypen.</p>
             <p style="margin-top:1rem">Das Konzept ist der Fahrplan, der aus einer Skizze ein Meisterwerk entstehen lässt.</p>
         </div>
         <button class="detail-btn" data-detail="content-conception" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(59,139,212,0.3);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
@@ -1969,7 +1987,7 @@
         <h2 class="section-title">Über mich</h2>
         <div class="section-text">
             <p><strong>Lasse Sündermann</strong> — vielseitiger Mediendesigner mit Expertise in Videoproduktion,
-            3D/2D-Animation, Webdesign und Konzeption. Studium der Medienkonzeption, abgeschlossen 2024.</p>
+            3D/2D-Animation, Webdesign und Konzeption. Studium der Medienkonzeption, abgeschlossen 2024. Heute setze ich ergänzend auf <strong>Vibe Coding</strong> — kreative Webentwicklung mit KI-gestützten Tools, um Ideen schnell in fertige Produkte zu verwandeln.</p>
         </div>
         <button class="detail-btn" data-detail="content-about-me" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(59,139,212,0.3);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Mehr über mich →
@@ -2027,6 +2045,7 @@
         Für all dies lege ich den ersten Grundstein. Ich übersetze Ihre Visionen in konkrete Strategien, entwerfe detaillierte
         Pläne und sorge dafür, dass Ihr Medienprojekt nicht nur visuell ansprechend, sondern auch funktional und
         zielgruppenorientiert ist.</p>
+        <p>Dabei nutze ich heute auch <strong>Vibe Coding</strong> als Teil meines Konzeptionsprozesses — ein Ansatz, bei dem ich mithilfe von KI-gestützten Werkzeugen Konzepte und Ideen direkt in interaktive Prototypen umsetze. So wird aus einem abstrakten Plan schneller ein greifbares Ergebnis, das getestet und weiterentwickelt werden kann.</p>
         <p>Das Konzept ist die wichtigste Säule bei der Schöpfung neuer Medieninhalte. Es ist der Fahrplan, der aus einer
         Skizze ein Meisterwerk entstehen lässt, der die Komplexität reduziert und den gesamten Schaffensprozess
         zielgerichtet und effizient gestaltet.</p>
@@ -2141,6 +2160,7 @@
         dem Studium reichte vom Postzusteller über Nachhilfelehrer bis hin zu einer besonders prägenden Erfahrung bei
         einer ARD-Fernsehfilmproduktion.</p>
         <p>Ende 2019 begann ich ein Studium der <strong>Medienkonzeption</strong>, welches ich 2024 erfolgreich abgeschlossen habe.</p>
+        <p>Neben meiner klassischen Ausbildung setze ich heute verstärkt auf <strong>Vibe Coding</strong> — einen kreativen Ansatz der Webentwicklung, bei dem ich mithilfe von KI-gestützten Tools Ideen schnell und intuitiv in funktionale Prototypen und fertige Produkte verwandle. Diese Verbindung aus gestalterischem Gespür und modernen KI-Werkzeugen ermöglicht es mir, komplexe Web-Projekte effizient und mit hoher Qualität umzusetzen.</p>
         <div style="clear:both"></div>
     </div>
 
@@ -2185,7 +2205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {r:29,g:158,b:117},   // green
         {r:222,g:222,b:32},   // yellow
     ];
-    const PCOUNT = window.innerWidth < 768 ? 80 : 160;
+    const PCOUNT = window.innerWidth < 768 ? 150 : 300;
     const particles = [];
     let cw, ch, cx, cy;
     let phase = 'scatter'; // scatter → gather → pulse → done
@@ -2206,7 +2226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for(let i = 0; i < PCOUNT; i++){
         const angle = (i / PCOUNT) * Math.PI * 2;
         const col = COLORS[i % 3];
-        const rOff = (Math.random() - 0.5) * logoRadius * 0.6;
+        const rOff = (Math.random() - 0.5) * logoRadius * 1.2;
         const targetR = logoRadius + rOff;
         // Start from random edges of the screen
         const edge = Math.random();
@@ -2632,15 +2652,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hero content — subtle parallax on logo and orbit
         if (scrollY < heroH) {
             const progress = scrollY / heroH;
-            const logoShift = scrollY * 0.25;
-            const orbitShift = scrollY * 0.4;
+            const sharedShift = scrollY * 0.3;
 
             const lc = document.querySelector('.logo-center');
-            if (lc) lc.style.transform = `translateY(${logoShift}px)`;
+            if (lc) lc.style.transform = `translateY(${sharedShift}px)`;
 
             const orbitEl = document.getElementById('orbit');
             if (orbitEl) {
-                orbitEl.style.marginTop = `${orbitShift}px`;
+                orbitEl.style.marginTop = `${sharedShift}px`;
             }
 
             // Fade hero content as user scrolls down
@@ -2776,7 +2795,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colors = [BLUE, GREEN, YELLOW];
 
     // --- Particle count ---
-    const PARTICLE_COUNT = window.innerWidth < 768 ? 150 : 300;
+    const PARTICLE_COUNT = window.innerWidth < 768 ? 300 : 600;
     const positions = new Float32Array(PARTICLE_COUNT * 3);
     const colorsAttr = new Float32Array(PARTICLE_COUNT * 3);
     const sizes = new Float32Array(PARTICLE_COUNT);
@@ -2802,8 +2821,8 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             const idx = i * 3;
             const angle = particleBaseAngle[i];
-            // Wide radius scatter so particles are clearly separated
-            const r = RING_RADIUS + (Math.random() - 0.5) * 0.6;
+            // Doubled outward spread for wider ring band
+            const r = RING_RADIUS + (Math.random() - 0.5) * 1.2;
             arr[idx] = Math.cos(angle) * r;
             arr[idx + 1] = Math.sin(angle) * r;
             arr[idx + 2] = RING_DEPTH + (Math.random() - 0.5) * 0.8;
@@ -2979,8 +2998,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const idx = i * 3;
                 const angle = particleBaseAngle[i] + time * rotSpeed;
                 // Each particle floats at its own radius band
-                const rOff = Math.sin(i * 2.37) * 0.3; // fixed per-particle offset
-                const r = RING_RADIUS + rOff + Math.sin(time * 0.25 + i * 0.3) * 0.1;
+                const rOff = Math.sin(i * 2.37) * 0.6; // fixed per-particle offset — doubled for wider ring
+                const r = RING_RADIUS + rOff + Math.sin(time * 0.25 + i * 0.3) * 0.15;
                 const wave = Math.sin(angle * 2 + time * 0.4) * 0.12;
                 targetPositions[idx] = Math.cos(angle) * r;
                 targetPositions[idx + 1] = Math.sin(angle) * r + wave;
@@ -3026,7 +3045,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inverted palette for magazine mode
     const COLORS = ['#C4742B','#E2618A','#2121DF','#111111'];
-    const PIXEL_COUNT = window.innerWidth < 768 ? 60 : 120;
+    const PIXEL_COUNT = window.innerWidth < 768 ? 120 : 240;
     const pixels = [];
 
     function resize() {
@@ -3065,7 +3084,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < PIXEL_COUNT; i++) {
             const baseAngle = (i / PIXEL_COUNT) * Math.PI * 2;
-            const rOff = (Math.random() - 0.5) * logoSize * 0.7;
+            const rOff = (Math.random() - 0.5) * logoSize * 1.4;
             const r = ringR + rOff;
             const size = 4 + Math.floor(Math.random() * 8);
             pixels.push({
