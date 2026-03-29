@@ -116,7 +116,7 @@
         /* Orbiting navigation */
         .orbit-ring{
             position:absolute;z-index:3;
-            width:clamp(420px,50vw,680px);height:clamp(420px,50vw,680px);
+            width:clamp(420px,58vw,800px);height:clamp(420px,58vw,800px);
             border-radius:50%;
             border:1px solid rgba(255,255,255,0.04);
             animation:orbit-spin 90s linear infinite;
@@ -206,6 +206,27 @@
             background:linear-gradient(135deg,var(--blue),var(--green)) !important;
             box-shadow:0 0 8px rgba(59,139,212,0.5);
         }
+
+
+        /* Colored orbit items */
+        .orbit-item.orbit-blue{
+            background:linear-gradient(145deg,#2dd4bf,#3B8BD4,#7c3aed) !important;
+            border:1.5px solid rgba(59,139,212,0.7) !important;
+            box-shadow:0 0 25px rgba(59,139,212,0.3);
+        }
+        .orbit-item.orbit-blue span{color:#fff}
+        .orbit-item.orbit-green{
+            background:linear-gradient(145deg,#b8d830,#1D9E75 40%,#18876a 70%,#2dd4bf) !important;
+            border:1.5px solid rgba(29,158,117,0.7) !important;
+            box-shadow:0 0 25px rgba(29,158,117,0.3);
+        }
+        .orbit-item.orbit-green span{color:#fff}
+        .orbit-item.orbit-yellow{
+            background:linear-gradient(145deg,#a8c020,#e8b012 35%,#f59e0b 60%,#e87d0e) !important;
+            border:1.5px solid rgba(245,158,11,0.7) !important;
+            box-shadow:0 0 25px rgba(245,158,11,0.25);
+        }
+        .orbit-item.orbit-yellow span{color:#fff}
 
         /* Scroll indicator */
         .scroll-hint{
@@ -1677,39 +1698,39 @@
     </div>
 
     <div class="orbit-ring" id="orbit">
-        <a href="#sec-konzeption" class="orbit-item size-lg" data-detail="content-conception">
+        <a href="#sec-konzeption" class="orbit-item size-xl orbit-blue" data-detail="content-conception">
             <span class="orbit-dot" style="background:var(--blue)"></span>
             <span>Konzeption</span>
         </a>
-        <a href="#sec-about" class="orbit-item size-xs" data-detail="content-about-me">
-            <span class="orbit-dot" style="background:var(--blue)"></span>
-            <span>Über mich</span>
+        <a href="#sec-storytelling" class="orbit-item size-md" data-detail="content-storytelling">
+            <span class="orbit-dot" style="background:var(--yellow)"></span>
+            <span>Storytelling</span>
         </a>
         <a href="https://meinetrickfilmwerkstatt.de" target="_blank" rel="noopener noreferrer" class="orbit-item size-xl orbit-featured">
             <span class="orbit-dot"></span>
             <span>Meine<br/>Trickfilm<br/>Werkstatt</span>
         </a>
-        <a href="#sec-storytelling" class="orbit-item size-sm" data-detail="content-storytelling">
-            <span class="orbit-dot" style="background:var(--yellow)"></span>
-            <span>Storytelling</span>
-        </a>
-        <a href="#sec-ux" class="orbit-item size-lg" data-detail="content-ux-design">
-            <span class="orbit-dot" style="background:var(--green)"></span>
-            <span>UX Design</span>
-        </a>
-        <a href="#sec-logos" class="orbit-item size-md" data-detail="content-logos">
+        <a href="#sec-logos" class="orbit-item size-lg" data-detail="content-logos">
             <span class="orbit-dot" style="background:var(--green)"></span>
             <span>Logos</span>
         </a>
-        <a href="#sec-videos" class="orbit-item size-sm" data-detail="content-videos">
+        <a href="#sec-ux" class="orbit-item size-xl orbit-green" data-detail="content-ux-design">
+            <span class="orbit-dot" style="background:var(--green)"></span>
+            <span>UX Design</span>
+        </a>
+        <a href="#sec-videos" class="orbit-item size-md" data-detail="content-videos">
             <span class="orbit-dot" style="background:var(--yellow)"></span>
             <span>Videos</span>
         </a>
-        <a href="#sec-animation" class="orbit-item size-md" data-detail="content-animation">
+        <a href="#sec-about" class="orbit-item size-xl orbit-yellow" data-detail="content-about-me">
+            <span class="orbit-dot" style="background:var(--yellow)"></span>
+            <span>Über mich</span>
+        </a>
+        <a href="#sec-animation" class="orbit-item size-lg" data-detail="content-animation">
             <span class="orbit-dot" style="background:var(--blue)"></span>
             <span>Animation</span>
         </a>
-        <a href="#sec-impressum" class="orbit-item size-xs" data-detail="content-impressum">
+        <a href="#sec-impressum" class="orbit-item size-sm" data-detail="content-impressum">
             <span class="orbit-dot" style="background:var(--text-muted)"></span>
             <span>Impressum</span>
         </a>
