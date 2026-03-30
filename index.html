@@ -2801,7 +2801,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Dim non-XL items more to make XL stand out
                 var isXL = item.classList.contains('size-xl') || item.classList.contains('orbit-featured');
-                var dimFactor = isXL ? 1 : 0.4;
+                var dimFactor = isXL ? 1 : 0.6;
                 item.style.filter = 'brightness(' + (brightness * dimFactor).toFixed(2) + ')';
                 item.style.zIndex = zIndex;
                 
