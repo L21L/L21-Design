@@ -118,7 +118,8 @@
             position:absolute;z-index:3;
             width:clamp(420px,58vw,800px);height:clamp(280px,38vw,520px);
             border-radius:50%;
-            border:1px solid rgba(255,255,255,0.04);
+            border:none;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cellipse cx='50%25' cy='50%25' rx='49.5%25' ry='49.5%25' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1' stroke-dasharray='8,6'/%3E%3C/svg%3E");
             animation:orbit-spin 90s linear infinite;
             pointer-events:none;
         }
@@ -311,6 +312,35 @@
             .sticky-nav{right:0.6rem;gap:8px}
             .sticky-dot{width:8px;height:8px}
             .sticky-dot:hover::before{display:none}
+        }
+
+
+        /* Skill tags */
+        .skill-tags{
+            display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem;
+        }
+        .skill-tag{
+            padding:0.25rem 0.7rem;border-radius:14px;
+            font-size:0.7rem;letter-spacing:0.03em;
+            background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+            color:var(--text-muted);transition:all 0.3s;
+        }
+        .skill-tag:hover{
+            border-color:var(--section-accent,rgba(255,255,255,0.2));
+            color:var(--text);background:rgba(255,255,255,0.08);
+        }
+
+
+        /* Animated section numbers */
+        .section-label{
+            transition:all 0.6s ease;
+        }
+        .section-label.count-in{
+            animation:countIn 0.8s cubic-bezier(0.23,1,0.32,1) both;
+        }
+        @keyframes countIn{
+            0%{opacity:0;transform:translateY(15px) scale(0.5);filter:blur(4px)}
+            100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
         }
 
         /* Scroll indicator */
@@ -2071,6 +2101,12 @@
             funktional und zielgruppenorientiert machen. Durch <strong>Vibe Coding</strong> bringe ich Konzepte mithilfe von KI direkt in interaktive Prototypen.</p>
             <p style="margin-top:1rem">Das Konzept ist der Fahrplan, der aus einer Skizze ein Meisterwerk entstehen lässt.</p>
         </div>
+        <div class="skill-tags">
+            <span class="skill-tag">Strategie</span>
+            <span class="skill-tag">Vibe Coding</span>
+            <span class="skill-tag">Prototyping</span>
+            <span class="skill-tag">Projektplanung</span>
+        </div>
         <button class="detail-btn" data-detail="content-conception" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(59,139,212,0.12);border:1px solid rgba(59,139,212,0.4);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Mehr erfahren
         </button>
@@ -2087,6 +2123,13 @@
             effizient und angenehm zu bedienen sind. Der <strong>UI-Part</strong> gibt dem Ganzen ein Gesicht —
             Farben, Schriften, Layouts und interaktive Elemente, die intuitiv führen.</p>
         </div>
+        <div class="skill-tags">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Adobe XD</span>
+            <span class="skill-tag">Wireframing</span>
+            <span class="skill-tag">User Research</span>
+            <span class="skill-tag">Prototyping</span>
+        </div>
         <button class="detail-btn" data-detail="content-ux-design" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(29,158,117,0.12);border:1px solid rgba(29,158,117,0.4);color:var(--green);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Projekte ansehen
         </button>
@@ -2101,6 +2144,13 @@
         <div class="section-text">
             <p>Stehende Bilder zum Leben erwecken — in <strong>2D und 3D</strong>. Mit Blender und After Effects
             visualisiere ich komplexe Szenen, animiere Figuren und verwandle Daten in fesselnde Bilder.</p>
+        </div>
+        <div class="skill-tags">
+            <span class="skill-tag">Blender</span>
+            <span class="skill-tag">After Effects</span>
+            <span class="skill-tag">3D Modeling</span>
+            <span class="skill-tag">2D Animation</span>
+            <span class="skill-tag">Motion Design</span>
         </div>
         <button class="detail-btn" data-detail="content-animation" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(13,148,136,0.1);border:1px solid rgba(13,148,136,0.4);color:#0d9488;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Animationen ansehen
@@ -2117,6 +2167,12 @@
             <p>Ein Logo ist das <strong>Herzstück der visuellen Identität</strong>. Ich entwickle einzigartige, einprägsame
             Zeichen, die den Kern einer Marke einfangen und eine starke Verbindung zur Zielgruppe aufbauen.</p>
         </div>
+        <div class="skill-tags">
+            <span class="skill-tag">Illustrator</span>
+            <span class="skill-tag">Branding</span>
+            <span class="skill-tag">Corporate Design</span>
+            <span class="skill-tag">Vektorgrafik</span>
+        </div>
         <button class="detail-btn" data-detail="content-logos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.4);color:#8b5cf6;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Entwürfe ansehen
         </button>
@@ -2132,6 +2188,13 @@
             <p>Licht, Kamera, Schnitt, Vertonung — von der ersten Aufnahme bis zum fertigen Produkt.
             Praktische Erfahrung aus der professionellen Filmproduktion fließt in jedes Projekt.</p>
         </div>
+        <div class="skill-tags">
+            <span class="skill-tag">Premiere Pro</span>
+            <span class="skill-tag">DaVinci Resolve</span>
+            <span class="skill-tag">Kamera</span>
+            <span class="skill-tag">Licht</span>
+            <span class="skill-tag">Ton</span>
+        </div>
         <button class="detail-btn" data-detail="content-videos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.4);color:#ef4444;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Videos ansehen
         </button>
@@ -2146,6 +2209,12 @@
         <div class="section-text">
             <p>Eine gut erzählte <strong>Geschichte</strong> ist der Schlüssel zum Erfolg. Ich entwickle
             einzigartige Erzählungen, schreibe Drehbücher und schaffe das Fundament für fesselnde Filme und Projekte.</p>
+        </div>
+        <div class="skill-tags">
+            <span class="skill-tag">Drehbuch</span>
+            <span class="skill-tag">Storyboard</span>
+            <span class="skill-tag">Narrative Design</span>
+            <span class="skill-tag">Kreatives Schreiben</span>
         </div>
         <button class="detail-btn" data-detail="content-storytelling" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.4);color:#ec4899;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Texte lesen
@@ -2909,7 +2978,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Dim non-XL items more to make XL stand out
                 var isXL = item.classList.contains('size-xl') || item.classList.contains('orbit-featured');
                 var isImpressum = item.classList.contains('orbit-slate');
-                var finalBrightness = isXL ? 1 : (isImpressum ? 0.6 : 0.5);
+                var finalBrightness = isXL ? 1 : (isImpressum ? 0.5 : 0.4);
                 item.style.filter = 'brightness(' + finalBrightness.toFixed(2) + ')';
                 item.style.zIndex = zIndex;
                 
@@ -2964,6 +3033,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('scroll', updateScrollSpy, {passive:true});
         updateScrollSpy();
+    })();
+
+
+    // --- Animated section numbers on scroll ---
+    ;(function(){
+        var labels = document.querySelectorAll('.section-label');
+        var numObserver = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+                if(entry.isIntersecting){
+                    entry.target.classList.add('count-in');
+                    numObserver.unobserve(entry.target);
+                }
+            });
+        }, {threshold:0.5});
+        labels.forEach(function(l){ numObserver.observe(l); });
+    })();
+
+
+    // --- Parallax on modal images ---
+    ;(function(){
+        var panel = document.getElementById('detailPanel');
+        if(!panel) return;
+        panel.addEventListener('scroll', function(){
+            var scrollTop = panel.scrollTop;
+            var images = panel.querySelectorAll('.image-grid img, .video-container, .ux iframe, .modal');
+            images.forEach(function(img, i){
+                var rect = img.getBoundingClientRect();
+                var panelRect = panel.getBoundingClientRect();
+                var relY = rect.top - panelRect.top;
+                var shift = (relY - panelRect.height / 2) * -0.04;
+                img.style.transform = 'translateY(' + shift.toFixed(1) + 'px)';
+            });
+        });
     })();
 
     // --- Parallax scroll ---
