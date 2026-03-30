@@ -2088,6 +2088,19 @@
     <p>&copy; 2025 L21 Design — Lasse Sündermann</p>
 </footer>
 
+<!-- Redirect confirmation for Trickfilmwerkstatt -->
+<div id="redirectOverlay" style="position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);pointer-events:none;transition:all 0.4s;display:flex;align-items:center;justify-content:center">
+    <div id="redirectPanel" style="background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:2.5rem 2rem;max-width:380px;width:90vw;text-align:center;transform:scale(0.9) translateY(20px);opacity:0;transition:all 0.4s">
+        <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#3B8BD4,#1D9E75,#DEDE20);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;margin:0 auto 1.2rem">↗</div>
+        <h3 style="font-family:var(--serif);font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:0.6rem">Externe Web-App</h3>
+        <p style="font-size:0.9rem;line-height:1.6;color:#8a887f;margin-bottom:1.8rem">Du wirst zu <strong style="color:#e8e6df">meinetrickfilmwerkstatt.de</strong> weitergeleitet — einer eigenständigen Stop-Motion Web-App.</p>
+        <div style="display:flex;flex-direction:column;gap:0.6rem">
+            <button id="redirectGo" style="padding:0.75rem 1.5rem;border-radius:30px;font-family:var(--font);font-size:0.9rem;font-weight:500;cursor:pointer;border:none;background:linear-gradient(135deg,#3B8BD4,#1D9E75);color:#fff;box-shadow:0 4px 20px rgba(59,139,212,0.3)">Weiter zur App</button>
+            <button id="redirectCancel" style="padding:0.75rem 1.5rem;border-radius:30px;font-family:var(--font);font-size:0.9rem;font-weight:500;cursor:pointer;background:transparent;color:#8a887f;border:1px solid rgba(255,255,255,0.1)">Abbrechen</button>
+        </div>
+    </div>
+</div>
+
 <!-- Detail Overlay -->
 <div class="detail-overlay" id="detailOverlay">
     <div class="detail-panel" id="detailPanel">
@@ -3353,6 +3366,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const obs = new MutationObserver(checkMode);
     obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     checkMode();
+})();
+</script>
+
+<script>
+// --- Redirect confirmation for Trickfilmwerkstatt ---
+(function(){
+    var overlay = document.getElementById('redirectOverlay');
+    var panel = document.getElementById('redirectPanel');
+    var goBtn = document.getElementById('redirectGo');
+    var cancelBtn = document.getElementById('redirectCancel');
+
+    function show() {
+        overlay.style.background = 'rgba(0,0,0,0.8)';
+        overlay.style.backdropFilter = 'blur(12px)';
+        overlay.style.webkitBackdropFilter = 'blur(12px)';
+        overlay.style.pointerEvents = 'all';
+        panel.style.transform = 'scale(1) translateY(0)';
+        panel.style.opacity = '1';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hide() {
+        overlay.style.background = 'rgba(0,0,0,0)';
+        overlay.style.backdropFilter = 'blur(0px)';
+        overlay.style.webkitBackdropFilter = 'blur(0px)';
+        overlay.style.pointerEvents = 'none';
+        panel.style.transform = 'scale(0.9) translateY(20px)';
+        panel.style.opacity = '0';
+        document.body.style.overflow = '';
+    }
+
+    // Intercept ALL clicks globally in capture phase
+    document.addEventListener('click', function(e) {
+        var el = e.target;
+        while (el && el !== document) {
+            if (el.tagName === 'A' && el.href && el.href.indexOf('meinetrickfilmwerkstatt') !== -1) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                show();
+                return false;
+            }
+            el = el.parentElement;
+        }
+    }, true);
+
+    goBtn.addEventListener('click', function() {
+        window.open('https://meinetrickfilmwerkstatt.de', '_blank');
+        hide();
+    });
+
+    cancelBtn.addEventListener('click', hide);
+
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) hide();
+    });
 })();
 </script>
 
