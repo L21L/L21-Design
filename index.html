@@ -66,16 +66,16 @@
             will-change:transform;
             animation:float-particle 15s ease-in-out infinite alternate;
         }
-        .parallax-particle:nth-child(1){width:250px;height:250px;background:var(--blue);opacity:0.03;top:10%;left:-5%;animation-delay:0s}
-        .parallax-particle:nth-child(2){width:200px;height:200px;background:var(--green);opacity:0.025;top:30%;right:-8%;animation-delay:-5s}
-        .parallax-particle:nth-child(3){width:180px;height:180px;background:var(--yellow);opacity:0.03;top:55%;left:20%;animation-delay:-10s}
-        .parallax-particle:nth-child(4){width:200px;height:200px;background:var(--blue);opacity:0.02;top:75%;right:15%;animation-delay:-3s}
-        .parallax-particle:nth-child(5){width:150px;height:150px;background:var(--green);opacity:0.025;top:90%;left:50%;animation-delay:-7s}
-        .parallax-particle:nth-child(6){width:220px;height:220px;background:var(--yellow);opacity:0.025;top:5%;right:25%;animation-delay:-2s}
-        .parallax-particle:nth-child(7){width:170px;height:170px;background:var(--blue);opacity:0.03;top:42%;left:65%;animation-delay:-9s}
-        .parallax-particle:nth-child(8){width:190px;height:190px;background:var(--green);opacity:0.02;top:68%;left:5%;animation-delay:-6s}
-        .parallax-particle:nth-child(9){width:160px;height:160px;background:var(--yellow);opacity:0.025;top:18%;left:40%;animation-delay:-1s}
-        .parallax-particle:nth-child(10){width:210px;height:210px;background:var(--blue);opacity:0.02;top:85%;right:35%;animation-delay:-11s}
+        .parallax-particle:nth-child(1){width:250px;height:250px;background:var(--blue);opacity:0.045;top:10%;left:-5%;animation-delay:0s}
+        .parallax-particle:nth-child(2){width:200px;height:200px;background:var(--green);opacity:0.04;top:30%;right:-8%;animation-delay:-5s}
+        .parallax-particle:nth-child(3){width:180px;height:180px;background:var(--yellow);opacity:0.045;top:55%;left:20%;animation-delay:-10s}
+        .parallax-particle:nth-child(4){width:200px;height:200px;background:var(--blue);opacity:0.04;top:75%;right:15%;animation-delay:-3s}
+        .parallax-particle:nth-child(5){width:150px;height:150px;background:var(--green);opacity:0.04;top:90%;left:50%;animation-delay:-7s}
+        .parallax-particle:nth-child(6){width:220px;height:220px;background:var(--yellow);opacity:0.04;top:5%;right:25%;animation-delay:-2s}
+        .parallax-particle:nth-child(7){width:170px;height:170px;background:var(--blue);opacity:0.035;top:42%;left:65%;animation-delay:-9s}
+        .parallax-particle:nth-child(8){width:190px;height:190px;background:var(--green);opacity:0.035;top:68%;left:5%;animation-delay:-6s}
+        .parallax-particle:nth-child(9){width:160px;height:160px;background:var(--yellow);opacity:0.035;top:18%;left:40%;animation-delay:-1s}
+        .parallax-particle:nth-child(10){width:210px;height:210px;background:var(--green);opacity:0.035;top:85%;right:35%;animation-delay:-11s}
 
         /* Parallax speed classes */
         .parallax-slow{--parallax-speed:0.15}
@@ -272,6 +272,47 @@
             opacity:0.9;
         }
 
+
+        /* Sticky mini navigation */
+        .sticky-nav{
+            position:fixed;right:1.2rem;top:50%;transform:translateY(-50%);
+            z-index:40;display:flex;flex-direction:column;gap:10px;
+            opacity:0;transition:opacity 0.4s;pointer-events:none;
+        }
+        .sticky-nav.visible{opacity:1;pointer-events:all}
+        .sticky-dot{
+            width:10px;height:10px;border-radius:50%;
+            background:rgba(255,255,255,0.2);
+            border:1.5px solid rgba(255,255,255,0.15);
+            transition:all 0.3s;cursor:pointer;
+            text-decoration:none;position:relative;
+        }
+        .sticky-dot:hover{
+            background:var(--dot-color);
+            border-color:var(--dot-color);
+            transform:scale(1.4);
+            box-shadow:0 0 12px var(--dot-color);
+        }
+        .sticky-dot.active{
+            background:var(--dot-color);
+            border-color:var(--dot-color);
+            box-shadow:0 0 8px var(--dot-color);
+            transform:scale(1.3);
+        }
+        .sticky-dot:hover::before{
+            content:attr(title);
+            position:absolute;right:20px;top:50%;transform:translateY(-50%);
+            background:#1a1a1a;color:#fff;font-size:0.7rem;
+            padding:4px 10px;border-radius:6px;white-space:nowrap;
+            border:1px solid rgba(255,255,255,0.1);
+            font-family:var(--font);letter-spacing:0.03em;
+        }
+        @media(max-width:768px){
+            .sticky-nav{right:0.6rem;gap:8px}
+            .sticky-dot{width:8px;height:8px}
+            .sticky-dot:hover::before{display:none}
+        }
+
         /* Scroll indicator */
         .scroll-hint{
             position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
@@ -338,8 +379,8 @@
         /* Divider between sections */
         .section + .section::before{
             content:'';display:block;
-            width:1px;height:80px;
-            background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.08),transparent);
+            width:2px;height:80px;
+            background:linear-gradient(to bottom,transparent,var(--section-accent,rgba(255,255,255,0.08)),transparent);
             margin:0 auto 0;
             position:absolute;top:0;left:50%;
         }
@@ -535,16 +576,48 @@
         .site-header img{height:clamp(28px,4vh,42px);width:auto}
 
         /* ======== FOOTER ======== */
+
         .site-footer{
-            position:relative;
-            z-index:1;
+            position:relative;z-index:1;
             background:var(--dark);
             text-align:center;
-            padding:3rem 1rem;
+            padding:4rem 1.5rem 2rem;
             color:var(--text-muted);font-size:0.8rem;
             border-top:1px solid rgba(255,255,255,0.05);
         }
-        .site-footer a{color:var(--text-muted);text-decoration:underline}
+        .footer-inner{
+            max-width:600px;margin:0 auto;
+            display:flex;flex-direction:column;align-items:center;gap:1.2rem;
+        }
+        .footer-brand{display:flex;flex-direction:column;align-items:center;gap:0.3rem}
+        .footer-logo{
+            font-family:var(--serif);font-size:1.6rem;font-weight:700;
+            letter-spacing:0.1em;text-transform:uppercase;
+            background:linear-gradient(90deg,var(--blue),var(--green),var(--yellow));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+            background-clip:text;
+        }
+        .footer-tagline{
+            font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;
+            color:var(--text-muted);
+        }
+        .footer-skills{
+            display:flex;flex-wrap:wrap;justify-content:center;gap:0.4rem;
+            font-size:0.75rem;letter-spacing:0.03em;
+        }
+        .footer-contact{margin-top:0.5rem}
+        .footer-link{
+            color:var(--text-muted);text-decoration:none;
+            border-bottom:1px solid rgba(255,255,255,0.1);
+            padding-bottom:2px;transition:all 0.3s;
+            font-size:0.8rem;
+        }
+        .footer-link:hover{color:var(--blue);border-color:var(--blue)}
+        .footer-copy{
+            font-size:0.7rem;color:rgba(255,255,255,0.25);
+            margin-top:0.8rem;
+        }
+
 
         /* ======== FEATURED PROJECT ======== */
         .featured{
@@ -1987,7 +2060,7 @@
 </section>
 
 <!-- Sections -->
-<section class="section" id="sec-konzeption">
+<section class="section" id="sec-konzeption" style="--section-accent:#3B8BD4">
     <div class="section-inner fade-in">
         <span class="section-label blue">01</span>
         <div class="accent-line blue"></div>
@@ -2004,7 +2077,7 @@
     </div>
 </section>
 
-<section class="section" id="sec-ux">
+<section class="section" id="sec-ux" style="--section-accent:#1D9E75">
     <div class="section-inner fade-in">
         <span class="section-label green">02</span>
         <div class="accent-line green"></div>
@@ -2020,7 +2093,7 @@
     </div>
 </section>
 
-<section class="section" id="sec-animation">
+<section class="section" id="sec-animation" style="--section-accent:#0d9488">
     <div class="section-inner fade-in">
         <span class="section-label" style="color:#0d9488">03</span>
         <div class="accent-line" style="background:linear-gradient(90deg,#22d3ee,#0d9488,#065f46)"></div>
@@ -2035,7 +2108,7 @@
     </div>
 </section>
 
-<section class="section" id="sec-logos">
+<section class="section" id="sec-logos" style="--section-accent:#8b5cf6">
     <div class="section-inner fade-in">
         <span class="section-label" style="color:#8b5cf6">04</span>
         <div class="accent-line" style="background:linear-gradient(90deg,#6366f1,#8b5cf6,#c084fc)"></div>
@@ -2050,7 +2123,7 @@
     </div>
 </section>
 
-<section class="section" id="sec-videos">
+<section class="section" id="sec-videos" style="--section-accent:#ef4444">
     <div class="section-inner fade-in">
         <span class="section-label" style="color:#ef4444">05</span>
         <div class="accent-line" style="background:linear-gradient(90deg,#f59e0b,#ef4444,#991b1b)"></div>
@@ -2065,7 +2138,7 @@
     </div>
 </section>
 
-<section class="section" id="sec-storytelling">
+<section class="section" id="sec-storytelling" style="--section-accent:#ec4899">
     <div class="section-inner fade-in">
         <span class="section-label" style="color:#ec4899">06</span>
         <div class="accent-line" style="background:linear-gradient(90deg,#f472b6,#ec4899,#be185d)"></div>
@@ -2080,7 +2153,7 @@
     </div>
 </section>
 
-<section class="section" id="sec-about">
+<section class="section" id="sec-about" style="--section-accent:#f59e0b">
     <div class="section-inner fade-in">
         <span class="section-label" style="color:#f59e0b">07</span>
         <div class="accent-line" style="background:linear-gradient(90deg,#a8c020,#f59e0b,#e87d0e)"></div>
@@ -2095,7 +2168,7 @@
     </div>
 </section>
 
-<section class="section" id="sec-impressum">
+<section class="section" id="sec-impressum" style="--section-accent:#475569">
     <div class="section-inner fade-in" style="text-align:center">
         <button class="detail-btn" data-detail="content-impressum" style="padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--text-muted);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Impressum & Datenschutz
@@ -2103,9 +2176,43 @@
     </div>
 </section>
 
+
+<!-- Sticky Mini Navigation -->
+<nav class="sticky-nav" id="stickyNav">
+    <a href="#sec-konzeption" class="sticky-dot" data-section="sec-konzeption" style="--dot-color:#3B8BD4" title="Konzeption"></a>
+    <a href="#sec-ux" class="sticky-dot" data-section="sec-ux" style="--dot-color:#1D9E75" title="UX Design"></a>
+    <a href="#sec-animation" class="sticky-dot" data-section="sec-animation" style="--dot-color:#0d9488" title="Animation"></a>
+    <a href="#sec-logos" class="sticky-dot" data-section="sec-logos" style="--dot-color:#8b5cf6" title="Logos"></a>
+    <a href="#sec-videos" class="sticky-dot" data-section="sec-videos" style="--dot-color:#ef4444" title="Videos"></a>
+    <a href="#sec-storytelling" class="sticky-dot" data-section="sec-storytelling" style="--dot-color:#ec4899" title="Storytelling"></a>
+    <a href="#sec-about" class="sticky-dot" data-section="sec-about" style="--dot-color:#f59e0b" title="Über mich"></a>
+</nav>
+
 <!-- Footer -->
 <footer class="site-footer">
-    <p>&copy; 2025 L21 Design — Lasse Sündermann</p>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="footer-logo">L<span style="font-size:1.3em">21</span> DESIGN</span>
+            <p class="footer-tagline">Medienkonzeption & Design</p>
+        </div>
+        <div class="footer-skills">
+            <span style="color:#3B8BD4">Konzeption</span>
+            <span style="color:#555">·</span>
+            <span style="color:#1D9E75">UX Design</span>
+            <span style="color:#555">·</span>
+            <span style="color:#0d9488">Animation</span>
+            <span style="color:#555">·</span>
+            <span style="color:#8b5cf6">Logos</span>
+            <span style="color:#555">·</span>
+            <span style="color:#ef4444">Videos</span>
+            <span style="color:#555">·</span>
+            <span style="color:#ec4899">Storytelling</span>
+        </div>
+        <div class="footer-contact">
+            <a href="mailto:lasse.suendermann@web.de" class="footer-link">lasse.suendermann@web.de</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 L21 Design — Lasse Sündermann</p>
+    </div>
 </footer>
 
 <!-- Redirect confirmation for Trickfilmwerkstatt -->
@@ -2368,10 +2475,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Phase timing
-    const SCATTER_DUR = 800;   // particles float randomly
-    const GATHER_DUR = 1600;   // particles fly to ring
-    const HOLD_DUR = 400;      // ring holds before pulse
-    const PULSE_DUR = 600;     // pulse + logo reveal
+    const SCATTER_DUR = 400;   // particles float randomly
+    const GATHER_DUR = 900;    // particles fly to ring
+    const HOLD_DUR = 200;      // ring holds before pulse
+    const PULSE_DUR = 400;     // pulse + logo reveal
     const TOTAL_DUR = SCATTER_DUR + GATHER_DUR + HOLD_DUR + PULSE_DUR;
 
     phaseStart = performance.now();
@@ -2509,7 +2616,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // End animation
-        if(elapsed >= TOTAL_DUR + 600){
+        if(elapsed >= TOTAL_DUR + 300){
             cancelAnimationFrame(animId);
             preloader.classList.add('done');
             document.body.classList.remove('loading');
@@ -2801,8 +2908,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Dim non-XL items more to make XL stand out
                 var isXL = item.classList.contains('size-xl') || item.classList.contains('orbit-featured');
-                var dimFactor = isXL ? 1 : 0.6;
-                item.style.filter = 'brightness(' + (brightness * dimFactor).toFixed(2) + ')';
+                var isImpressum = item.classList.contains('orbit-slate');
+                var finalBrightness = isXL ? 1 : (isImpressum ? 0.6 : 0.5);
+                item.style.filter = 'brightness(' + finalBrightness.toFixed(2) + ')';
                 item.style.zIndex = zIndex;
                 
                 // Apply scale without interfering with the counter-spin transform
@@ -2814,6 +2922,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         requestAnimationFrame(update3D);
+    })();
+
+
+    // --- Sticky Nav + Scroll Spy ---
+    ;(function(){
+        var stickyNav = document.getElementById('stickyNav');
+        var dots = stickyNav.querySelectorAll('.sticky-dot');
+        var sectionIds = [];
+        dots.forEach(function(d){ sectionIds.push(d.dataset.section); });
+
+        function updateScrollSpy(){
+            var scrollY = window.scrollY;
+            var heroH = document.getElementById('heroSection').offsetHeight;
+
+            // Show/hide sticky nav
+            if(scrollY > heroH * 0.6){
+                stickyNav.classList.add('visible');
+            } else {
+                stickyNav.classList.remove('visible');
+            }
+
+            // Find active section
+            var activeId = '';
+            for(var i = sectionIds.length - 1; i >= 0; i--){
+                var sec = document.getElementById(sectionIds[i]);
+                if(sec && sec.getBoundingClientRect().top < window.innerHeight * 0.4){
+                    activeId = sectionIds[i];
+                    break;
+                }
+            }
+
+            dots.forEach(function(d){
+                if(d.dataset.section === activeId){
+                    d.classList.add('active');
+                } else {
+                    d.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateScrollSpy, {passive:true});
+        updateScrollSpy();
     })();
 
     // --- Parallax scroll ---
@@ -2981,8 +3131,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const BLUE = new THREE.Color(0x3B8BD4);
     const GREEN = new THREE.Color(0x1D9E75);
     const YELLOW = new THREE.Color(0xDEDE20);
+    const PINK = new THREE.Color(0xec4899);
+    const PURPLE = new THREE.Color(0x8b5cf6);
+    const CYAN = new THREE.Color(0x22d3ee);
     const WHITE = new THREE.Color(0xe8e6df);
-    const colors = [BLUE, GREEN, YELLOW];
+    const colors = [BLUE, GREEN, YELLOW, BLUE, GREEN, YELLOW, BLUE, GREEN, YELLOW, BLUE, GREEN, YELLOW, PINK, PURPLE, CYAN];
 
     // --- Particle count ---
     const PARTICLE_COUNT = window.innerWidth < 768 ? 300 : 600;
@@ -3053,18 +3206,13 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < PARTICLE_COUNT; i++) {
         const t = i / PARTICLE_COUNT; // 0 to 1 around the ring
         let c;
+        // 100% blue/green/yellow
         if (t < 0.333) {
-            // blue → green
-            const f = t / 0.333;
-            c = new THREE.Color().copy(BLUE).lerp(GREEN, f);
+            c = new THREE.Color().copy(BLUE).lerp(GREEN, t/0.333);
         } else if (t < 0.666) {
-            // green → yellow
-            const f = (t - 0.333) / 0.333;
-            c = new THREE.Color().copy(GREEN).lerp(YELLOW, f);
+            c = new THREE.Color().copy(GREEN).lerp(YELLOW, (t-0.333)/0.333);
         } else {
-            // yellow → blue
-            const f = (t - 0.666) / 0.334;
-            c = new THREE.Color().copy(YELLOW).lerp(BLUE, f);
+            c = new THREE.Color().copy(YELLOW).lerp(BLUE, (t-0.666)/0.334);
         }
         const mix = 0.6 + Math.random() * 0.4;
         colorsAttr[i * 3] = c.r * mix;
