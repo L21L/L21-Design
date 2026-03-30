@@ -148,9 +148,7 @@
         @keyframes counter-spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(-360deg)}}
 
         .orbit-item:hover{
-            background:rgba(255,255,255,0.12);
             border-color:rgba(255,255,255,0.25);
-            transform:translate(-50%,-50%) rotate(0deg) scale(1.15) !important;
             box-shadow:0 0 40px rgba(59,139,212,0.25);
         }
         .orbit-item span{
@@ -183,13 +181,11 @@
             content:'';position:absolute;inset:-2px;border-radius:50%;
             background:linear-gradient(135deg,var(--blue),var(--green),var(--yellow));
             z-index:-1;
-            animation:featured-glow-pulse 3s ease-in-out infinite;
         }
         .orbit-item.orbit-featured::after{
             content:'';position:absolute;inset:-8px;border-radius:50%;
             background:radial-gradient(circle,rgba(59,139,212,0.2) 0%,transparent 70%);
             z-index:-2;
-            animation:featured-glow-pulse 3s ease-in-out infinite;
         }
         @keyframes featured-glow-pulse{
             0%,100%{opacity:0.7}
@@ -203,47 +199,47 @@
 
         /* Colored orbit items */
         .orbit-item.orbit-blue{
-            background:linear-gradient(145deg,#2dd4bf,#3B8BD4,#7c3aed) !important;
-            border:1.5px solid rgba(59,139,212,0.7) !important;
-            box-shadow:0 0 35px rgba(59,139,212,0.4);
+            background:linear-gradient(145deg,#3B8BD4,#2BB5A0,#1AAF54) !important;
+            border:1.5px solid rgba(45,212,191,0.7) !important;
+            box-shadow:0 0 35px rgba(43,181,160,0.35);
         }
         .orbit-item.orbit-blue span{color:#fff}
         .orbit-item.orbit-green{
-            background:linear-gradient(145deg,#b8d830,#1D9E75 40%,#18876a 70%,#2dd4bf) !important;
-            border:1.5px solid rgba(29,158,117,0.7) !important;
-            box-shadow:0 0 35px rgba(29,158,117,0.4);
+            background:linear-gradient(145deg,#1AAF54,#7EC832,#C4C820) !important;
+            border:1.5px solid rgba(126,200,50,0.6) !important;
+            box-shadow:0 0 35px rgba(126,200,50,0.35);
         }
         .orbit-item.orbit-green span{color:#fff}
         .orbit-item.orbit-yellow{
-            background:linear-gradient(145deg,#a8c020,#e8b012 35%,#f59e0b 60%,#e87d0e) !important;
-            border:1.5px solid rgba(245,158,11,0.7) !important;
-            box-shadow:0 0 35px rgba(245,158,11,0.4);
+            background:linear-gradient(145deg,#C4C820,#2BB5A0,#3B8BD4) !important;
+            border:1.5px solid rgba(45,212,191,0.7) !important;
+            box-shadow:0 0 35px rgba(43,181,160,0.35);
         }
         .orbit-item.orbit-yellow span{color:#fff}
 
 
         .orbit-item.orbit-red{
-            background:linear-gradient(145deg,#f472b6,#ec4899,#be185d) !important;
-            border:1.5px solid rgba(236,72,153,0.7) !important;
-            box-shadow:0 0 20px rgba(236,72,153,0.25);
+            background:linear-gradient(145deg,#1AAF54,#2BB5A0,#0e8b9e) !important;
+            border:1.5px solid rgba(43,181,160,0.45) !important;
+            box-shadow:0 0 20px rgba(13,148,136,0.25);
         }
         .orbit-item.orbit-red span{color:#fff}
         .orbit-item.orbit-purple{
-            background:linear-gradient(145deg,#6366f1,#8b5cf6,#c084fc) !important;
-            border:1.5px solid rgba(139,92,246,0.7) !important;
-            box-shadow:0 0 20px rgba(139,92,246,0.25);
+            background:linear-gradient(145deg,#2BB5A0,#5BAAE0,#1AAF54) !important;
+            border:1.5px solid rgba(91,170,224,0.45) !important;
+            box-shadow:0 0 20px rgba(91,170,224,0.2);
         }
         .orbit-item.orbit-purple span{color:#fff}
         .orbit-item.orbit-teal{
-            background:linear-gradient(145deg,#22d3ee,#0d9488,#065f46) !important;
-            border:1.5px solid rgba(13,148,136,0.7) !important;
-            box-shadow:0 0 20px rgba(13,148,136,0.25);
+            background:linear-gradient(145deg,#3B8BD4,#2d6aaa,#475569) !important;
+            border:1.5px solid rgba(45,106,170,0.45) !important;
+            box-shadow:0 0 20px rgba(45,106,170,0.2);
         }
         .orbit-item.orbit-teal span{color:#fff}
         .orbit-item.orbit-coral{
-            background:linear-gradient(145deg,#f59e0b,#ef4444,#991b1b) !important;
-            border:1.5px solid rgba(239,68,68,0.7) !important;
-            box-shadow:0 0 20px rgba(239,68,68,0.25);
+            background:linear-gradient(145deg,#C4C820,#7EC832,#1AAF54) !important;
+            border:1.5px solid rgba(126,200,50,0.45) !important;
+            box-shadow:0 0 20px rgba(126,200,50,0.2);
         }
         .orbit-item.orbit-coral span{color:#fff}
         .orbit-item.orbit-slate{
@@ -845,15 +841,10 @@
         /* 3D orbit depth effect */
         .orbit-item{
             --depth-scale:1;
-            filter:brightness(1);
-            transition:filter 0.3s ease, z-index 0s !important;
-        }
-        .orbit-ring .orbit-item{
-            scale:var(--depth-scale);
         }
         /* Magnetic orbit items */
         .orbit-item{
-            transition:all 0.3s cubic-bezier(0.23,1,0.32,1) !important;
+            transition:border-color 0.3s, box-shadow 0.3s !important;
         }
 
         /* ======== ANIMATIONS ======== */
@@ -2090,10 +2081,10 @@
 </section>
 
 <!-- Sections -->
-<section class="section" id="sec-konzeption" style="--section-accent:#3B8BD4">
+<section class="section" id="sec-konzeption" style="--section-accent:#2BB5A0">
     <div class="section-inner fade-in">
-        <span class="section-label blue">01</span>
-        <div class="accent-line blue"></div>
+        <span class="section-label" style="color:#2BB5A0">01</span>
+        <div class="accent-line" style="background:#2BB5A0"></div>
         <h2 class="section-title">Konzeption</h2>
         <div class="section-text">
             <p>Am Anfang steht die Idee. Doch was kommt dann? Als <strong>Medienkonzeptionist</strong> (Bachelor of Arts)
@@ -2113,10 +2104,10 @@
     </div>
 </section>
 
-<section class="section" id="sec-ux" style="--section-accent:#1D9E75">
+<section class="section" id="sec-ux" style="--section-accent:#7EC832">
     <div class="section-inner fade-in">
-        <span class="section-label green">02</span>
-        <div class="accent-line green"></div>
+        <span class="section-label" style="color:#7EC832">02</span>
+        <div class="accent-line" style="background:#7EC832"></div>
         <h2 class="section-title">UX / UI Design</h2>
         <div class="section-text">
             <p>Als <strong>UX Designer</strong> konzentriere ich mich darauf, Produkte so zu entwickeln, dass sie einfach,
@@ -2136,10 +2127,10 @@
     </div>
 </section>
 
-<section class="section" id="sec-animation" style="--section-accent:#0d9488">
+<section class="section" id="sec-animation" style="--section-accent:#2d6aaa">
     <div class="section-inner fade-in">
-        <span class="section-label" style="color:#0d9488">03</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#22d3ee,#0d9488,#065f46)"></div>
+        <span class="section-label" style="color:#2d6aaa">03</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#3B8BD4,#2d6aaa,#475569)"></div>
         <h2 class="section-title">Animation</h2>
         <div class="section-text">
             <p>Stehende Bilder zum Leben erwecken — in <strong>2D und 3D</strong>. Mit Blender und After Effects
@@ -2152,16 +2143,16 @@
             <span class="skill-tag">2D Animation</span>
             <span class="skill-tag">Motion Design</span>
         </div>
-        <button class="detail-btn" data-detail="content-animation" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(13,148,136,0.1);border:1px solid rgba(13,148,136,0.4);color:#0d9488;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+        <button class="detail-btn" data-detail="content-animation" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(45,106,170,0.1);border:1px solid rgba(45,106,170,0.4);color:#2d6aaa;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Animationen ansehen
         </button>
     </div>
 </section>
 
-<section class="section" id="sec-logos" style="--section-accent:#8b5cf6">
+<section class="section" id="sec-logos" style="--section-accent:#5BAAE0">
     <div class="section-inner fade-in">
-        <span class="section-label" style="color:#8b5cf6">04</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#6366f1,#8b5cf6,#c084fc)"></div>
+        <span class="section-label" style="color:#5BAAE0">04</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#2BB5A0,#5BAAE0,#1AAF54)"></div>
         <h2 class="section-title">Logos</h2>
         <div class="section-text">
             <p>Ein Logo ist das <strong>Herzstück der visuellen Identität</strong>. Ich entwickle einzigartige, einprägsame
@@ -2173,16 +2164,16 @@
             <span class="skill-tag">Corporate Design</span>
             <span class="skill-tag">Vektorgrafik</span>
         </div>
-        <button class="detail-btn" data-detail="content-logos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.4);color:#8b5cf6;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+        <button class="detail-btn" data-detail="content-logos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(91,170,224,0.1);border:1px solid rgba(91,170,224,0.4);color:#5BAAE0;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Entwürfe ansehen
         </button>
     </div>
 </section>
 
-<section class="section" id="sec-videos" style="--section-accent:#ef4444">
+<section class="section" id="sec-videos" style="--section-accent:#7EC832">
     <div class="section-inner fade-in">
-        <span class="section-label" style="color:#ef4444">05</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#f59e0b,#ef4444,#991b1b)"></div>
+        <span class="section-label" style="color:#7EC832">05</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#C4C820,#7EC832,#1AAF54)"></div>
         <h2 class="section-title">Videos</h2>
         <div class="section-text">
             <p>Licht, Kamera, Schnitt, Vertonung — von der ersten Aufnahme bis zum fertigen Produkt.
@@ -2195,16 +2186,16 @@
             <span class="skill-tag">Licht</span>
             <span class="skill-tag">Ton</span>
         </div>
-        <button class="detail-btn" data-detail="content-videos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.4);color:#ef4444;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+        <button class="detail-btn" data-detail="content-videos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(126,200,50,0.1);border:1px solid rgba(126,200,50,0.4);color:#7EC832;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Videos ansehen
         </button>
     </div>
 </section>
 
-<section class="section" id="sec-storytelling" style="--section-accent:#ec4899">
+<section class="section" id="sec-storytelling" style="--section-accent:#d97706">
     <div class="section-inner fade-in">
-        <span class="section-label" style="color:#ec4899">06</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#f472b6,#ec4899,#be185d)"></div>
+        <span class="section-label" style="color:#2BB5A0">06</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#1AAF54,#2BB5A0,#0e8b9e)"></div>
         <h2 class="section-title">Storytelling</h2>
         <div class="section-text">
             <p>Eine gut erzählte <strong>Geschichte</strong> ist der Schlüssel zum Erfolg. Ich entwickle
@@ -2216,22 +2207,22 @@
             <span class="skill-tag">Narrative Design</span>
             <span class="skill-tag">Kreatives Schreiben</span>
         </div>
-        <button class="detail-btn" data-detail="content-storytelling" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.4);color:#ec4899;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+        <button class="detail-btn" data-detail="content-storytelling" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(43,181,160,0.1);border:1px solid rgba(43,181,160,0.4);color:#2BB5A0;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Texte lesen
         </button>
     </div>
 </section>
 
-<section class="section" id="sec-about" style="--section-accent:#f59e0b">
+<section class="section" id="sec-about" style="--section-accent:#2BB5A0">
     <div class="section-inner fade-in">
-        <span class="section-label" style="color:#f59e0b">07</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#a8c020,#f59e0b,#e87d0e)"></div>
+        <span class="section-label" style="color:#2BB5A0">07</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#C4C820,#2BB5A0,#3B8BD4)"></div>
         <h2 class="section-title">Über mich</h2>
         <div class="section-text">
             <p><strong>Lasse Sündermann</strong> — vielseitiger Mediendesigner mit Expertise in Videoproduktion,
             3D/2D-Animation, Webdesign und Konzeption. Studium der Medienkonzeption, abgeschlossen 2024. Heute setze ich ergänzend auf <strong>Vibe Coding</strong> — kreative Webentwicklung mit KI-gestützten Tools, um Ideen schnell in fertige Produkte zu verwandeln.</p>
         </div>
-        <button class="detail-btn" data-detail="content-about-me" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.4);color:#f59e0b;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+        <button class="detail-btn" data-detail="content-about-me" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(43,181,160,0.1);border:1px solid rgba(43,181,160,0.4);color:#2BB5A0;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Mehr über mich
         </button>
     </div>
@@ -2248,13 +2239,13 @@
 
 <!-- Sticky Mini Navigation -->
 <nav class="sticky-nav" id="stickyNav">
-    <a href="#sec-konzeption" class="sticky-dot" data-section="sec-konzeption" style="--dot-color:#3B8BD4" title="Konzeption"></a>
-    <a href="#sec-ux" class="sticky-dot" data-section="sec-ux" style="--dot-color:#1D9E75" title="UX Design"></a>
-    <a href="#sec-animation" class="sticky-dot" data-section="sec-animation" style="--dot-color:#0d9488" title="Animation"></a>
-    <a href="#sec-logos" class="sticky-dot" data-section="sec-logos" style="--dot-color:#8b5cf6" title="Logos"></a>
-    <a href="#sec-videos" class="sticky-dot" data-section="sec-videos" style="--dot-color:#ef4444" title="Videos"></a>
-    <a href="#sec-storytelling" class="sticky-dot" data-section="sec-storytelling" style="--dot-color:#ec4899" title="Storytelling"></a>
-    <a href="#sec-about" class="sticky-dot" data-section="sec-about" style="--dot-color:#f59e0b" title="Über mich"></a>
+    <a href="#sec-konzeption" class="sticky-dot" data-section="sec-konzeption" style="--dot-color:#2BB5A0" title="Konzeption"></a>
+    <a href="#sec-ux" class="sticky-dot" data-section="sec-ux" style="--dot-color:#7EC832" title="UX Design"></a>
+    <a href="#sec-animation" class="sticky-dot" data-section="sec-animation" style="--dot-color:#6366f1" title="Animation"></a>
+    <a href="#sec-logos" class="sticky-dot" data-section="sec-logos" style="--dot-color:#5BAAE0" title="Logos"></a>
+    <a href="#sec-videos" class="sticky-dot" data-section="sec-videos" style="--dot-color:#7EC832" title="Videos"></a>
+    <a href="#sec-storytelling" class="sticky-dot" data-section="sec-storytelling" style="--dot-color:#2BB5A0" title="Storytelling"></a>
+    <a href="#sec-about" class="sticky-dot" data-section="sec-about" style="--dot-color:#2BB5A0" title="Über mich"></a>
 </nav>
 
 <!-- Footer -->
@@ -2265,20 +2256,20 @@
             <p class="footer-tagline">Medienkonzeption & Design</p>
         </div>
         <div class="footer-skills">
-            <span style="color:#3B8BD4">Konzeption</span>
+            <span style="color:#2BB5A0">Konzeption</span>
             <span style="color:#555">·</span>
-            <span style="color:#1D9E75">UX Design</span>
+            <span style="color:#7EC832">UX Design</span>
             <span style="color:#555">·</span>
-            <span style="color:#0d9488">Animation</span>
+            <span style="color:#2d6aaa">Animation</span>
             <span style="color:#555">·</span>
-            <span style="color:#8b5cf6">Logos</span>
+            <span style="color:#5BAAE0">Logos</span>
             <span style="color:#555">·</span>
-            <span style="color:#ef4444">Videos</span>
+            <span style="color:#7EC832">Videos</span>
             <span style="color:#555">·</span>
-            <span style="color:#ec4899">Storytelling</span>
+            <span style="color:#2BB5A0">Storytelling</span>
         </div>
         <div class="footer-contact">
-            <a href="mailto:lasse.suendermann@web.de" class="footer-link">lasse.suendermann@web.de</a>
+            <a href="/cdn-cgi/l/email-protection#563a3725253378252333383233243b37383816213334783233" class="footer-link"><span class="__cf_email__" data-cfemail="93fff2e0e0f6bde0e6f6fdf7f6e1fef2fdfdd3e4f6f1bdf7f6">[email&#160;protected]</span></a>
         </div>
         <p class="footer-copy">&copy; 2026 L21 Design — Lasse Sündermann</p>
     </div>
@@ -2477,7 +2468,7 @@
     </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Preloader: Particle Assembly ---
@@ -2709,13 +2700,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('detailNext');
 
     const sections = [
-        { id:'content-conception',  theme:'theme-dark',   title:'Konzeption',              sub:'Strategie & Planung',      icon:'K',  color:'#3B8BD4' },
-        { id:'content-ux-design',   theme:'theme-dark',   title:'UX / UI Design',          sub:'Nutzererfahrung',          icon:'UX', color:'#1D9E75' },
-        { id:'content-animation',   theme:'theme-dark',   title:'Animation',               sub:'2D & 3D',                  icon:'A',  color:'#0d9488' },
-        { id:'content-logos',       theme:'theme-dark',   title:'Logos',                    sub:'Visuelle Identität',       icon:'L',  color:'#8b5cf6' },
-        { id:'content-videos',      theme:'theme-dark',   title:'Videos',                   sub:'Produktion & Schnitt',     icon:'V',  color:'#ef4444' },
+        { id:'content-conception',  theme:'theme-dark',   title:'Konzeption',              sub:'Strategie & Planung',      icon:'K',  color:'#2BB5A0' },
+        { id:'content-ux-design',   theme:'theme-dark',   title:'UX / UI Design',          sub:'Nutzererfahrung',          icon:'UX', color:'#7EC832' },
+        { id:'content-animation',   theme:'theme-dark',   title:'Animation',               sub:'2D & 3D',                  icon:'A',  color:'#2d6aaa' },
+        { id:'content-logos',       theme:'theme-dark',   title:'Logos',                    sub:'Visuelle Identität',       icon:'L',  color:'#5BAAE0' },
+        { id:'content-videos',      theme:'theme-dark',   title:'Videos',                   sub:'Produktion & Schnitt',     icon:'V',  color:'#2d6aaa' },
         { id:'content-storytelling', theme:'theme-dark',  title:'Storytelling',             sub:'Creative Writing',         icon:'S',  color:'#ec4899' },
-        { id:'content-about-me',    theme:'theme-dark',   title:'Über mich',                sub:'Lasse Sündermann',         icon:'LS', color:'#f59e0b' },
+        { id:'content-about-me',    theme:'theme-dark',   title:'Über mich',                sub:'Lasse Sündermann',         icon:'LS', color:'#2BB5A0' },
         { id:'content-impressum',   theme:'theme-dark',   title:'Impressum & Datenschutz',  sub:'Rechtliches',              icon:'§',  color:'#475569' },
     ];
 
@@ -2924,13 +2915,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Pulse effect for colored orbit items (box-shadow animation) ---
     ;(function(){
         const items = [
-            {sel:'.orbit-item.orbit-blue', color:'59,139,212', offset:0},
-            {sel:'.orbit-item.orbit-red', color:'236,72,153', offset:400},
-            {sel:'.orbit-item.orbit-green', color:'29,158,117', offset:1000},
-            {sel:'.orbit-item.orbit-purple', color:'139,92,246', offset:1400},
-            {sel:'.orbit-item.orbit-yellow', color:'245,158,11', offset:2000},
-            {sel:'.orbit-item.orbit-coral', color:'239,68,68', offset:2400},
-            {sel:'.orbit-item.orbit-teal', color:'13,148,136', offset:600},
+            {sel:'.orbit-item.orbit-blue', color:'43,181,160', offset:0},
+            {sel:'.orbit-item.orbit-red', color:'43,181,160', offset:400},
+            {sel:'.orbit-item.orbit-green', color:'126,200,50', offset:1000},
+            {sel:'.orbit-item.orbit-purple', color:'91,170,224', offset:1400},
+            {sel:'.orbit-item.orbit-yellow', color:'43,181,160', offset:2000},
+            {sel:'.orbit-item.orbit-coral', color:'126,200,50', offset:2400},
+            {sel:'.orbit-item.orbit-teal', color:'45,106,170', offset:600},
             {sel:'.orbit-item.orbit-slate', color:'71,85,105', offset:1800},
         ];
         items.forEach(({sel, color, offset}) => {
@@ -2981,10 +2972,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 var finalBrightness = isXL ? 1 : (isImpressum ? 0.5 : 0.4);
                 item.style.filter = 'brightness(' + finalBrightness.toFixed(2) + ')';
                 item.style.zIndex = zIndex;
-                
-                // Apply scale without interfering with the counter-spin transform
-                // We use a wrapper approach via CSS variable
-                item.style.setProperty('--depth-scale', scale.toFixed(3));
             });
             
             requestAnimationFrame(update3D);
@@ -3685,17 +3672,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }, true);
 
     goBtn.addEventListener('click', function() {
-        window.open('https://meinetrickfilmwerkstatt.de', '_blank');
-        hide();
-    });
-
-    cancelBtn.addEventListener('click', hide);
-
-    overlay.addEventListener('click', function(e) {
-        if (e.target === overlay) hide();
-    });
-})();
-</script>
-
-</body>
-</html>
+        window.open('htt
