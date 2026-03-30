@@ -228,14 +228,51 @@
         }
         .orbit-item.orbit-yellow span{color:#fff}
 
+
+        .orbit-item.orbit-red{
+            background:linear-gradient(145deg,#f59e0b,#ef4444,#be123c) !important;
+            border:1.5px solid rgba(239,68,68,0.7) !important;
+            box-shadow:0 0 25px rgba(239,68,68,0.3);
+        }
+        .orbit-item.orbit-red span{color:#fff}
+        .orbit-item.orbit-purple{
+            background:linear-gradient(145deg,#3B8BD4,#7c3aed,#a855f7) !important;
+            border:1.5px solid rgba(124,58,237,0.7) !important;
+            box-shadow:0 0 25px rgba(124,58,237,0.3);
+        }
+        .orbit-item.orbit-purple span{color:#fff}
+        .orbit-item.orbit-teal{
+            background:linear-gradient(145deg,#1D9E75,#0d9488,#2dd4bf) !important;
+            border:1.5px solid rgba(13,148,136,0.7) !important;
+            box-shadow:0 0 25px rgba(13,148,136,0.3);
+        }
+        .orbit-item.orbit-teal span{color:#fff}
+        .orbit-item.orbit-coral{
+            background:linear-gradient(145deg,#f97316,#D85A30,#b91c1c) !important;
+            border:1.5px solid rgba(216,90,48,0.7) !important;
+            box-shadow:0 0 25px rgba(216,90,48,0.3);
+        }
+        .orbit-item.orbit-coral span{color:#fff}
+        .orbit-item.orbit-slate{
+            background:linear-gradient(145deg,#475569,#334155,#1e293b) !important;
+            border:1.5px solid rgba(71,85,105,0.7) !important;
+            box-shadow:0 0 25px rgba(71,85,105,0.2);
+        }
+        .orbit-item.orbit-slate span{color:#ccc}
+
         /* Scroll indicator */
         .scroll-hint{
             position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
             z-index:5;display:flex;flex-direction:column;align-items:center;gap:0.5rem;
-            color:var(--text-muted);font-size:0.75rem;letter-spacing:0.15em;
+            font-size:0.75rem;letter-spacing:0.15em;
             animation:bounce-hint 2s ease-in-out infinite;
         }
-        .scroll-hint svg{width:20px;height:20px;stroke:var(--text-muted);stroke-width:2;fill:none}
+        .scroll-hint .scroll-hint-text{
+            background:linear-gradient(90deg,var(--blue),var(--green));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+            background-clip:text;font-weight:500;
+        }
+        .scroll-hint svg{width:20px;height:20px;stroke:var(--green);stroke-width:2;fill:none}
         @keyframes bounce-hint{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
         /* ======== SECTIONS ======== */
@@ -736,7 +773,7 @@
             .site-header{padding:0.8rem 1rem}
             .site-header img{height:clamp(22px,3.5vh,32px)}
             .logo-center img{margin-left:0}
-            .scroll-hint{bottom:1.5rem}
+            .scroll-hint{bottom:calc((100vh - 50% - 170px) / 2)}
             .preloader-logo-reveal img{width:120px}
         }
 
@@ -762,6 +799,7 @@
             .logo-center img{width:clamp(100px,30vw,160px) !important}
             .logo-subtitle{font-size:clamp(0.6rem,2.5vw,0.8rem)}
             .preloader-logo-reveal img{width:90px}
+            .scroll-hint{bottom:calc((100vh - 50% - 130px) / 2)}
         }
 
         /* Impressum specifics */
@@ -1059,6 +1097,32 @@
         body.magazine-mode .orbit-item.orbit-featured span{
             color:#111 !important;
             -webkit-text-fill-color:#111 !important;
+        }
+
+
+        /* Colored orbit items lose styling in magazine mode */
+        body.magazine-mode .orbit-item.orbit-blue,
+        body.magazine-mode .orbit-item.orbit-green,
+        body.magazine-mode .orbit-item.orbit-yellow,
+        body.magazine-mode .orbit-item.orbit-red,
+        body.magazine-mode .orbit-item.orbit-purple,
+        body.magazine-mode .orbit-item.orbit-teal,
+        body.magazine-mode .orbit-item.orbit-coral,
+        body.magazine-mode .orbit-item.orbit-slate{
+            background:transparent !important;
+            border:2px solid #111 !important;
+            box-shadow:none !important;
+            margin:-1px !important;
+        }
+        body.magazine-mode .orbit-item.orbit-blue span,
+        body.magazine-mode .orbit-item.orbit-green span,
+        body.magazine-mode .orbit-item.orbit-yellow span,
+        body.magazine-mode .orbit-item.orbit-red span,
+        body.magazine-mode .orbit-item.orbit-purple span,
+        body.magazine-mode .orbit-item.orbit-teal span,
+        body.magazine-mode .orbit-item.orbit-coral span,
+        body.magazine-mode .orbit-item.orbit-slate span{
+            color:inherit !important;
         }
 
         /* Magazine marquee band */
@@ -1621,6 +1685,7 @@
             .section{padding:clamp(3rem,8vh,6rem) clamp(2rem,4vw,4rem)}
             .featured{padding:clamp(4rem,8vh,6rem) clamp(2rem,4vw,4rem)}
             .featured-preview-body{max-height:420px !important}
+            .scroll-hint{bottom:calc((100vh - 50% - 240px) / 2)}
 
             /* Magazine tablet */
             body.magazine-mode .orbit-item{
@@ -1699,45 +1764,45 @@
 
     <div class="orbit-ring" id="orbit">
         <a href="#sec-konzeption" class="orbit-item size-xl orbit-blue" data-detail="content-conception">
-            <span class="orbit-dot" style="background:var(--blue)"></span>
+            <span class="orbit-dot" style="background:#3B8BD4"></span>
             <span>Konzeption</span>
         </a>
-        <a href="#sec-storytelling" class="orbit-item size-md" data-detail="content-storytelling">
-            <span class="orbit-dot" style="background:var(--yellow)"></span>
+        <a href="#sec-storytelling" class="orbit-item size-md orbit-red" data-detail="content-storytelling">
+            <span class="orbit-dot" style="background:#ef4444"></span>
             <span>Storytelling</span>
         </a>
         <a href="https://meinetrickfilmwerkstatt.de" target="_blank" rel="noopener noreferrer" class="orbit-item size-xl orbit-featured">
             <span class="orbit-dot"></span>
             <span>Meine<br/>Trickfilm<br/>Werkstatt</span>
         </a>
-        <a href="#sec-logos" class="orbit-item size-lg" data-detail="content-logos">
-            <span class="orbit-dot" style="background:var(--green)"></span>
+        <a href="#sec-logos" class="orbit-item size-lg orbit-purple" data-detail="content-logos">
+            <span class="orbit-dot" style="background:#7c3aed"></span>
             <span>Logos</span>
         </a>
         <a href="#sec-ux" class="orbit-item size-xl orbit-green" data-detail="content-ux-design">
-            <span class="orbit-dot" style="background:var(--green)"></span>
+            <span class="orbit-dot" style="background:#1D9E75"></span>
             <span>UX Design</span>
         </a>
-        <a href="#sec-videos" class="orbit-item size-md" data-detail="content-videos">
-            <span class="orbit-dot" style="background:var(--yellow)"></span>
+        <a href="#sec-videos" class="orbit-item size-md orbit-coral" data-detail="content-videos">
+            <span class="orbit-dot" style="background:#D85A30"></span>
             <span>Videos</span>
         </a>
         <a href="#sec-about" class="orbit-item size-xl orbit-yellow" data-detail="content-about-me">
-            <span class="orbit-dot" style="background:var(--yellow)"></span>
+            <span class="orbit-dot" style="background:#f59e0b"></span>
             <span>Über mich</span>
         </a>
-        <a href="#sec-animation" class="orbit-item size-lg" data-detail="content-animation">
-            <span class="orbit-dot" style="background:var(--blue)"></span>
+        <a href="#sec-animation" class="orbit-item size-lg orbit-teal" data-detail="content-animation">
+            <span class="orbit-dot" style="background:#0d9488"></span>
             <span>Animation</span>
         </a>
-        <a href="#sec-impressum" class="orbit-item size-sm" data-detail="content-impressum">
-            <span class="orbit-dot" style="background:var(--text-muted)"></span>
+        <a href="#sec-impressum" class="orbit-item size-sm orbit-slate" data-detail="content-impressum">
+            <span class="orbit-dot" style="background:#475569"></span>
             <span>Impressum</span>
         </a>
     </div>
 
     <div class="scroll-hint">
-        <span>Scroll</span>
+        <span class="scroll-hint-text">Klicke oben oder scrolle</span>
         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     </div>
 </section>
@@ -1926,8 +1991,8 @@
             funktional und zielgruppenorientiert machen. Durch <strong>Vibe Coding</strong> bringe ich Konzepte mithilfe von KI direkt in interaktive Prototypen.</p>
             <p style="margin-top:1rem">Das Konzept ist der Fahrplan, der aus einer Skizze ein Meisterwerk entstehen lässt.</p>
         </div>
-        <button class="detail-btn" data-detail="content-conception" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(59,139,212,0.3);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
-            Mehr erfahren →
+        <button class="detail-btn" data-detail="content-conception" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(59,139,212,0.12);border:1px solid rgba(59,139,212,0.4);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Mehr erfahren
         </button>
     </div>
 </section>
@@ -1942,83 +2007,83 @@
             effizient und angenehm zu bedienen sind. Der <strong>UI-Part</strong> gibt dem Ganzen ein Gesicht —
             Farben, Schriften, Layouts und interaktive Elemente, die intuitiv führen.</p>
         </div>
-        <button class="detail-btn" data-detail="content-ux-design" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(29,158,117,0.3);color:var(--green);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
-            Projekte ansehen →
+        <button class="detail-btn" data-detail="content-ux-design" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(29,158,117,0.12);border:1px solid rgba(29,158,117,0.4);color:var(--green);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Projekte ansehen
         </button>
     </div>
 </section>
 
 <section class="section" id="sec-animation">
     <div class="section-inner fade-in">
-        <span class="section-label blue">03</span>
-        <div class="accent-line blue"></div>
+        <span class="section-label" style="color:#0d9488">03</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#1D9E75,#0d9488,#2dd4bf)"></div>
         <h2 class="section-title">Animation</h2>
         <div class="section-text">
             <p>Stehende Bilder zum Leben erwecken — in <strong>2D und 3D</strong>. Mit Blender und After Effects
             visualisiere ich komplexe Szenen, animiere Figuren und verwandle Daten in fesselnde Bilder.</p>
         </div>
-        <button class="detail-btn" data-detail="content-animation" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(59,139,212,0.3);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
-            Animationen ansehen →
+        <button class="detail-btn" data-detail="content-animation" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(13,148,136,0.1);border:1px solid rgba(13,148,136,0.4);color:#0d9488;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Animationen ansehen
         </button>
     </div>
 </section>
 
 <section class="section" id="sec-logos">
     <div class="section-inner fade-in">
-        <span class="section-label green">04</span>
-        <div class="accent-line green"></div>
+        <span class="section-label" style="color:#7c3aed">04</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#3B8BD4,#7c3aed,#a855f7)"></div>
         <h2 class="section-title">Logos</h2>
         <div class="section-text">
             <p>Ein Logo ist das <strong>Herzstück der visuellen Identität</strong>. Ich entwickle einzigartige, einprägsame
             Zeichen, die den Kern einer Marke einfangen und eine starke Verbindung zur Zielgruppe aufbauen.</p>
         </div>
-        <button class="detail-btn" data-detail="content-logos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(29,158,117,0.3);color:var(--green);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
-            Entwürfe ansehen →
+        <button class="detail-btn" data-detail="content-logos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.4);color:#7c3aed;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Entwürfe ansehen
         </button>
     </div>
 </section>
 
 <section class="section" id="sec-videos">
     <div class="section-inner fade-in">
-        <span class="section-label yellow">05</span>
-        <div class="accent-line yellow"></div>
+        <span class="section-label" style="color:#D85A30">05</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#f97316,#D85A30,#b91c1c)"></div>
         <h2 class="section-title">Videos</h2>
         <div class="section-text">
             <p>Licht, Kamera, Schnitt, Vertonung — von der ersten Aufnahme bis zum fertigen Produkt.
             Praktische Erfahrung aus der professionellen Filmproduktion fließt in jedes Projekt.</p>
         </div>
-        <button class="detail-btn" data-detail="content-videos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(222,222,32,0.3);color:#DEDE20;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
-            Videos ansehen →
+        <button class="detail-btn" data-detail="content-videos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(216,90,48,0.1);border:1px solid rgba(216,90,48,0.4);color:#D85A30;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Videos ansehen
         </button>
     </div>
 </section>
 
 <section class="section" id="sec-storytelling">
     <div class="section-inner fade-in">
-        <span class="section-label yellow">06</span>
-        <div class="accent-line yellow"></div>
+        <span class="section-label" style="color:#ef4444">06</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#f59e0b,#ef4444,#be123c)"></div>
         <h2 class="section-title">Storytelling</h2>
         <div class="section-text">
             <p>Eine gut erzählte <strong>Geschichte</strong> ist der Schlüssel zum Erfolg. Ich entwickle
             einzigartige Erzählungen, schreibe Drehbücher und schaffe das Fundament für fesselnde Filme und Projekte.</p>
         </div>
-        <button class="detail-btn" data-detail="content-storytelling" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(222,222,32,0.3);color:#DEDE20;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
-            Texte lesen →
+        <button class="detail-btn" data-detail="content-storytelling" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.4);color:#ef4444;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Texte lesen
         </button>
     </div>
 </section>
 
 <section class="section" id="sec-about">
     <div class="section-inner fade-in">
-        <span class="section-label blue">07</span>
-        <div class="accent-line mixed"></div>
+        <span class="section-label" style="color:#f59e0b">07</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#a8c020,#f59e0b,#e87d0e)"></div>
         <h2 class="section-title">Über mich</h2>
         <div class="section-text">
             <p><strong>Lasse Sündermann</strong> — vielseitiger Mediendesigner mit Expertise in Videoproduktion,
             3D/2D-Animation, Webdesign und Konzeption. Studium der Medienkonzeption, abgeschlossen 2024. Heute setze ich ergänzend auf <strong>Vibe Coding</strong> — kreative Webentwicklung mit KI-gestützten Tools, um Ideen schnell in fertige Produkte zu verwandeln.</p>
         </div>
-        <button class="detail-btn" data-detail="content-about-me" style="margin-top:2rem;padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(59,139,212,0.3);color:var(--blue);border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
-            Mehr über mich →
+        <button class="detail-btn" data-detail="content-about-me" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.4);color:#f59e0b;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+            Mehr über mich
         </button>
     </div>
 </section>
@@ -2448,14 +2513,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('detailNext');
 
     const sections = [
-        { id:'content-conception',  theme:'theme-blue',   title:'Konzeption',              sub:'Strategie & Planung',      icon:'K' },
-        { id:'content-ux-design',   theme:'theme-green',  title:'UX / UI Design',          sub:'Nutzererfahrung',          icon:'UX' },
-        { id:'content-animation',   theme:'theme-blue',   title:'Animation',               sub:'2D & 3D',                  icon:'A' },
-        { id:'content-logos',       theme:'theme-green',  title:'Logos',                    sub:'Visuelle Identität',       icon:'L' },
-        { id:'content-videos',      theme:'theme-yellow', title:'Videos',                   sub:'Produktion & Schnitt',     icon:'V' },
-        { id:'content-storytelling', theme:'theme-yellow', title:'Storytelling',             sub:'Creative Writing',         icon:'S' },
-        { id:'content-about-me',    theme:'theme-blue',   title:'Über mich',                sub:'Lasse Sündermann',         icon:'LS' },
-        { id:'content-impressum',   theme:'theme-dark',   title:'Impressum & Datenschutz',  sub:'Rechtliches',              icon:'§' },
+        { id:'content-conception',  theme:'theme-dark',   title:'Konzeption',              sub:'Strategie & Planung',      icon:'K',  color:'#3B8BD4' },
+        { id:'content-ux-design',   theme:'theme-dark',   title:'UX / UI Design',          sub:'Nutzererfahrung',          icon:'UX', color:'#1D9E75' },
+        { id:'content-animation',   theme:'theme-dark',   title:'Animation',               sub:'2D & 3D',                  icon:'A',  color:'#0d9488' },
+        { id:'content-logos',       theme:'theme-dark',   title:'Logos',                    sub:'Visuelle Identität',       icon:'L',  color:'#7c3aed' },
+        { id:'content-videos',      theme:'theme-dark',   title:'Videos',                   sub:'Produktion & Schnitt',     icon:'V',  color:'#D85A30' },
+        { id:'content-storytelling', theme:'theme-dark',  title:'Storytelling',             sub:'Creative Writing',         icon:'S',  color:'#ef4444' },
+        { id:'content-about-me',    theme:'theme-dark',   title:'Über mich',                sub:'Lasse Sündermann',         icon:'LS', color:'#f59e0b' },
+        { id:'content-impressum',   theme:'theme-dark',   title:'Impressum & Datenschutz',  sub:'Rechtliches',              icon:'§',  color:'#475569' },
     ];
 
     let currentSectionIndex = 0;
@@ -2479,6 +2544,7 @@ document.addEventListener('DOMContentLoaded', () => {
         detailTitle.textContent = sec.title;
         detailSub.textContent = sec.sub;
         detailIcon.textContent = sec.icon;
+        if (sec.color) detailIcon.style.background = sec.color;
 
         // Update prev/next button states
         prevBtn.style.opacity = currentSectionIndex === 0 ? '0.3' : '1';
@@ -2553,12 +2619,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Hover effect on detail buttons ---
     document.querySelectorAll('.detail-btn').forEach(btn => {
+        const origBg = btn.style.background;
+        const btnColor = btn.style.color;
         btn.addEventListener('mouseenter', () => {
-            btn.style.background = 'rgba(255,255,255,0.05)';
-            btn.style.borderColor = btn.style.color;
+            btn.style.background = btnColor;
+            btn.style.color = '#fff';
+            btn.style.borderColor = btnColor;
         });
         btn.addEventListener('mouseleave', () => {
-            btn.style.background = 'transparent';
+            btn.style.background = origBg;
+            btn.style.color = btnColor;
             btn.style.borderColor = '';
         });
     });
@@ -2653,6 +2723,32 @@ document.addEventListener('DOMContentLoaded', () => {
         orbit.style.animationPlayState = 'running';
         orbit.querySelectorAll('.orbit-item').forEach(i => i.style.animationPlayState = 'running');
     });
+
+
+    // --- Pulse effect for colored orbit items (box-shadow animation) ---
+    ;(function(){
+        const items = [
+            {sel:'.orbit-item.orbit-blue', color:'59,139,212', offset:0},
+            {sel:'.orbit-item.orbit-red', color:'239,68,68', offset:400},
+            {sel:'.orbit-item.orbit-green', color:'29,158,117', offset:1000},
+            {sel:'.orbit-item.orbit-purple', color:'124,58,237', offset:1400},
+            {sel:'.orbit-item.orbit-yellow', color:'245,158,11', offset:2000},
+            {sel:'.orbit-item.orbit-coral', color:'216,90,48', offset:2400},
+            {sel:'.orbit-item.orbit-teal', color:'13,148,136', offset:600},
+            {sel:'.orbit-item.orbit-slate', color:'71,85,105', offset:1800},
+        ];
+        items.forEach(({sel, color, offset}) => {
+            const el = document.querySelector(sel);
+            if (!el) return;
+            function tick(time) {
+                const t = ((time + offset) % 3000) / 3000;
+                const v = 0.15 + 0.35 * (0.5 + 0.5 * Math.sin(t * Math.PI * 2));
+                el.style.boxShadow = '0 0 ' + (15 + v * 30) + 'px rgba(' + color + ',' + v.toFixed(2) + ')';
+                requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        });
+    })();
 
     // --- Parallax scroll ---
     const parallaxEls = document.querySelectorAll('.parallax-particle');
