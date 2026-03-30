@@ -116,7 +116,7 @@
         /* Orbiting navigation */
         .orbit-ring{
             position:absolute;z-index:3;
-            width:clamp(420px,58vw,800px);height:clamp(420px,58vw,800px);
+            width:clamp(420px,58vw,800px);height:clamp(280px,38vw,520px);
             border-radius:50%;
             border:1px solid rgba(255,255,255,0.04);
             animation:orbit-spin 90s linear infinite;
@@ -204,45 +204,45 @@
         .orbit-item.orbit-blue{
             background:linear-gradient(145deg,#2dd4bf,#3B8BD4,#7c3aed) !important;
             border:1.5px solid rgba(59,139,212,0.7) !important;
-            box-shadow:0 0 25px rgba(59,139,212,0.3);
+            box-shadow:0 0 35px rgba(59,139,212,0.4);
         }
         .orbit-item.orbit-blue span{color:#fff}
         .orbit-item.orbit-green{
             background:linear-gradient(145deg,#b8d830,#1D9E75 40%,#18876a 70%,#2dd4bf) !important;
             border:1.5px solid rgba(29,158,117,0.7) !important;
-            box-shadow:0 0 25px rgba(29,158,117,0.3);
+            box-shadow:0 0 35px rgba(29,158,117,0.4);
         }
         .orbit-item.orbit-green span{color:#fff}
         .orbit-item.orbit-yellow{
             background:linear-gradient(145deg,#a8c020,#e8b012 35%,#f59e0b 60%,#e87d0e) !important;
             border:1.5px solid rgba(245,158,11,0.7) !important;
-            box-shadow:0 0 25px rgba(245,158,11,0.25);
+            box-shadow:0 0 35px rgba(245,158,11,0.4);
         }
         .orbit-item.orbit-yellow span{color:#fff}
 
 
         .orbit-item.orbit-red{
-            background:linear-gradient(145deg,#f59e0b,#ef4444,#be123c) !important;
-            border:1.5px solid rgba(239,68,68,0.7) !important;
-            box-shadow:0 0 25px rgba(239,68,68,0.3);
+            background:linear-gradient(145deg,#f472b6,#ec4899,#be185d) !important;
+            border:1.5px solid rgba(236,72,153,0.7) !important;
+            box-shadow:0 0 20px rgba(236,72,153,0.25);
         }
         .orbit-item.orbit-red span{color:#fff}
         .orbit-item.orbit-purple{
-            background:linear-gradient(145deg,#3B8BD4,#7c3aed,#a855f7) !important;
-            border:1.5px solid rgba(124,58,237,0.7) !important;
-            box-shadow:0 0 25px rgba(124,58,237,0.3);
+            background:linear-gradient(145deg,#6366f1,#8b5cf6,#c084fc) !important;
+            border:1.5px solid rgba(139,92,246,0.7) !important;
+            box-shadow:0 0 20px rgba(139,92,246,0.25);
         }
         .orbit-item.orbit-purple span{color:#fff}
         .orbit-item.orbit-teal{
-            background:linear-gradient(145deg,#1D9E75,#0d9488,#2dd4bf) !important;
+            background:linear-gradient(145deg,#22d3ee,#0d9488,#065f46) !important;
             border:1.5px solid rgba(13,148,136,0.7) !important;
-            box-shadow:0 0 25px rgba(13,148,136,0.3);
+            box-shadow:0 0 20px rgba(13,148,136,0.25);
         }
         .orbit-item.orbit-teal span{color:#fff}
         .orbit-item.orbit-coral{
-            background:linear-gradient(145deg,#f97316,#D85A30,#b91c1c) !important;
-            border:1.5px solid rgba(216,90,48,0.7) !important;
-            box-shadow:0 0 25px rgba(216,90,48,0.3);
+            background:linear-gradient(145deg,#f59e0b,#ef4444,#991b1b) !important;
+            border:1.5px solid rgba(239,68,68,0.7) !important;
+            box-shadow:0 0 20px rgba(239,68,68,0.25);
         }
         .orbit-item.orbit-coral span{color:#fff}
         .orbit-item.orbit-slate{
@@ -251,6 +251,26 @@
             box-shadow:0 0 25px rgba(71,85,105,0.2);
         }
         .orbit-item.orbit-slate span{color:#ccc}
+
+
+        /* Highlight XL items more */
+        .orbit-item.orbit-blue,
+        .orbit-item.orbit-green,
+        .orbit-item.orbit-yellow,
+        .orbit-item.orbit-featured{
+            border-width:2px !important;
+        }
+        /* Dim smaller items significantly */
+        .orbit-item.size-md,
+        .orbit-item.size-lg,
+        .orbit-item.size-sm{
+            opacity:0.45;
+        }
+        .orbit-item.size-md:hover,
+        .orbit-item.size-lg:hover,
+        .orbit-item.size-sm:hover{
+            opacity:0.9;
+        }
 
         /* Scroll indicator */
         .scroll-hint{
@@ -746,7 +766,7 @@
                 overflow:hidden;
             }
             .orbit-ring{
-                width:340px;height:340px;
+                width:340px;height:220px;
                 animation:none;
             }
             .orbit-item{animation:none}
@@ -783,7 +803,7 @@
             .hero{
                 overflow:hidden;
             }
-            .orbit-ring{width:260px;height:260px}
+            .orbit-ring{width:260px;height:170px}
             .orbit-item.size-xl{width:65px;height:65px}
             .orbit-item.size-lg{width:58px;height:58px}
             .orbit-item.size-md{width:52px;height:52px}
@@ -2003,7 +2023,7 @@
 <section class="section" id="sec-animation">
     <div class="section-inner fade-in">
         <span class="section-label" style="color:#0d9488">03</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#1D9E75,#0d9488,#2dd4bf)"></div>
+        <div class="accent-line" style="background:linear-gradient(90deg,#22d3ee,#0d9488,#065f46)"></div>
         <h2 class="section-title">Animation</h2>
         <div class="section-text">
             <p>Stehende Bilder zum Leben erwecken — in <strong>2D und 3D</strong>. Mit Blender und After Effects
@@ -2017,14 +2037,14 @@
 
 <section class="section" id="sec-logos">
     <div class="section-inner fade-in">
-        <span class="section-label" style="color:#7c3aed">04</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#3B8BD4,#7c3aed,#a855f7)"></div>
+        <span class="section-label" style="color:#8b5cf6">04</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#6366f1,#8b5cf6,#c084fc)"></div>
         <h2 class="section-title">Logos</h2>
         <div class="section-text">
             <p>Ein Logo ist das <strong>Herzstück der visuellen Identität</strong>. Ich entwickle einzigartige, einprägsame
             Zeichen, die den Kern einer Marke einfangen und eine starke Verbindung zur Zielgruppe aufbauen.</p>
         </div>
-        <button class="detail-btn" data-detail="content-logos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.4);color:#7c3aed;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+        <button class="detail-btn" data-detail="content-logos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.4);color:#8b5cf6;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Entwürfe ansehen
         </button>
     </div>
@@ -2032,14 +2052,14 @@
 
 <section class="section" id="sec-videos">
     <div class="section-inner fade-in">
-        <span class="section-label" style="color:#D85A30">05</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#f97316,#D85A30,#b91c1c)"></div>
+        <span class="section-label" style="color:#ef4444">05</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#f59e0b,#ef4444,#991b1b)"></div>
         <h2 class="section-title">Videos</h2>
         <div class="section-text">
             <p>Licht, Kamera, Schnitt, Vertonung — von der ersten Aufnahme bis zum fertigen Produkt.
             Praktische Erfahrung aus der professionellen Filmproduktion fließt in jedes Projekt.</p>
         </div>
-        <button class="detail-btn" data-detail="content-videos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(216,90,48,0.1);border:1px solid rgba(216,90,48,0.4);color:#D85A30;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+        <button class="detail-btn" data-detail="content-videos" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.4);color:#ef4444;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Videos ansehen
         </button>
     </div>
@@ -2047,14 +2067,14 @@
 
 <section class="section" id="sec-storytelling">
     <div class="section-inner fade-in">
-        <span class="section-label" style="color:#ef4444">06</span>
-        <div class="accent-line" style="background:linear-gradient(90deg,#f59e0b,#ef4444,#be123c)"></div>
+        <span class="section-label" style="color:#ec4899">06</span>
+        <div class="accent-line" style="background:linear-gradient(90deg,#f472b6,#ec4899,#be185d)"></div>
         <h2 class="section-title">Storytelling</h2>
         <div class="section-text">
             <p>Eine gut erzählte <strong>Geschichte</strong> ist der Schlüssel zum Erfolg. Ich entwickle
             einzigartige Erzählungen, schreibe Drehbücher und schaffe das Fundament für fesselnde Filme und Projekte.</p>
         </div>
-        <button class="detail-btn" data-detail="content-storytelling" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.4);color:#ef4444;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
+        <button class="detail-btn" data-detail="content-storytelling" style="margin-top:2rem;padding:0.7rem 1.8rem;background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.4);color:#ec4899;border-radius:30px;cursor:pointer;font-family:var(--font);font-size:0.85rem;letter-spacing:0.1em;transition:all 0.3s">
             Texte lesen
         </button>
     </div>
@@ -2516,9 +2536,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { id:'content-conception',  theme:'theme-dark',   title:'Konzeption',              sub:'Strategie & Planung',      icon:'K',  color:'#3B8BD4' },
         { id:'content-ux-design',   theme:'theme-dark',   title:'UX / UI Design',          sub:'Nutzererfahrung',          icon:'UX', color:'#1D9E75' },
         { id:'content-animation',   theme:'theme-dark',   title:'Animation',               sub:'2D & 3D',                  icon:'A',  color:'#0d9488' },
-        { id:'content-logos',       theme:'theme-dark',   title:'Logos',                    sub:'Visuelle Identität',       icon:'L',  color:'#7c3aed' },
-        { id:'content-videos',      theme:'theme-dark',   title:'Videos',                   sub:'Produktion & Schnitt',     icon:'V',  color:'#D85A30' },
-        { id:'content-storytelling', theme:'theme-dark',  title:'Storytelling',             sub:'Creative Writing',         icon:'S',  color:'#ef4444' },
+        { id:'content-logos',       theme:'theme-dark',   title:'Logos',                    sub:'Visuelle Identität',       icon:'L',  color:'#8b5cf6' },
+        { id:'content-videos',      theme:'theme-dark',   title:'Videos',                   sub:'Produktion & Schnitt',     icon:'V',  color:'#ef4444' },
+        { id:'content-storytelling', theme:'theme-dark',  title:'Storytelling',             sub:'Creative Writing',         icon:'S',  color:'#ec4899' },
         { id:'content-about-me',    theme:'theme-dark',   title:'Über mich',                sub:'Lasse Sündermann',         icon:'LS', color:'#f59e0b' },
         { id:'content-impressum',   theme:'theme-dark',   title:'Impressum & Datenschutz',  sub:'Rechtliches',              icon:'§',  color:'#475569' },
     ];
@@ -2729,11 +2749,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ;(function(){
         const items = [
             {sel:'.orbit-item.orbit-blue', color:'59,139,212', offset:0},
-            {sel:'.orbit-item.orbit-red', color:'239,68,68', offset:400},
+            {sel:'.orbit-item.orbit-red', color:'236,72,153', offset:400},
             {sel:'.orbit-item.orbit-green', color:'29,158,117', offset:1000},
-            {sel:'.orbit-item.orbit-purple', color:'124,58,237', offset:1400},
+            {sel:'.orbit-item.orbit-purple', color:'139,92,246', offset:1400},
             {sel:'.orbit-item.orbit-yellow', color:'245,158,11', offset:2000},
-            {sel:'.orbit-item.orbit-coral', color:'216,90,48', offset:2400},
+            {sel:'.orbit-item.orbit-coral', color:'239,68,68', offset:2400},
             {sel:'.orbit-item.orbit-teal', color:'13,148,136', offset:600},
             {sel:'.orbit-item.orbit-slate', color:'71,85,105', offset:1800},
         ];
@@ -2779,7 +2799,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Z-index: higher when closer (bottom)
                 const zIndex = Math.round(10 + (clamped + 1) * 5);
                 
-                item.style.filter = 'brightness(' + brightness.toFixed(2) + ')';
+                // Dim non-XL items more to make XL stand out
+                var isXL = item.classList.contains('size-xl') || item.classList.contains('orbit-featured');
+                var dimFactor = isXL ? 1 : 0.4;
+                item.style.filter = 'brightness(' + (brightness * dimFactor).toFixed(2) + ')';
                 item.style.zIndex = zIndex;
                 
                 // Apply scale without interfering with the counter-spin transform
